@@ -1,5 +1,18 @@
 # DVAAC Changelog
 
+## v0.1.2 — 2026-05-14 — Public packaging cleanup
+
+### Fixed
+
+- Removed an internal adversarial review prompt from the public repository tree.
+- Bumped corpus, scorecard, schema `$id`, mapping, and citation metadata to `0.1.2`.
+- Prepared `v0.1.2` as the current public release so `v0.1.1` can remain archived but superseded.
+
+### Known limitations
+
+- No fixture semantics changed from `v0.1.1`.
+- The `v0.1.2` Zenodo DOI is pending until Zenodo archives the new GitHub release.
+
 ## v0.1.1 — 2026-05-14 — Publication hardening
 
 ### Fixed

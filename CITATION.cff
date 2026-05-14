@@ -13,8 +13,7 @@ authors:
   - family-names: Lovell
     given-names: Jason
     alias: jlov7
-version: "0.1.1"
-doi: 10.5281/zenodo.20186918
+version: "0.1.2"
 date-released: "2026-05-14"
 license: CC-BY-4.0
 repository-code: "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus"
@@ -32,7 +31,6 @@ preferred-citation:
   authors:
     - family-names: Lovell
       given-names: Jason
-  version: "0.1.1"
-  doi: 10.5281/zenodo.20186918
+  version: "0.1.2"
   year: 2026
-  url: "https://doi.org/10.5281/zenodo.20186918"
+  url: "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.2"

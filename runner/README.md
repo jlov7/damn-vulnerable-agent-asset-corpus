@@ -85,6 +85,6 @@ The runner cannot prove that prose is semantically true. Threat descriptions, ev
 
 ## Pinning to an AAC version
 
-DVAAC v0.1.1 expects AAC v0.2-candidate.5 at commit `1fd8f644f55195b5dc90a81896b1bbdec3d9daee` (schema URI `https://raw.githubusercontent.com/jlov7/agent-assurance-case/1fd8f644f55195b5dc90a81896b1bbdec3d9daee/schemas/agent-assurance-case-v0.2.schema.json`).
+DVAAC v0.1.2 expects AAC v0.2-candidate.5 at commit `1fd8f644f55195b5dc90a81896b1bbdec3d9daee` (schema URI `https://raw.githubusercontent.com/jlov7/agent-assurance-case/1fd8f644f55195b5dc90a81896b1bbdec3d9daee/schemas/agent-assurance-case-v0.2.schema.json`).
 
 When AAC issues a new minor or major version, DVAAC will publish a corresponding corpus version with re-signed fixtures. Until then, use the AAC v0.2 reference verifier.

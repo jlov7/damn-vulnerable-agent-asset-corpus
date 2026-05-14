@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.1/runner/expected-findings.schema.json",
+  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.2/runner/expected-findings.schema.json",
   "title": "DVAAC expected findings",
   "type": "object",
   "required": ["fixture_id", "expected_findings"],

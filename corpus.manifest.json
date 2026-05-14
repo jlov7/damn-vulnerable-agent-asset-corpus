@@ -1,6 +1,6 @@
 {
   "corpus_id": "dvaac",
-  "corpus_version": "0.1.1",
+  "corpus_version": "0.1.2",
   "corpus_name": "Damn Vulnerable Agent Asset Corpus",
   "aac_compatibility": {
     "aac_version": "0.2-candidate.5",

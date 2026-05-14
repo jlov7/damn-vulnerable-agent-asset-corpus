@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.1/corpus.manifest.schema.json",
+  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.2/corpus.manifest.schema.json",
   "title": "DVAAC corpus manifest",
   "type": "object",
   "required": [

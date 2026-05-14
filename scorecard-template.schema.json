@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.1/scorecard-template.schema.json",
+  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.2/scorecard-template.schema.json",
   "title": "DVAAC Scorecard Template",
   "type": "object",
   "required": [
@@ -18,7 +18,7 @@
     },
     "corpus_version": {
       "type": "string",
-      "pattern": "^0\\.1\\.1$"
+      "pattern": "^0\\.1\\.2$"
     },
     "scanner": {
       "type": "object",
