@@ -27,18 +27,21 @@ To use a checked-out copy of the public AAC repository:
 
 ```bash
 git clone --branch v0.2-candidate.5 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
-AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python verify_fixtures.py
+test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "1fd8f644f55195b5dc90a81896b1bbdec3d9daee"
+AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py
 ```
 
 The runner refuses to import a verifier from inside `fixtures/`, because fixture payloads are untrusted by design.
 
 ## Running
 
+Run these commands from the DVAAC repository root:
+
 ```bash
-python3 -m venv .venv
+uv venv
 source .venv/bin/activate
-pip install -r requirements.txt
-python verify_fixtures.py
+uv pip install -r runner/requirements.txt
+python runner/verify_fixtures.py
 ```
 
 Expected last line:
@@ -52,8 +55,10 @@ Exit code 0 = all conform. Non-zero = at least one fixture or one expected AAC i
 To emit demo-signed AACs for auditor inspection without mutating the checked-in templates:
 
 ```bash
-python verify_fixtures.py --write-signed dist/signed-aac
+python runner/verify_fixtures.py --write-signed dist/signed-aac
 ```
+
+Use `make write-signed` for release packaging; it also writes `RELEASE-MANIFEST.json` and `SHA256SUMS`.
 
 ## What the runner checks per fixture
 
@@ -80,6 +85,6 @@ The runner cannot prove that prose is semantically true. Threat descriptions, ev
 
 ## Pinning to an AAC version
 
-DVAAC v0.1.1 expects AAC v0.2-candidate.5 (schema `$id` `https://raw.githubusercontent.com/jlov7/agent-assurance-case/v0.2-candidate.5/schemas/agent-assurance-case-v0.2.schema.json`).
+DVAAC v0.1.1 expects AAC v0.2-candidate.5 at commit `1fd8f644f55195b5dc90a81896b1bbdec3d9daee` (schema URI `https://raw.githubusercontent.com/jlov7/agent-assurance-case/1fd8f644f55195b5dc90a81896b1bbdec3d9daee/schemas/agent-assurance-case-v0.2.schema.json`).
 
 When AAC issues a new minor or major version, DVAAC will publish a corresponding corpus version with re-signed fixtures. Until then, use the AAC v0.2 reference verifier.

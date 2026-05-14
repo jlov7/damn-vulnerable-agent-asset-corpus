@@ -7,7 +7,7 @@
 **A compact, runnable benchmark for agent-asset assurance tools.**
 
 [![CI](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml)
-![Status](https://img.shields.io/badge/status-v0.1.1%20candidate-2f6f9f)
+![Status](https://img.shields.io/badge/status-v0.1.1-2f6f9f)
 ![Fixtures](https://img.shields.io/badge/fixtures-16-0f766e)
 ![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.5-111827)
 ![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
@@ -17,6 +17,8 @@
 </div>
 
 DVAAC ships deliberately vulnerable and deliberately clean agentic AI release fixtures, expected findings, and Agent Assurance Case (AAC) templates that are verified against the AAC v0.2 reference verifier.
+
+This release is pinned to AAC `v0.2-candidate.5` at commit `1fd8f644f55195b5dc90a81896b1bbdec3d9daee`.
 
 ## Why This Exists
 
@@ -67,9 +69,10 @@ From a checkout of this repository:
 
 ```bash
 git clone --branch v0.2-candidate.5 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
-python3 -m venv .venv
+test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "1fd8f644f55195b5dc90a81896b1bbdec3d9daee"
+uv venv
 source .venv/bin/activate
-pip install -r runner/requirements.txt
+uv pip install -r runner/requirements.txt
 AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py
 ```
 
@@ -109,7 +112,7 @@ To generate demo-signed AACs for release/auditor review:
 make write-signed
 ```
 
-This writes `dist/signed-aac/*.json` plus `dist/signed-aac/SHA256SUMS`. `dist/` is intentionally ignored by Git; attach those generated artifacts to a release or archival deposit when needed.
+This writes `dist/signed-aac/*.json`, `dist/signed-aac/RELEASE-MANIFEST.json`, and `dist/signed-aac/SHA256SUMS`. The release manifest is demo-signed and binds the signed AACs to the corpus manifest, scorecard template, and runner schemas that define the release; the checksum file covers those artifacts. `dist/` is intentionally ignored by Git; attach those generated artifacts to a release or archival deposit when needed.
 
 ## Scanner Author Workflow
 

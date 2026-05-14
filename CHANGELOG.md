@@ -22,6 +22,11 @@
 - Pinned CI to AAC `v0.2-candidate.5` and added CI checks for committed JSON syntax and citation metadata.
 - Aligned runner policy input hash checks with the AAC/JCS canonicalizer.
 - Retargeted weak evidence line references in fixtures 06, 07, 08, and 13 to the exact source lines supporting each finding.
+- Made the Makefile verifier path work with both public (`agent-assurance-case`) and local-development (`agent-assurance-case-spec`) sibling checkout names.
+- Switched documented local setup and `make install` to `uv`.
+- Expanded `make pytest-safety` to reject pytest-discoverable fixture test files and fixture-local `conftest.py` files.
+- Added a demo-signed `RELEASE-MANIFEST.json` and expanded generated `SHA256SUMS` so release artifacts bind signed AACs to the corpus manifest, scorecard template, and runner schemas.
+- Added the exact AAC verifier commit to the machine-readable corpus manifest and documentation.
 
 ### Known limitations
 

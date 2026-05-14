@@ -44,7 +44,7 @@ from typing import Any
 try:
     from jsonschema import Draft202012Validator, FormatChecker
 except ImportError:
-    sys.stderr.write("Missing dependency. Run: pip install -r runner/requirements.txt\n")
+    sys.stderr.write("Missing dependency. Run: uv pip install -r runner/requirements.txt\n")
     sys.exit(2)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -189,7 +189,7 @@ def load_aac_verifier(path: Path) -> Any:
     except SystemExit as e:
         sys.stderr.write(
             "AAC verifier import exited before loading. Install DVAAC runner "
-            "dependencies with: pip install -r runner/requirements.txt\n"
+            "dependencies with: uv pip install -r runner/requirements.txt\n"
         )
         raise SystemExit(e.code)
     except Exception:

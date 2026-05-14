@@ -4,7 +4,8 @@
   "corpus_name": "Damn Vulnerable Agent Asset Corpus",
   "aac_compatibility": {
     "aac_version": "0.2-candidate.5",
-    "aac_schema_uri": "https://raw.githubusercontent.com/jlov7/agent-assurance-case/v0.2-candidate.5/schemas/agent-assurance-case-v0.2.schema.json"
+    "aac_commit": "1fd8f644f55195b5dc90a81896b1bbdec3d9daee",
+    "aac_schema_uri": "https://raw.githubusercontent.com/jlov7/agent-assurance-case/1fd8f644f55195b5dc90a81896b1bbdec3d9daee/schemas/agent-assurance-case-v0.2.schema.json"
   },
   "digest_binding": {
     "asset_digest": "sha256 over canonical JSON entries of every non-generated file under the local source_uri directory: path plus file sha256; symlinks are rejected",

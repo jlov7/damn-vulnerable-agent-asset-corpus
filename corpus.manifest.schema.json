@@ -29,15 +29,17 @@
     },
     "aac_compatibility": {
       "type": "object",
-      "required": ["aac_version", "aac_schema_uri"],
+      "required": ["aac_version", "aac_commit", "aac_schema_uri"],
       "additionalProperties": false,
       "properties": {
         "aac_version": {
           "const": "0.2-candidate.5"
         },
+        "aac_commit": {
+          "const": "1fd8f644f55195b5dc90a81896b1bbdec3d9daee"
+        },
         "aac_schema_uri": {
-          "type": "string",
-          "format": "uri"
+          "const": "https://raw.githubusercontent.com/jlov7/agent-assurance-case/1fd8f644f55195b5dc90a81896b1bbdec3d9daee/schemas/agent-assurance-case-v0.2.schema.json"
         }
       }
     },

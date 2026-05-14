@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: jlov7/agent-assurance-case
-          ref: v0.2-candidate.5
+          ref: 1fd8f644f55195b5dc90a81896b1bbdec3d9daee
           path: agent-assurance-case
 
       - name: Set up Python
@@ -26,14 +26,16 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Install runner dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r dvaac/runner/requirements.txt
-          pip install -r dvaac/runner/requirements-dev.txt
+          uv pip install --system -r dvaac/runner/requirements.txt
+          uv pip install --system -r dvaac/runner/requirements-dev.txt
 
       - name: Compile runner
-        run: python -m py_compile dvaac/runner/verify_fixtures.py
+        run: python -m py_compile dvaac/runner/verify_fixtures.py dvaac/runner/write_release_manifest.py
 
       - name: Validate committed JSON files
         working-directory: dvaac
@@ -44,7 +46,7 @@ jobs:
 
       - name: Validate citation metadata
         working-directory: dvaac
-        run: cffconvert --validate --infile CITATION.cff
+        run: uvx --from cffconvert cffconvert --validate --infile CITATION.cff
 
       - name: Run DVAAC fixture conformance gate
         env:
@@ -56,7 +58,26 @@ jobs:
         run: |
           make write-signed
           test "$(find dist/signed-aac -type f -name '*-signed-aac.json' | wc -l | tr -d ' ')" = "16"
-          test "$(wc -l < dist/signed-aac/SHA256SUMS | tr -d ' ')" = "16"
+          test -f dist/signed-aac/RELEASE-MANIFEST.json
+          test "$(wc -l < dist/signed-aac/SHA256SUMS | tr -d ' ')" = "22"
+          python - <<'PY'
+          import base64
+          import json
+          import sys
+          from pathlib import Path
+
+          sys.path.insert(0, "runner")
+          import verify_fixtures
+
+          aac_module = verify_fixtures.load_aac_verifier(Path("../agent-assurance-case/verifier/verify.py"))
+          manifest = json.loads(Path("dist/signed-aac/RELEASE-MANIFEST.json").read_text(encoding="utf-8"))
+          signature = manifest.pop("signature")
+          _, public_key = aac_module._demo_keypair()
+          public_key.verify(
+              base64.b64decode(signature["value"].removeprefix("ed25519:")),
+              aac_module.canonicalize(manifest),
+          )
+          PY
 
       - name: Verify pytest collection safety
         working-directory: dvaac
@@ -68,7 +89,7 @@ jobs:
       - name: Block pytest-discoverable fixture payload names
         working-directory: dvaac
         run: |
-          matches="$(find fixtures -type f \( -name 'test_*.py' -o -name '*_test.py' \) -print)"
+          matches="$(find fixtures -type f \( -name 'test_*.py' -o -name '*_test.py' -o -name 'conftest.py' \) -print)"
           test -z "$matches" || { echo "$matches"; exit 1; }
 
       - name: Negative test evidence tamper detection
