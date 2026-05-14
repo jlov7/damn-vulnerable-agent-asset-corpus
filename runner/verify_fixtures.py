@@ -104,6 +104,43 @@ def _is_relative_to(path: Path, parent: Path) -> bool:
     return True
 
 
+def _display_path(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return str(path)
+
+
+def validate_path_within_fixture(fixture: Path, path: Path, label: str) -> None:
+    fixture_path = fixture.resolve(strict=True)
+    candidate = path if path.is_absolute() else ROOT / path
+    try:
+        relative = candidate.resolve(strict=True).relative_to(fixture_path)
+    except ValueError as e:
+        raise ValueError(
+            f"{label} resolves outside fixture {fixture.name}: {_display_path(candidate)}"
+        ) from e
+    except FileNotFoundError as e:
+        raise ValueError(f"{label} not found: {_display_path(candidate)}") from e
+
+    current = fixture
+    for part in relative.parts:
+        current = current / part
+        if os.path.islink(current):
+            raise ValueError(f"symlink not allowed in fixture tree: {_display_path(current)}")
+
+
+def fixture_symlink_errors(fixture: Path) -> list[str]:
+    errors: list[str] = []
+    for dirpath, dirnames, filenames in os.walk(fixture, followlinks=False):
+        base = Path(dirpath)
+        for name in [*dirnames, *filenames]:
+            candidate = base / name
+            if os.path.islink(candidate):
+                errors.append(f"symlink not allowed in fixture tree: {_display_path(candidate)}")
+    return errors
+
+
 def _canonical_json_bytes(value: Any) -> bytes:
     return json.dumps(
         value,
@@ -516,8 +553,6 @@ def directory_digest(path: Path) -> str:
 
 
 def local_asset_digest(path: Path) -> str:
-    if path.is_symlink():
-        raise ValueError(f"symlink not allowed in fixture tree: {path}")
     if path.is_dir():
         return directory_digest(path)
     return _sha256_file(path)
@@ -570,10 +605,12 @@ def file_excerpt_digest(fixture: Path, remainder: str) -> tuple[str | None, str 
     if rel_path.is_absolute() or ".." in rel_path.parts:
         return None, f"unsafe file evidence path: {rel_path}"
     source_path = fixture / rel_path
+    try:
+        validate_path_within_fixture(fixture, source_path, "file evidence target")
+    except ValueError as e:
+        return None, str(e)
     if not source_path.exists():
         return None, f"file evidence target not found: {source_path.relative_to(ROOT)}"
-    if source_path.is_symlink():
-        return None, f"symlink not allowed for file evidence: {source_path.relative_to(ROOT)}"
     start = int(match.group("start"))
     end = int(match.group("end"))
     lines = source_path.read_text(encoding="utf-8").splitlines()
@@ -597,15 +634,19 @@ def evidence_artifact_digest(fixture: Path, uri: str) -> tuple[str | None, str |
     if rel_path.is_absolute() or ".." in rel_path.parts:
         return None, f"unsafe evidence artifact path: {rel_path}"
     local_path = fixture / "evidence" / rel_path
+    try:
+        validate_path_within_fixture(fixture, local_path, "evidence artifact file")
+    except ValueError as e:
+        return None, str(e)
     if not local_path.exists():
         return None, f"evidence artifact file not found: {local_path.relative_to(ROOT)}"
-    if local_path.is_symlink():
-        return None, f"symlink not allowed for evidence artifact: {local_path.relative_to(ROOT)}"
     return _sha256_file(local_path), None
 
 
 def local_digests_consistent(fixture: Path, aac: dict) -> list[str]:
-    errors: list[str] = []
+    errors = fixture_symlink_errors(fixture)
+    if errors:
+        return errors
     for asset in aac.get("assets", []) or []:
         if not isinstance(asset, dict):
             continue
@@ -614,6 +655,11 @@ def local_digests_consistent(fixture: Path, aac: dict) -> list[str]:
         if not declared or not source_uri:
             continue
         source_path = ROOT / source_uri
+        try:
+            validate_path_within_fixture(fixture, source_path, "asset source_uri")
+        except ValueError as e:
+            errors.append(str(e))
+            continue
         if not source_path.exists():
             errors.append(f"asset source_uri not found: {source_uri}")
             continue

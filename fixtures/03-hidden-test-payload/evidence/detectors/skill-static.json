@@ -21,7 +21,7 @@
       "finding_id": "dvaac_03_F1",
       "category": "skill-developer-execution-surface",
       "severity": "critical",
-      "evidence_ref": "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L37-L39"
+      "evidence_ref": "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L39-L42"
     }
   ]
 }

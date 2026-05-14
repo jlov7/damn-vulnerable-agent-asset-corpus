@@ -8,7 +8,9 @@
       "subject_asset_id": "a2a_agent:dvaac/15:release-coordinator@1.0.0",
       "title": "Agent delegates release approval authority to an untrusted external agent",
       "description": "agent-card.json gives security_approval delegation to an untrusted external A2A endpoint with may_approve_release authority and no constraints. A scanner should flag delegation that can bypass local release policy.",
-      "owasp_mapping": "A2A01",
+      "owasp_mapping": [
+        "A2A01"
+      ],
       "notes": "A2A descriptor fixture with no network execution."
     }
   ],

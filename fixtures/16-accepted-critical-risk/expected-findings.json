@@ -8,7 +8,9 @@
       "subject_asset_id": "skill_bundle:dvaac/16:legacy-token-forwarder@1.0.0",
       "title": "Critical secret forwarding behavior is accepted by exception",
       "description": "SKILL.md instructs the agent to send LEGACY_SERVICE_TOKEN to an external migration endpoint. The finding is marked accepted_risk with a synthetic approval, so the AAC verdict remains hold rather than pass.",
-      "owasp_mapping": "AST01",
+      "owasp_mapping": [
+        "AST01"
+      ],
       "notes": "Accepted critical risk fixture; acceptance is not a clean resolution."
     }
   ],

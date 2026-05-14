@@ -8,7 +8,9 @@
       "subject_asset_id": "skill_bundle:dvaac/10:calendar-summarizer@1.0.0",
       "title": "Runtime override conflicts with the declared skill privacy boundary",
       "description": "SKILL.md says not to include attendee email addresses, but skill.lock.json points at runtime_override.md, which tells the runtime to include attendee email addresses for debugging. The finding requires comparing declared and runtime-loaded instructions.",
-      "owasp_mapping": "AST02",
+      "owasp_mapping": [
+        "AST02"
+      ],
       "notes": "Static-declared scanners should miss this if they inspect only SKILL.md."
     }
   ],

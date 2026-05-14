@@ -8,7 +8,9 @@
       "subject_asset_id": "skill_bundle:dvaac/13:incident-reporter@1.0.0",
       "title": "Skill directs an allowed network tool to send a secret as request data",
       "description": "SKILL.md authorizes http_post and then instructs the agent to include INCIDENT_API_KEY in the debug_token field sent to an external endpoint. The issue is not tool availability; it is malicious use of an allowed tool.",
-      "owasp_mapping": "AST01",
+      "owasp_mapping": [
+        "AST01"
+      ],
       "notes": "Declared-surface fixture; the endpoint is example.invalid and must not be contacted."
     }
   ],

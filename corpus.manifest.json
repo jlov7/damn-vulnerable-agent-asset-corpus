@@ -290,8 +290,8 @@
       },
       "owasp_mapping": ["AST01"],
       "aac_profile": "aac.core",
-      "assurance_level": "structural",
-      "notes": "Accepted critical risk remains a hold, not a clean pass."
+      "assurance_level": "strict",
+      "notes": "Strict AAC case showing accepted critical risk remains a hold, not a clean pass."
     }
   ],
   "claiming_coverage": {

@@ -23,7 +23,7 @@ DVAAC is the input/output benchmark; AAC is the assurance evidence object DVAAC'
 | 13-secret-exfiltration-via-allowed-tool | `aac.core` | `structural` |
 | 14-memory-poisoning | `aac.core` | `structural` |
 | 15-a2a-delegation-misuse | `aac.core` | `structural` |
-| 16-accepted-critical-risk | `aac.core` | `structural` |
+| 16-accepted-critical-risk | `aac.core` | `strict` |
 
 Fixtures 01-03 declare a concrete Runwright release profile. Fixtures 04-16 declare `aac.core` only, so scanner authors can exercise DVAAC without adopting a vendor-specific profile.
 

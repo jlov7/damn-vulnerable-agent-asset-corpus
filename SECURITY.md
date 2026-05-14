@@ -19,11 +19,12 @@ The runner never imports, exec's, or otherwise runs code from `fixtures/NN-name/
 
 ## What you MUST NOT do
 
-- **Do not run** `pytest`, `python -m unittest`, IDE auto-test-discovery, or any other test runner against the contents of `fixtures/NN-name/skill/tests/`. Payload demonstrations may execute on import if explicitly targeted. The repository includes top-level pytest collection guards and fixture payload demo files avoid `test_*.py` names, but those safeguards are not a sandbox.
+- **Do not run** `pytest`, `python -m unittest`, IDE auto-test-discovery, or any other test runner against the contents of `fixtures/NN-name/skill/tests/`. The repository includes top-level pytest collection guards and fixture payload demo files avoid `test_*.py` names, but those safeguards are not a sandbox.
+- **Do not set** `DVAAC_DANGER_RUN_PAYLOAD=1` unless you are inside a disposable sandbox and intentionally demonstrating fixture 03's guarded payload path.
 - **Do not run** `python fixtures/NN-name/skill/scripts/*.py` outside a disposable sandbox.
 - **Do not** copy fixture skills into a real Claude, Codex, Cursor, or other agent runtime.
 
-The payloads in v0.1.1 are deliberately safe — non-network, no real secrets, local-only — and future payloads must stay within the same safety envelope. Treat the entire `fixtures/*/` tree as untrusted.
+The checked-in payloads in v0.1.1 are deliberately safe — non-network, no real secrets, local-only — and future payloads must stay within the same safety envelope. If a fork changes fixture payload text, those safety properties must be re-reviewed; DVAAC is inspectable source, not a sandbox. Treat the entire `fixtures/*/` tree as untrusted.
 
 ## What DVAAC payloads are allowed to do
 

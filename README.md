@@ -1,12 +1,22 @@
-# Damn Vulnerable Agent Asset Corpus (DVAAC)
+<div align="center">
 
-> A compact, runnable benchmark for agent-asset assurance tools.
-> DVAAC ships deliberately vulnerable and deliberately clean agentic AI release fixtures, expected findings, and Agent Assurance Case (AAC) templates that are verified against the AAC v0.2 reference verifier.
+<img src="assets/dvaac-logo.svg" width="620" alt="Damn Vulnerable Agent Asset Corpus">
 
-**Status:** pre-publication `v0.1.1` candidate  
-**Fixture count:** 16  
-**Companion verifier:** [Agent Assurance Case v0.2-candidate.4](https://github.com/jlov7/agent-assurance-case)  
-**Licensing:** CC BY 4.0 for fixtures/docs/corpus content; Apache 2.0 for runner code and machine-readable schemas  
+# Damn Vulnerable Agent Asset Corpus
+
+**A compact, runnable benchmark for agent-asset assurance tools.**
+
+[![CI](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml)
+![Status](https://img.shields.io/badge/status-v0.1.1%20candidate-2f6f9f)
+![Fixtures](https://img.shields.io/badge/fixtures-16-0f766e)
+![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.4-111827)
+![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
+
+[Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [Security policy](SECURITY.md)
+
+</div>
+
+DVAAC ships deliberately vulnerable and deliberately clean agentic AI release fixtures, expected findings, and Agent Assurance Case (AAC) templates that are verified against the AAC v0.2 reference verifier.
 
 ## Why This Exists
 
@@ -56,7 +66,7 @@ Detector classes are defined in [TAXONOMY.md](TAXONOMY.md). Machine-readable fix
 From a checkout of this repository:
 
 ```bash
-git clone https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
+git clone --branch v0.2-candidate.4 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r runner/requirements.txt
@@ -158,3 +168,7 @@ DVAAC is dual-licensed:
 - runner code, `Makefile`, and machine-readable schemas: Apache 2.0.
 
 See [LICENSE.md](LICENSE.md).
+
+## Independence Notice
+
+This is personal, independent work by Jason Lovell. It is not authored, sponsored, endorsed, or reviewed by, and does not represent the views of, any employer, client, standards body, or affiliated organization.

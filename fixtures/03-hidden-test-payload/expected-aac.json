@@ -17,7 +17,7 @@
   "verdict": "fail",
   "verdict_reasons": [
     "CRITICAL skill-developer-execution-surface finding unresolved",
-    "Bundled validation file reads SKILL.md and exec()s extracted content with local permissions"
+    "Bundled validation file contains a guarded exec path for content extracted from SKILL.md"
   ],
   "coverage": {
     "inventory_status": "complete",
@@ -54,7 +54,7 @@
       "name": "apply-config",
       "version": "2.0.0",
       "source_uri": "fixtures/03-hidden-test-payload/skill",
-      "digest": "sha256:3357505f5d92bb095cd4f66d4645848df4053fc91044d0f9bc006fd3b59eadf7",
+      "digest": "sha256:ca531c2665f3a53b0fedffcee20a1392678f13516cdacb03a6e8de6981d422ed",
       "owner": "dvaac",
       "metadata": {
         "skill_format": "anthropic",
@@ -71,10 +71,10 @@
       "severity": "critical",
       "status": "open",
       "subject_asset_id": "skill_bundle:dvaac/03:apply-config@2.0.0",
-      "title": "Bundled validation file dynamically exec()s a code block extracted from SKILL.md with local permissions",
-      "description": "tests/apply_payload_demo.py reads SKILL.md, extracts the first python fenced code block, and exec()s it during module import. DVAAC deliberately names the file outside pytest's default discovery pattern, but the file demonstrates the developer-execution-surface primitive: auxiliary bundle code can execute attacker-controlled content with local user permissions before any agentic release decision is made. The demonstration payload writes a marker file to /tmp/dvaac_hidden_test_payload.txt — deliberately a safe local sink rather than a network exfiltration — so the fixture proves the threat class without performing a real attack. In production, an attacker controlling the SKILL.md code block could substitute any payload: credential reads, network egress, persistence. The declared manifest and declared script are clean; the threat lives entirely in a file outside the declared execution surface.",
+      "title": "Bundled validation file contains a guarded exec() path for a code block extracted from SKILL.md",
+      "description": "tests/apply_payload_demo.py reads SKILL.md, extracts the first python fenced code block, and contains a guarded exec() path that runs when DVAAC_DANGER_RUN_PAYLOAD=1. DVAAC deliberately names the file outside pytest's default discovery pattern and guards payload execution, but the file demonstrates the developer-execution-surface primitive: auxiliary bundle code can execute attacker-controlled content with local user permissions before any agentic release decision is made. The demonstration payload writes a marker file to /tmp/dvaac_hidden_test_payload.txt — deliberately a safe local sink rather than a network exfiltration — so the fixture proves the threat class without performing a real attack. In production, an attacker controlling a validation path like this could substitute any payload: credential reads, network egress, persistence. The declared manifest and declared script are clean; the threat lives entirely in a file outside the declared execution surface.",
       "evidence_refs": [
-        "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L37-L39"
+        "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L39-L42"
       ],
       "detector": {
         "name": "dvaac.reference.skill-static",
@@ -98,13 +98,13 @@
       "artifact_id": "dvaac_03_artifact_detector",
       "uri": "evidence://dvaac/03/detectors/skill-static.json",
       "role": "detector_output",
-      "digest": "sha256:c71249aac7bc1ddd8934659b16eed3215d189d014990374b00eb6d3bf4c65436"
+      "digest": "sha256:50184c04e6952b9e6923303a20f88a89c9b81a26874a743a6f3155fc3a99ea91"
     },
     {
       "artifact_id": "dvaac_03_artifact_source",
-      "uri": "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L37-L39",
+      "uri": "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L39-L42",
       "role": "file_excerpt",
-      "digest": "sha256:85723ef7d8803e1eb74706fe5feef154bfab8a950de8b52154f5cd764d9c2608"
+      "digest": "sha256:9c752a5ece034310680b1a22b0ea2e94506f4f16b3559b45da62dc5214463468"
     },
     {
       "artifact_id": "dvaac_03_artifact_aibom",
@@ -119,7 +119,7 @@
       "framework": "OWASP Agentic Skills Top 10",
       "control": "AST01",
       "evidence_refs": [
-        "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L37-L39"
+        "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L39-L42"
       ],
       "notes": "Developer-execution-surface malicious skill variant."
     }

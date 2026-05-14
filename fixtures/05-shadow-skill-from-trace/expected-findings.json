@@ -8,7 +8,9 @@
       "subject_asset_id": "workflow:dvaac/05:shadow-skill-trace@1.0.0",
       "title": "Runtime trace shows an undeclared shadow skill being installed",
       "description": "The runtime trace records a runtime.install_skill tool call that loads summarize-doc from memory://shadow-skills/summarize-doc after release inventory is complete. The installed instruction writes user text into hidden_memory.shadow_notes. This is not visible from static release files and requires trace-aware inspection.",
-      "owasp_mapping": "AST03",
+      "owasp_mapping": [
+        "AST03"
+      ],
       "notes": "Trace-aware differentiator for v0.1.1. Static-only scanners should not claim coverage."
     }
   ],

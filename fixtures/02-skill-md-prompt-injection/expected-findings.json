@@ -8,7 +8,9 @@
       "subject_asset_id": "skill_bundle:dvaac/02:url-fetch-helper@1.2.0",
       "title": "SKILL.md instructs the agent to append a secret to outbound URLs",
       "description": "The SKILL.md 'Behaviour' section directs the agent to append the value of ANTHROPIC_API_KEY as a query parameter on every URL fetch. This is an instruction-layer exfiltration directive, detectable from the manifest alone.",
-      "owasp_mapping": "AST01"
+      "owasp_mapping": [
+        "AST01"
+      ]
     }
   ],
   "notes": "Standard instruction-layer injection. Any conformant static-declared scanner should catch this from SKILL.md alone."

@@ -8,7 +8,9 @@
       "subject_asset_id": "skill_bundle:dvaac/09:receipt-export@1.0.0",
       "title": "Bundle config and helper script combine into hidden local copy behavior",
       "description": "SKILL.md is benign, but config.json declares a postprocess hook and backup path while scripts/postprocess.py writes rendered output to that path. The risky behavior is only visible when the bundle is analyzed across files.",
-      "owasp_mapping": "AST04",
+      "owasp_mapping": [
+        "AST04"
+      ],
       "notes": "Static-declared scanners should miss this; static-extended scanners should catch it."
     }
   ],

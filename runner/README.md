@@ -26,7 +26,7 @@ The runner needs to import the AAC reference verifier (`verify.py`). It looks fo
 To use a checked-out copy of the public AAC repository:
 
 ```bash
-git clone https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
+git clone --branch v0.2-candidate.4 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
 AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python verify_fixtures.py
 ```
 
@@ -65,8 +65,11 @@ python verify_fixtures.py --write-signed dist/signed-aac
 - The finding IDs in `expected-aac.json` are exactly the IDs listed in `expected-findings.json`, with matching `severity`, `category`, `title`, `subject_asset_id`, and `description` for each.
 - Asset digests match the local `source_uri` files or directories.
 - Every local `evidence://dvaac/NN/...` artifact digest matches the corresponding file or line excerpt.
+- Symlinks anywhere under a fixture tree are rejected, and all asset/evidence paths must resolve inside the owning fixture directory.
 - `policy_decisions[*].inputs_hash` matches the canonical policy decision object with `inputs_hash` removed.
 - The expected AAC signs with the AAC reference demo key for conformance-time plumbing, hashes correctly, and passes the AAC v0.2 verifier.
+
+The runner cannot prove that prose is semantically true. Threat descriptions, evidence line choices, and fixture realism are manually reviewed and should be challenged in PR review.
 
 ## Digest rules
 

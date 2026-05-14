@@ -59,3 +59,31 @@ jobs:
         run: |
           matches="$(find fixtures -type f \( -name 'test_*.py' -o -name '*_test.py' \) -print)"
           test -z "$matches" || { echo "$matches"; exit 1; }
+
+      - name: Negative test evidence tamper detection
+        env:
+          AAC_VERIFIER_PATH: ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
+        run: |
+          tmp="$(mktemp -d)"
+          cp -R dvaac "$tmp/dvaac"
+          printf '\ncorruption\n' >> "$tmp/dvaac/fixtures/05-shadow-skill-from-trace/evidence/traces/otel-genai.jsonl"
+          set +e
+          python "$tmp/dvaac/runner/verify_fixtures.py" > "$tmp/out.txt" 2>&1
+          rc=$?
+          set -e
+          cat "$tmp/out.txt"
+          test "$rc" -eq 1
+
+      - name: Negative test fixture symlink rejection
+        env:
+          AAC_VERIFIER_PATH: ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
+        run: |
+          tmp="$(mktemp -d)"
+          cp -R dvaac "$tmp/dvaac"
+          ln -s /tmp "$tmp/dvaac/fixtures/01-clean-declared-skill/skill/symlink-dir"
+          set +e
+          python "$tmp/dvaac/runner/verify_fixtures.py" > "$tmp/out.txt" 2>&1
+          rc=$?
+          set -e
+          cat "$tmp/out.txt"
+          test "$rc" -eq 1

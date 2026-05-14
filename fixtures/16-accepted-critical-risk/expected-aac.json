@@ -5,7 +5,7 @@
   "profile": {
     "profile_id": "aac.core",
     "profile_version": "0.2.0",
-    "assurance_level": "structural"
+    "assurance_level": "strict"
   },
   "subject": {
     "name": "legacy-token-forwarder skill release",
@@ -20,18 +20,21 @@
   ],
   "coverage": {
     "inventory_status": "complete",
-    "inventory_methods": ["declared-skill-manifest"],
-    "scanned_refs": ["skill/SKILL.md"],
+    "inventory_methods": ["declared-skill-manifest", "approval-record", "runtime-trace"],
+    "scanned_refs": ["skill/SKILL.md", "evidence/traces/accepted-risk.jsonl"],
     "detector_runs": [
       {
         "detector": {"name": "dvaac.reference.skill-static", "version": "0.1.1"},
         "scope": ["skill_bundle"],
         "categories": ["accepted-critical-risk"],
         "status": "findings_present",
-        "required": false
+        "required": true
       }
     ],
-    "runtime_coverage": {"status": "none"}
+    "runtime_coverage": {
+      "status": "full",
+      "trace_refs": ["evidence://dvaac/16/traces/accepted-risk.jsonl"]
+    }
   },
   "assets": [
     {
@@ -76,6 +79,7 @@
     }
   ],
   "policy_decisions": [],
+  "aibom_ref": "evidence://dvaac/16/aibom.cdx.json",
   "approvals": [
     {
       "approval_id": "approval_dvaac_16_accept",
@@ -94,6 +98,30 @@
       "uri": "evidence://dvaac/16/files/skill/SKILL.md#L7-L11",
       "role": "file_excerpt",
       "digest": "sha256:c2d8e67ca7f12ebace93b67126d1cd647facfc5b4b1aa9ac8a848fc404153c34"
+    },
+    {
+      "artifact_id": "dvaac_16_artifact_aibom",
+      "uri": "evidence://dvaac/16/aibom.cdx.json",
+      "role": "aibom",
+      "digest": "sha256:9a15e60cdda9794ce054c5a2a318dc6821d6ea2e792f17a92c64ec813003c6a8",
+      "media_type": "application/vnd.cyclonedx+json"
+    },
+    {
+      "artifact_id": "dvaac_16_artifact_trace",
+      "uri": "evidence://dvaac/16/traces/accepted-risk.jsonl",
+      "role": "runtime_trace",
+      "digest": "sha256:a989ffd22d1421e4b5494dbf143f4238dc45d74db36810db106927156bfbdeb3",
+      "media_type": "application/jsonl"
+    }
+  ],
+  "compliance_mappings": [
+    {
+      "framework": "OWASP Agentic Skills Top 10",
+      "control": "AST01",
+      "evidence_refs": [
+        "evidence://dvaac/16/files/skill/SKILL.md#L7-L11"
+      ],
+      "notes": "Accepted critical risk remains a HOLD condition, not a clean pass."
     }
   ],
   "evidence": {
