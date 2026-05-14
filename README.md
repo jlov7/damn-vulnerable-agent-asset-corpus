@@ -10,7 +10,7 @@
 ![Status](https://img.shields.io/badge/status-v0.1.2-2f6f9f)
 ![Fixtures](https://img.shields.io/badge/fixtures-16-0f766e)
 ![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.5-111827)
-![DOI](https://img.shields.io/badge/DOI-v0.1.2%20pending-lightgrey)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20187301.svg)](https://doi.org/10.5281/zenodo.20187301)
 ![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
 
 [Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [Security policy](SECURITY.md)
@@ -175,9 +175,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full fixture acceptance checklist
 
 ## Citation
 
-See [CITATION.cff](CITATION.cff). The `v0.1.2` Zenodo DOI is pending. The superseded `v0.1.1` archive remains available at <https://doi.org/10.5281/zenodo.20186918>.
+See [CITATION.cff](CITATION.cff). Cite the archived release:
 
-After Zenodo mints the `v0.1.2` DOI, cite the archived release rather than an arbitrary branch snapshot.
+> Lovell, J. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.2.* Zenodo. https://doi.org/10.5281/zenodo.20187301.
+
+The superseded `v0.1.1` archive remains available at <https://doi.org/10.5281/zenodo.20186918>.
 
 ## License
 

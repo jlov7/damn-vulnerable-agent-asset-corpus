@@ -8,10 +8,13 @@
 - Bumped corpus, scorecard, schema `$id`, mapping, and citation metadata to `0.1.2`.
 - Prepared `v0.1.2` as the current public release so `v0.1.1` can remain archived but superseded.
 
+### DOI
+
+- Zenodo DOI: <https://doi.org/10.5281/zenodo.20187301>.
+
 ### Known limitations
 
 - No fixture semantics changed from `v0.1.1`.
-- The `v0.1.2` Zenodo DOI is pending until Zenodo archives the new GitHub release.
 
 ## v0.1.1 — 2026-05-14 — Publication hardening
 
