@@ -10,7 +10,7 @@
 ![Status](https://img.shields.io/badge/status-v0.1.1-2f6f9f)
 ![Fixtures](https://img.shields.io/badge/fixtures-16-0f766e)
 ![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.5-111827)
-![DOI](https://img.shields.io/badge/DOI-pending-lightgrey)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20186918.svg)](https://doi.org/10.5281/zenodo.20186918)
 ![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
 
 [Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [Security policy](SECURITY.md)
@@ -175,7 +175,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full fixture acceptance checklist
 
 ## Citation
 
-See [CITATION.cff](CITATION.cff). The GitHub source is ready for citation metadata validation; the Zenodo DOI is pending until the public GitHub release is archived. After Zenodo mints the release DOI, cite the archived release rather than an arbitrary branch snapshot.
+See [CITATION.cff](CITATION.cff). Cite the archived release:
+
+> Lovell, J. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.1.* Zenodo. https://doi.org/10.5281/zenodo.20186918.
 
 ## License
 
