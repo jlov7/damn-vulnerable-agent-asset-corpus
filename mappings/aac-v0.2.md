@@ -73,4 +73,4 @@ DVAAC fixtures are signed at runner-run time with the AAC reference *demo* key. 
 
 ## Version pinning
 
-DVAAC v0.1.1 is pinned to AAC v0.2-candidate.4. The `signed_by` URN and `key_id` values in DVAAC fixtures match the demo key constants in that reference verifier. If AAC re-numbers, deprecates, or breaks compatibility, DVAAC fixtures will need a new corpus patch or minor version.
+DVAAC v0.1.1 is pinned to AAC v0.2-candidate.5. The `signed_by` URN and `key_id` values in DVAAC fixtures match the demo key constants in that reference verifier. If AAC re-numbers, deprecates, or breaks compatibility, DVAAC fixtures will need a new corpus patch or minor version.

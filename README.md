@@ -9,7 +9,7 @@
 [![CI](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml)
 ![Status](https://img.shields.io/badge/status-v0.1.1%20candidate-2f6f9f)
 ![Fixtures](https://img.shields.io/badge/fixtures-16-0f766e)
-![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.4-111827)
+![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.5-111827)
 ![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
 
 [Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [Security policy](SECURITY.md)
@@ -66,7 +66,7 @@ Detector classes are defined in [TAXONOMY.md](TAXONOMY.md). Machine-readable fix
 From a checkout of this repository:
 
 ```bash
-git clone --branch v0.2-candidate.4 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
+git clone --branch v0.2-candidate.5 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r runner/requirements.txt

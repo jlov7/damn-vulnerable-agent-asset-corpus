@@ -33,7 +33,7 @@
       "additionalProperties": false,
       "properties": {
         "aac_version": {
-          "const": "0.2-candidate.4"
+          "const": "0.2-candidate.5"
         },
         "aac_schema_uri": {
           "type": "string",
