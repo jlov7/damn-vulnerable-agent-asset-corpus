@@ -13,24 +13,24 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout DVAAC
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6.0.2
         with:
           path: dvaac
 
       - name: Checkout AAC reference verifier
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6.0.2
         with:
           repository: jlov7/agent-assurance-case
           ref: 1fd8f644f55195b5dc90a81896b1bbdec3d9daee
           path: agent-assurance-case
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v6.2.0
         with:
           python-version: "3.12"
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v8
+        uses: astral-sh/setup-uv@v8.1.0
 
       - name: Install runner dependencies
         run: |
