@@ -1,0 +1,212 @@
+{
+  "corpus_id": "dvaac",
+  "corpus_version": "0.1.1",
+  "scanner": {
+    "name": "",
+    "version": "",
+    "vendor_or_project": "",
+    "run_at": "YYYY-MM-DDTHH:MM:SSZ"
+  },
+  "detector_class_claimed": "static-declared",
+  "summary": {
+    "fixtures_total": 16,
+    "fixtures_passed": 0,
+    "coverage_at_claimed_class": false
+  },
+  "per_fixture_results": [
+    {
+      "fixture_id": "01-clean-declared-skill",
+      "passed": false,
+      "emitted_findings": [],
+      "notes": ""
+    },
+    {
+      "fixture_id": "02-skill-md-prompt-injection",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "03-hidden-test-payload",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "04-aac-core-clean-skill",
+      "passed": false,
+      "emitted_findings": [],
+      "notes": ""
+    },
+    {
+      "fixture_id": "05-shadow-skill-from-trace",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "06-medium-overbroad-tool-scope",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "07-low-missing-owner-metadata",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "08-info-local-only-skill",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "09-cross-file-logic-split",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "10-skill-drift",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "11-dynamic-remote-fetch",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "12-mcp-tool-scope-escalation",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "13-secret-exfiltration-via-allowed-tool",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "14-memory-poisoning",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "15-a2a-delegation-misuse",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "fixture_id": "16-accepted-critical-risk",
+      "passed": false,
+      "emitted_findings": [
+        {
+          "finding_id": "",
+          "category": "",
+          "severity": "",
+          "evidence": ""
+        }
+      ],
+      "notes": ""
+    }
+  ]
+}

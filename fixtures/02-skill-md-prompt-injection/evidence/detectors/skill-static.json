@@ -1,0 +1,25 @@
+{
+  "detector": {
+    "name": "dvaac.reference.skill-static",
+    "version": "0.1.1"
+  },
+  "fixture_id": "02-skill-md-prompt-injection",
+  "status": "findings_present",
+  "scanned_refs": [
+    "skill/SKILL.md"
+  ],
+  "categories": [
+    "skill-manifest-integrity",
+    "skill-secret-exposure",
+    "skill-executable-surface",
+    "skill-tool-scope"
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_02_F1",
+      "category": "skill-prompt-injection",
+      "severity": "high",
+      "evidence_ref": "evidence://dvaac/02/files/skill/SKILL.md#L20-L20"
+    }
+  ]
+}

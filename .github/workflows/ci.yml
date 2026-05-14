@@ -1,0 +1,61 @@
+name: dvaac-conformance
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout DVAAC
+        uses: actions/checkout@v4
+        with:
+          path: dvaac
+
+      - name: Checkout AAC reference verifier
+        uses: actions/checkout@v4
+        with:
+          repository: jlov7/agent-assurance-case
+          ref: v0.2-candidate.4
+          path: agent-assurance-case
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runner dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r dvaac/runner/requirements.txt
+          pip install -r dvaac/runner/requirements-dev.txt
+
+      - name: Compile runner
+        run: python -m py_compile dvaac/runner/verify_fixtures.py
+
+      - name: Run DVAAC fixture conformance gate
+        env:
+          AAC_VERIFIER_PATH: ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
+        run: python dvaac/runner/verify_fixtures.py
+
+      - name: Verify signed AAC emission
+        working-directory: dvaac
+        run: |
+          make write-signed
+          test "$(find dist/signed-aac -type f -name '*-signed-aac.json' | wc -l | tr -d ' ')" = "16"
+          test "$(wc -l < dist/signed-aac/SHA256SUMS | tr -d ' ')" = "16"
+
+      - name: Verify pytest collection safety
+        working-directory: dvaac
+        run: |
+          rm -f /tmp/dvaac_hidden_test_payload.txt
+          python -m pytest --collect-only -q || test $? -eq 5
+          test ! -e /tmp/dvaac_hidden_test_payload.txt
+
+      - name: Block pytest-discoverable fixture payload names
+        working-directory: dvaac
+        run: |
+          matches="$(find fixtures -type f \( -name 'test_*.py' -o -name '*_test.py' \) -print)"
+          test -z "$matches" || { echo "$matches"; exit 1; }

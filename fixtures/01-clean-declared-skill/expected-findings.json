@@ -1,0 +1,5 @@
+{
+  "fixture_id": "01-clean-declared-skill",
+  "expected_findings": [],
+  "notes": "Baseline fixture. A conformant scanner emits no findings."
+}

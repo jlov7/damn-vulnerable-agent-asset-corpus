@@ -1,0 +1,18 @@
+{
+  "detector": {
+    "name": "dvaac.reference.skill-static",
+    "version": "0.1.1"
+  },
+  "fixture_id": "01-clean-declared-skill",
+  "status": "pass",
+  "scanned_refs": [
+    "skill/SKILL.md"
+  ],
+  "categories": [
+    "skill-manifest-integrity",
+    "skill-secret-exposure",
+    "skill-executable-surface",
+    "skill-tool-scope"
+  ],
+  "findings": []
+}

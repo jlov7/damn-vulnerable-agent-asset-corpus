@@ -1,0 +1,91 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_11_dynamic_fetch",
+  "created_at": "2026-05-14T15:50:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "contract-reviewer skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-11",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "hold",
+  "verdict_reasons": [
+    "HIGH dynamic-remote-fetch finding unresolved"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": ["declared-skill-manifest"],
+    "scanned_refs": ["skill/SKILL.md"],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.skill-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": ["dynamic-remote-fetch"],
+        "status": "findings_present",
+        "required": false
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/11:contract-reviewer@1.0.0",
+      "asset_type": "skill_bundle",
+      "name": "contract-reviewer",
+      "version": "1.0.0",
+      "source_uri": "fixtures/11-dynamic-remote-fetch/skill",
+      "digest": "sha256:c9fc0527db6eb31633d6c8993d6283ffa0f866c6b8b7a7587bab697d8d211d5d",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_11_F1",
+      "category": "dynamic-remote-fetch",
+      "severity": "high",
+      "status": "open",
+      "subject_asset_id": "skill_bundle:dvaac/11:contract-reviewer@1.0.0",
+      "title": "Skill loads higher-priority runtime instructions from a remote URL",
+      "description": "SKILL.md instructs the agent to fetch a remote prompt patch and follow it as higher priority than the checked-in manifest. This undermines reviewability and makes the release behavior dependent on mutable remote content.",
+      "evidence_refs": [
+        "evidence://dvaac/11/files/skill/SKILL.md#L7-L9"
+      ],
+      "detector": {
+        "name": "dvaac.reference.skill-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-SKILL-REMOTE-FETCH-01"
+      },
+      "remediation": "Remove runtime prompt fetching or bind fetched instructions to an immutable digest and release approval.",
+      "created_at": "2026-05-14T15:50:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_11_artifact_source",
+      "uri": "evidence://dvaac/11/files/skill/SKILL.md#L7-L9",
+      "role": "file_excerpt",
+      "digest": "sha256:41270d87316ce8b046c63fc79905a0af02a94464d8bacf76919e6a0c9a1f26e3"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:50:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

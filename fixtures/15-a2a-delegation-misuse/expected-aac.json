@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_15_a2a_delegation",
+  "created_at": "2026-05-14T16:10:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "release-coordinator A2A release",
+    "subject_type": "a2a_agent",
+    "release_ref": "dvaac-fixture-15",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "hold",
+  "verdict_reasons": [
+    "HIGH a2a-delegation-misuse finding unresolved"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": ["a2a-agent-card"],
+    "scanned_refs": ["a2a/agent-card.json"],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.a2a-static", "version": "0.1.1"},
+        "scope": ["a2a_agent"],
+        "categories": ["a2a-delegation-misuse"],
+        "status": "findings_present",
+        "required": false
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "a2a_agent:dvaac/15:release-coordinator@1.0.0",
+      "asset_type": "a2a_agent",
+      "name": "release-coordinator",
+      "version": "1.0.0",
+      "source_uri": "fixtures/15-a2a-delegation-misuse/a2a",
+      "digest": "sha256:36cc0cc296573e966ea57e5e821bdf265a3c7d40e053f0da2c515d8028836027",
+      "owner": "dvaac",
+      "metadata": {
+        "agent_card_path": "agent-card.json"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_15_F1",
+      "category": "a2a-delegation-misuse",
+      "severity": "high",
+      "status": "open",
+      "subject_asset_id": "a2a_agent:dvaac/15:release-coordinator@1.0.0",
+      "title": "Agent delegates release approval authority to an untrusted external agent",
+      "description": "agent-card.json gives security_approval delegation to an untrusted external A2A endpoint with may_approve_release authority and no constraints. A scanner should flag delegation that can bypass local release policy.",
+      "evidence_refs": [
+        "evidence://dvaac/15/files/a2a/agent-card.json#L4-L7"
+      ],
+      "detector": {
+        "name": "dvaac.reference.a2a-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-A2A-DELEGATION-01"
+      },
+      "remediation": "Remove release approval authority from untrusted delegates or require scoped, signed, policy-bound delegation.",
+      "created_at": "2026-05-14T16:10:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_15_artifact_source",
+      "uri": "evidence://dvaac/15/files/a2a/agent-card.json#L4-L7",
+      "role": "file_excerpt",
+      "digest": "sha256:265530976ce9404d60555c46379426674026d91d42e9aecb0a727defaacd1d65"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T16:10:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

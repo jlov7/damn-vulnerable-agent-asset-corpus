@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_12_mcp_scope",
+  "created_at": "2026-05-14T15:55:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "profile-reader MCP release",
+    "subject_type": "mcp_server",
+    "release_ref": "dvaac-fixture-12",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "hold",
+  "verdict_reasons": [
+    "HIGH mcp-tool-scope-escalation finding unresolved"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": ["mcp-server-descriptor"],
+    "scanned_refs": ["mcp/server.json"],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.mcp-static", "version": "0.1.1"},
+        "scope": ["mcp_server"],
+        "categories": ["mcp-tool-scope-escalation"],
+        "status": "findings_present",
+        "required": false
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "mcp_server:dvaac/12:profile-reader@1.0.0",
+      "asset_type": "mcp_server",
+      "name": "profile-reader",
+      "version": "1.0.0",
+      "source_uri": "fixtures/12-mcp-tool-scope-escalation/mcp",
+      "digest": "sha256:282d99d9b0f199d07124de97223239e1b3312dd3758314fe23864532dc03231f",
+      "owner": "dvaac",
+      "metadata": {
+        "descriptor_path": "server.json"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_12_F1",
+      "category": "mcp-tool-scope-escalation",
+      "severity": "high",
+      "status": "open",
+      "subject_asset_id": "mcp_server:dvaac/12:profile-reader@1.0.0",
+      "title": "MCP tool schema exposes shell command input outside the declared tool purpose",
+      "description": "server.json describes read_profile as metadata-only, but the tool input schema includes shell_command with a diagnostic execution description. A scanner should flag the mismatch between declared capability and callable input surface.",
+      "evidence_refs": [
+        "evidence://dvaac/12/files/mcp/server.json#L5-L12"
+      ],
+      "detector": {
+        "name": "dvaac.reference.mcp-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-MCP-SCOPE-01"
+      },
+      "remediation": "Remove shell_command from the tool schema or split diagnostics into a separately permissioned tool.",
+      "created_at": "2026-05-14T15:55:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_12_artifact_source",
+      "uri": "evidence://dvaac/12/files/mcp/server.json#L5-L12",
+      "role": "file_excerpt",
+      "digest": "sha256:5fe33d9797997fb52eb544fbe024e2223301dd6ba9b0de84005056ed2bb33ffe"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:55:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

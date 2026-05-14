@@ -1,0 +1,304 @@
+{
+  "corpus_id": "dvaac",
+  "corpus_version": "0.1.1",
+  "corpus_name": "Damn Vulnerable Agent Asset Corpus",
+  "aac_compatibility": {
+    "aac_version": "0.2-candidate.4",
+    "aac_schema_uri": "https://raw.githubusercontent.com/jlov7/agent-assurance-case/v0.2-candidate.4/schemas/agent-assurance-case-v0.2.schema.json"
+  },
+  "digest_binding": {
+    "asset_digest": "sha256 over canonical JSON entries of every non-generated file under the local source_uri directory: path plus file sha256; symlinks are rejected",
+    "evidence_file_digest": "sha256 over local files under fixtures/NN-name/evidence/",
+    "file_excerpt_digest": "sha256 over the exact referenced lines joined by newline with one trailing newline",
+    "policy_inputs_hash": "sha256 over canonical JSON for the policy decision object with inputs_hash removed"
+  },
+  "detector_classes": {
+    "static-declared": "Inspects only files declared as the skill or tool's instruction surface in the manifest.",
+    "static-extended": "Additionally inspects all files in the asset bundle, including tests, build scripts, and optional resources.",
+    "trace-aware": "Additionally inspects runtime trace evidence (OTel GenAI spans, tool-call sequences, memory mutations, side effects)."
+  },
+  "verdict_legend": {
+    "pass": "release may proceed",
+    "hold": "release must not proceed automatically; may proceed after remediation, approval, or risk acceptance",
+    "fail": "release must not proceed"
+  },
+  "fixtures": [
+    {
+      "fixture_id": "01-clean-declared-skill",
+      "expected_verdict": "pass",
+      "expected_finding_count": 0,
+      "primary_threat_class": "none",
+      "threat_surface": "baseline",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "pass",
+        "static-extended": "pass",
+        "trace-aware": "pass"
+      },
+      "owasp_mapping": [],
+      "aac_profile": "runwright.skills.release",
+      "assurance_level": "basic"
+    },
+    {
+      "fixture_id": "02-skill-md-prompt-injection",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "skill-prompt-injection",
+      "threat_surface": "instruction-layer",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "catch",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST01"],
+      "aac_profile": "runwright.skills.release",
+      "assurance_level": "basic"
+    },
+    {
+      "fixture_id": "03-hidden-test-payload",
+      "expected_verdict": "fail",
+      "expected_finding_count": 1,
+      "primary_threat_class": "skill-developer-execution-surface",
+      "threat_surface": "developer-execution-surface",
+      "minimum_detector_class": "static-extended",
+      "expected_coverage": {
+        "static-declared": "miss",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST01"],
+      "aac_profile": "runwright.skills.release",
+      "assurance_level": "basic",
+      "notes": "Differentiating fixture. A scanner that handles 02 but misses 03 is only catching the easy class of skill threats."
+    },
+    {
+      "fixture_id": "04-aac-core-clean-skill",
+      "expected_verdict": "pass",
+      "expected_finding_count": 0,
+      "primary_threat_class": "none",
+      "threat_surface": "baseline",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "pass",
+        "static-extended": "pass",
+        "trace-aware": "pass"
+      },
+      "owasp_mapping": [],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Portable AAC core baseline that does not require a Runwright vendor profile."
+    },
+    {
+      "fixture_id": "05-shadow-skill-from-trace",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "runtime-shadow-skill",
+      "threat_surface": "runtime-behaviour-surface",
+      "minimum_detector_class": "trace-aware",
+      "expected_coverage": {
+        "static-declared": "miss",
+        "static-extended": "miss",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST03"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Trace-aware differentiator. No executable payload is present."
+    },
+    {
+      "fixture_id": "06-medium-overbroad-tool-scope",
+      "expected_verdict": "pass",
+      "expected_finding_count": 1,
+      "primary_threat_class": "skill-tool-scope",
+      "threat_surface": "instruction-layer",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "catch",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST04"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Nonblocking medium-severity calibration fixture."
+    },
+    {
+      "fixture_id": "07-low-missing-owner-metadata",
+      "expected_verdict": "pass",
+      "expected_finding_count": 1,
+      "primary_threat_class": "asset-metadata-quality",
+      "threat_surface": "metadata-surface",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "catch",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": [],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Nonblocking low-severity calibration fixture."
+    },
+    {
+      "fixture_id": "08-info-local-only-skill",
+      "expected_verdict": "pass",
+      "expected_finding_count": 1,
+      "primary_threat_class": "detector-informational-note",
+      "threat_surface": "metadata-surface",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "catch",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": [],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Info-level detector note fixture; not a vulnerability."
+    },
+    {
+      "fixture_id": "09-cross-file-logic-split",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "cross-file-logic-split",
+      "threat_surface": "developer-execution-surface",
+      "minimum_detector_class": "static-extended",
+      "expected_coverage": {
+        "static-declared": "miss",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST04"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Risky behavior is split across config and helper script."
+    },
+    {
+      "fixture_id": "10-skill-drift",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "skill-drift",
+      "threat_surface": "bundle-metadata-surface",
+      "minimum_detector_class": "static-extended",
+      "expected_coverage": {
+        "static-declared": "miss",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST02"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Declared instruction and runtime override disagree."
+    },
+    {
+      "fixture_id": "11-dynamic-remote-fetch",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "dynamic-remote-fetch",
+      "threat_surface": "instruction-layer",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "catch",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST02"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Remote URL is example.invalid and must not be fetched."
+    },
+    {
+      "fixture_id": "12-mcp-tool-scope-escalation",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "mcp-tool-scope-escalation",
+      "threat_surface": "mcp-tool-surface",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "catch",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["MCP02"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "MCP descriptor exposes a shell-command parameter outside the tool purpose."
+    },
+    {
+      "fixture_id": "13-secret-exfiltration-via-allowed-tool",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "secret-exfiltration-via-allowed-tool",
+      "threat_surface": "instruction-layer",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "catch",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST01"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Malicious use of an allowed tool; endpoint is example.invalid."
+    },
+    {
+      "fixture_id": "14-memory-poisoning",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "memory-poisoning",
+      "threat_surface": "memory-surface",
+      "minimum_detector_class": "static-extended",
+      "expected_coverage": {
+        "static-declared": "miss",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST05"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Persistent memory seed poisons future trust decisions."
+    },
+    {
+      "fixture_id": "15-a2a-delegation-misuse",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "a2a-delegation-misuse",
+      "threat_surface": "a2a-delegation-surface",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "catch",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["A2A01"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Agent card delegates release approval authority to an untrusted endpoint."
+    },
+    {
+      "fixture_id": "16-accepted-critical-risk",
+      "expected_verdict": "hold",
+      "expected_finding_count": 1,
+      "primary_threat_class": "accepted-critical-risk",
+      "threat_surface": "instruction-layer",
+      "minimum_detector_class": "static-declared",
+      "expected_coverage": {
+        "static-declared": "catch",
+        "static-extended": "catch",
+        "trace-aware": "catch"
+      },
+      "owasp_mapping": ["AST01"],
+      "aac_profile": "aac.core",
+      "assurance_level": "structural",
+      "notes": "Accepted critical risk remains a hold, not a clean pass."
+    }
+  ],
+  "claiming_coverage": {
+    "rules": [
+      "A scanner claiming coverage of fixture NN MUST emit findings whose ids, categories, and severities match expected-findings.json for fixture NN.",
+      "A scanner claiming coverage at detector_class X MUST cover every fixture whose minimum_detector_class is X or weaker.",
+      "Half-credit is not awarded; partial detection of a fixture's expected finding does not count as coverage."
+    ]
+  }
+}

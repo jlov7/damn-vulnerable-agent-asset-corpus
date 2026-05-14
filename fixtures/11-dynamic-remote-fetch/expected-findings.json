@@ -1,0 +1,16 @@
+{
+  "fixture_id": "11-dynamic-remote-fetch",
+  "expected_findings": [
+    {
+      "finding_id": "dvaac_11_F1",
+      "category": "dynamic-remote-fetch",
+      "severity": "high",
+      "subject_asset_id": "skill_bundle:dvaac/11:contract-reviewer@1.0.0",
+      "title": "Skill loads higher-priority runtime instructions from a remote URL",
+      "description": "SKILL.md instructs the agent to fetch a remote prompt patch and follow it as higher priority than the checked-in manifest. This undermines reviewability and makes the release behavior dependent on mutable remote content.",
+      "owasp_mapping": "AST02",
+      "notes": "Declared-surface fixture; the URL is example.invalid and must not be fetched."
+    }
+  ],
+  "notes": "Remote-fetch fixture with no network execution."
+}

@@ -1,0 +1,15 @@
+{
+  "fixture_id": "07-low-missing-owner-metadata",
+  "expected_findings": [
+    {
+      "finding_id": "dvaac_07_F1",
+      "category": "asset-metadata-quality",
+      "severity": "low",
+      "subject_asset_id": "skill_bundle:dvaac/07:normalize-title-case@1.0.0",
+      "title": "Skill ownership metadata is unresolved",
+      "description": "SKILL.md sets Maintainer to TBD. This weakens release accountability but does not create a direct execution or exfiltration path.",
+      "notes": "Nonblocking low-severity fixture."
+    }
+  ],
+  "notes": "Exercises low findings without a hold/fail verdict."
+}

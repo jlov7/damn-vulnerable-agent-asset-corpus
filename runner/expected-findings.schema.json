@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.1/runner/expected-findings.schema.json",
+  "title": "DVAAC expected findings",
+  "type": "object",
+  "required": ["fixture_id", "expected_findings"],
+  "additionalProperties": false,
+  "properties": {
+    "fixture_id": {
+      "type": "string",
+      "pattern": "^[0-9]{2}-[a-z0-9-]+$"
+    },
+    "expected_findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ExpectedFinding"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "ExpectedFinding": {
+      "type": "object",
+      "required": [
+        "finding_id",
+        "category",
+        "severity",
+        "subject_asset_id",
+        "title",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "enum": ["critical", "high", "medium", "low", "info"]
+        },
+        "subject_asset_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owasp_mapping": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

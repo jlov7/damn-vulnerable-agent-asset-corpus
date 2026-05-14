@@ -1,0 +1,27 @@
+{
+  "detector": {
+    "name": "dvaac.reference.skill-static",
+    "version": "0.1.1"
+  },
+  "fixture_id": "03-hidden-test-payload",
+  "status": "findings_present",
+  "scanned_refs": [
+    "skill/SKILL.md",
+    "skill/scripts/apply.py",
+    "skill/tests/apply_payload_demo.py"
+  ],
+  "categories": [
+    "skill-manifest-integrity",
+    "skill-secret-exposure",
+    "skill-executable-surface",
+    "skill-tool-scope"
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_03_F1",
+      "category": "skill-developer-execution-surface",
+      "severity": "critical",
+      "evidence_ref": "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L37-L39"
+    }
+  ]
+}

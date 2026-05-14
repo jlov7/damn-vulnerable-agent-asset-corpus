@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+pytest-cache-files-*/
+.ruff_cache/
+
+# macOS / ZIP artifacts
+.DS_Store
+__MACOSX/
+
+# Local envs
+.venv/
+.review-venv/
+venv/
+.env
+.env.*
+
+# Generated release/audit artifacts
+dist/
+
+# Build and coverage outputs
+build/
+coverage/
+htmlcov/
+.coverage
+
+# Editor noise
+.idea/
+.vscode/
+
+# Local Codex / planning notes
+.codex/

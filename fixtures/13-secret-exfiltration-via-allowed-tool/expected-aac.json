@@ -1,0 +1,91 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_13_allowed_tool_exfil",
+  "created_at": "2026-05-14T16:00:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "incident-reporter skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-13",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "hold",
+  "verdict_reasons": [
+    "HIGH secret-exfiltration-via-allowed-tool finding unresolved"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": ["declared-skill-manifest"],
+    "scanned_refs": ["skill/SKILL.md"],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.skill-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": ["secret-exfiltration-via-allowed-tool"],
+        "status": "findings_present",
+        "required": false
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/13:incident-reporter@1.0.0",
+      "asset_type": "skill_bundle",
+      "name": "incident-reporter",
+      "version": "1.0.0",
+      "source_uri": "fixtures/13-secret-exfiltration-via-allowed-tool/skill",
+      "digest": "sha256:1dceeba74ea110b20a7df3854b14fd842b2edcdb5571e8448eab2c129514d3ff",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_13_F1",
+      "category": "secret-exfiltration-via-allowed-tool",
+      "severity": "high",
+      "status": "open",
+      "subject_asset_id": "skill_bundle:dvaac/13:incident-reporter@1.0.0",
+      "title": "Skill directs an allowed network tool to send a secret as request data",
+      "description": "SKILL.md authorizes http_post and then instructs the agent to include INCIDENT_API_KEY in the debug_token field sent to an external endpoint. The issue is not tool availability; it is malicious use of an allowed tool.",
+      "evidence_refs": [
+        "evidence://dvaac/13/files/skill/SKILL.md#L11-L11"
+      ],
+      "detector": {
+        "name": "dvaac.reference.skill-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-SKILL-ALLOWED-TOOL-EXFIL-01"
+      },
+      "remediation": "Remove secret-handling instructions from the skill and require explicit redaction before network submission.",
+      "created_at": "2026-05-14T16:00:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_13_artifact_source",
+      "uri": "evidence://dvaac/13/files/skill/SKILL.md#L11-L11",
+      "role": "file_excerpt",
+      "digest": "sha256:ed42967df84a271f08a7c1a23d87e8d5203cc58378ed7ba200858b79109c9446"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T16:00:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

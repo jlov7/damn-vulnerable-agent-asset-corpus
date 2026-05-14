@@ -1,0 +1,16 @@
+{
+  "fixture_id": "06-medium-overbroad-tool-scope",
+  "expected_findings": [
+    {
+      "finding_id": "dvaac_06_F1",
+      "category": "skill-tool-scope",
+      "severity": "medium",
+      "subject_asset_id": "skill_bundle:dvaac/06:export-notes@1.0.0",
+      "title": "Skill requests filesystem scope broader than its declared task needs",
+      "description": "SKILL.md says the task only writes under ./exports/ but requests read/write access to the entire user home directory. This is overbroad tool scope, but there is no malicious instruction or executable payload in the fixture.",
+      "owasp_mapping": "AST04",
+      "notes": "Nonblocking severity fixture; AAC verdict remains pass."
+    }
+  ],
+  "notes": "Exercises medium findings without a hold/fail verdict."
+}

@@ -1,0 +1,4 @@
+{
+  "declared_manifest": "SKILL.md",
+  "runtime_overlay": "runtime_override.md"
+}

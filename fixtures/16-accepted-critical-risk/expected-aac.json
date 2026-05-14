@@ -1,0 +1,109 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_16_accepted_critical",
+  "created_at": "2026-05-14T16:15:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "legacy-token-forwarder skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-16",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "hold",
+  "verdict_reasons": [
+    "CRITICAL finding is accepted_risk by exception, not cleanly resolved"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": ["declared-skill-manifest"],
+    "scanned_refs": ["skill/SKILL.md"],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.skill-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": ["accepted-critical-risk"],
+        "status": "findings_present",
+        "required": false
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/16:legacy-token-forwarder@1.0.0",
+      "asset_type": "skill_bundle",
+      "name": "legacy-token-forwarder",
+      "version": "1.0.0",
+      "source_uri": "fixtures/16-accepted-critical-risk/skill",
+      "digest": "sha256:322c4233a7a7c512dddd701d7f98185c4dc985195e9a87aa8044f0b1ba0fa09e",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_16_F1",
+      "category": "accepted-critical-risk",
+      "severity": "critical",
+      "status": "accepted_risk",
+      "subject_asset_id": "skill_bundle:dvaac/16:legacy-token-forwarder@1.0.0",
+      "title": "Critical secret forwarding behavior is accepted by exception",
+      "description": "SKILL.md instructs the agent to send LEGACY_SERVICE_TOKEN to an external migration endpoint. The finding is marked accepted_risk with a synthetic approval, so the AAC verdict remains hold rather than pass.",
+      "evidence_refs": [
+        "evidence://dvaac/16/files/skill/SKILL.md#L7-L11"
+      ],
+      "detector": {
+        "name": "dvaac.reference.skill-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-SKILL-ACCEPTED-CRITICAL-01"
+      },
+      "resolution": {
+        "reason": "Synthetic time-boxed acceptance for benchmark semantics.",
+        "approval_id": "approval_dvaac_16_accept",
+        "resolved_at": "2026-05-14T16:14:00Z",
+        "expires_at": "2026-06-14T16:14:00Z"
+      },
+      "remediation": "Remove token forwarding before general release. Do not treat accepted risk as a clean pass.",
+      "created_at": "2026-05-14T16:14:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "approvals": [
+    {
+      "approval_id": "approval_dvaac_16_accept",
+      "decision": "accept_risk",
+      "decided_by": "dvaac.synthetic.release-owner",
+      "decided_at": "2026-05-14T16:14:00Z",
+      "scope": "dvaac_16_F1",
+      "expires_at": "2026-06-14T16:14:00Z",
+      "comment": "Synthetic acceptance record for benchmark coverage; not a publication recommendation.",
+      "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+    }
+  ],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_16_artifact_source",
+      "uri": "evidence://dvaac/16/files/skill/SKILL.md#L7-L11",
+      "role": "file_excerpt",
+      "digest": "sha256:c2d8e67ca7f12ebace93b67126d1cd647facfc5b4b1aa9ac8a848fc404153c34"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T16:15:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

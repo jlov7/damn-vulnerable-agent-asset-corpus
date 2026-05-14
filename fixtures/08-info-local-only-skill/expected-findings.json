@@ -1,0 +1,15 @@
+{
+  "fixture_id": "08-info-local-only-skill",
+  "expected_findings": [
+    {
+      "finding_id": "dvaac_08_F1",
+      "category": "detector-informational-note",
+      "severity": "info",
+      "subject_asset_id": "skill_bundle:dvaac/08:count-words@1.0.0",
+      "title": "Skill declares local-only operation",
+      "description": "SKILL.md states that no network access is required or allowed. This is an informational detector note, not a vulnerability.",
+      "notes": "Exercises info findings without a hold/fail verdict."
+    }
+  ],
+  "notes": "Non-vulnerability fixture used to test scanner noise handling."
+}

@@ -1,0 +1,5 @@
+{
+  "fixture_id": "04-aac-core-clean-skill",
+  "expected_findings": [],
+  "notes": "Portable aac.core baseline fixture. A conformant scanner emits no findings."
+}

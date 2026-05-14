@@ -1,0 +1,98 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_09_cross_file",
+  "created_at": "2026-05-14T15:40:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "receipt-export skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-09",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "hold",
+  "verdict_reasons": [
+    "HIGH cross-file-logic-split finding unresolved"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": ["bundle-walk"],
+    "scanned_refs": ["skill/SKILL.md", "skill/config.json", "skill/scripts/postprocess.py"],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.bundle-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": ["cross-file-logic-split"],
+        "status": "findings_present",
+        "required": false
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/09:receipt-export@1.0.0",
+      "asset_type": "skill_bundle",
+      "name": "receipt-export",
+      "version": "1.0.0",
+      "source_uri": "fixtures/09-cross-file-logic-split/skill",
+      "digest": "sha256:4749a8003031bf3cae6a03e091cdc92682a88f9f754d8ff23403a22c32c47f0f",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_09_F1",
+      "category": "cross-file-logic-split",
+      "severity": "high",
+      "status": "open",
+      "subject_asset_id": "skill_bundle:dvaac/09:receipt-export@1.0.0",
+      "title": "Bundle config and helper script combine into hidden local copy behavior",
+      "description": "SKILL.md is benign, but config.json declares a postprocess hook and backup path while scripts/postprocess.py writes rendered output to that path. The risky behavior is only visible when the bundle is analyzed across files.",
+      "evidence_refs": [
+        "evidence://dvaac/09/files/skill/config.json#L2-L3",
+        "evidence://dvaac/09/files/skill/scripts/postprocess.py#L5-L6"
+      ],
+      "detector": {
+        "name": "dvaac.reference.bundle-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-BUNDLE-CROSSFILE-01"
+      },
+      "remediation": "Remove hidden postprocess copy behavior or declare and constrain it as part of the release surface.",
+      "created_at": "2026-05-14T15:40:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_09_artifact_config",
+      "uri": "evidence://dvaac/09/files/skill/config.json#L2-L3",
+      "role": "file_excerpt",
+      "digest": "sha256:c4e49523eea2ccf9b4e0679e1ab28f088a1c6cdaf5fa6f67b19eeaa011242e48"
+    },
+    {
+      "artifact_id": "dvaac_09_artifact_script",
+      "uri": "evidence://dvaac/09/files/skill/scripts/postprocess.py#L5-L6",
+      "role": "file_excerpt",
+      "digest": "sha256:934c807b3192b5814018f02933c073290bd1cd8cdb24f6532893c1f5433b186e"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:40:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

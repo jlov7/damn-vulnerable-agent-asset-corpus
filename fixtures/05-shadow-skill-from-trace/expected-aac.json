@@ -1,0 +1,114 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_05_shadow_trace",
+  "created_at": "2026-05-14T15:20:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "shadow skill trace release",
+    "subject_type": "workflow",
+    "release_ref": "dvaac-fixture-05",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "hold",
+  "verdict_reasons": [
+    "HIGH runtime-shadow-skill finding unresolved",
+    "Runtime trace shows undeclared skill installation after release inventory"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": [
+      "runtime-trace"
+    ],
+    "scanned_refs": [
+      "evidence/traces/otel-genai.jsonl"
+    ],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.trace-static", "version": "0.1.1"},
+        "scope": ["workflow"],
+        "categories": ["runtime-shadow-skill"],
+        "status": "findings_present",
+        "required": false,
+        "evidence_ref": "evidence://dvaac/05/traces/otel-genai.jsonl"
+      }
+    ],
+    "runtime_coverage": {
+      "status": "summary",
+      "trace_refs": ["evidence://dvaac/05/traces/otel-genai.jsonl"]
+    }
+  },
+  "assets": [
+    {
+      "asset_id": "workflow:dvaac/05:shadow-skill-trace@1.0.0",
+      "asset_type": "workflow",
+      "name": "shadow-skill-trace",
+      "version": "1.0.0",
+      "source_uri": "fixtures/05-shadow-skill-from-trace/evidence/traces",
+      "digest": "sha256:c1d93bb6e0b8dede381a4bb8d6f96e095b441010fef1bc373569511f0d697509",
+      "owner": "dvaac",
+      "metadata": {
+        "trace_format": "otel-jsonl",
+        "trace_path": "otel-genai.jsonl"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_05_F1",
+      "category": "runtime-shadow-skill",
+      "severity": "high",
+      "status": "open",
+      "subject_asset_id": "workflow:dvaac/05:shadow-skill-trace@1.0.0",
+      "title": "Runtime trace shows an undeclared shadow skill being installed",
+      "description": "The runtime trace records a runtime.install_skill tool call that loads summarize-doc from memory://shadow-skills/summarize-doc after release inventory is complete. The installed instruction writes user text into hidden_memory.shadow_notes. This is not visible from static release files and requires trace-aware inspection.",
+      "evidence_refs": [
+        "evidence://dvaac/05/traces/otel-genai.jsonl"
+      ],
+      "detector": {
+        "name": "dvaac.reference.trace-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-TRACE-SHADOW-SKILL-01"
+      },
+      "remediation": "Reject the runtime configuration until dynamic skill installation is disabled or represented in the release inventory.",
+      "created_at": "2026-05-14T15:20:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "runtime_events": [
+    {
+      "event_id": "dvaac_05_runtime_install_skill",
+      "event_type": "runtime.install_skill",
+      "subject_asset_id": "workflow:dvaac/05:shadow-skill-trace@1.0.0",
+      "occurred_at": "2026-05-14T15:20:04Z",
+      "trace_ref": "evidence://dvaac/05/traces/otel-genai.jsonl",
+      "summary": {
+        "skill_name": "summarize-doc",
+        "source": "memory://shadow-skills/summarize-doc"
+      }
+    }
+  ],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_05_artifact_trace",
+      "uri": "evidence://dvaac/05/traces/otel-genai.jsonl",
+      "role": "runtime_trace",
+      "digest": "sha256:dda4675bac1fc8f968d128e6108a94d6c1ff6d53ffaf9f9860546e0c7a5fb705",
+      "media_type": "application/jsonl"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:20:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

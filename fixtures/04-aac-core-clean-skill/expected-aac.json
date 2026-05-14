@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_04_aac_core_clean",
+  "created_at": "2026-05-14T15:15:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "core-format-text skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-04",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "pass",
+  "verdict_reasons": [
+    "no unresolved findings",
+    "portable aac.core structural baseline"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": [
+      "declared-skill-manifest"
+    ],
+    "scanned_refs": [
+      "skill/SKILL.md"
+    ],
+    "detector_runs": [],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/04:core-format-text@1.0.0",
+      "asset_type": "skill_bundle",
+      "name": "core-format-text",
+      "version": "1.0.0",
+      "source_uri": "fixtures/04-aac-core-clean-skill/skill",
+      "digest": "sha256:ea00d7f301965f51ad2cd3a27d67756c8e0861c2efc7ff0d91265a677a599499",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [],
+  "policy_decisions": [],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:15:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

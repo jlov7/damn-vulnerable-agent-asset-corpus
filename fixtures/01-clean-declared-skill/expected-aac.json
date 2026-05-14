@@ -1,0 +1,89 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_01_clean",
+  "created_at": "2026-05-14T15:00:00Z",
+  "profile": {
+    "profile_id": "runwright.skills.release",
+    "profile_version": "0.1.0",
+    "assurance_level": "basic"
+  },
+  "subject": {
+    "name": "format-text skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-01",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "pass",
+  "verdict_reasons": [
+    "no unresolved findings",
+    "all required detectors ran successfully"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": [
+      "declared-skill-manifest"
+    ],
+    "scanned_refs": [
+      "skill/SKILL.md"
+    ],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.skill-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": [
+          "skill-manifest-integrity",
+          "skill-secret-exposure",
+          "skill-executable-surface",
+          "skill-tool-scope"
+        ],
+        "status": "pass",
+        "required": true,
+        "evidence_ref": "evidence://dvaac/01/detectors/skill-static.json"
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/01:format-text@1.0.0",
+      "asset_type": "skill_bundle",
+      "name": "format-text",
+      "version": "1.0.0",
+      "source_uri": "fixtures/01-clean-declared-skill/skill",
+      "digest": "sha256:d413a1fed562d23a2cea9cf018785aa403439d477c8ca4897fee52f2ee161ab7",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [],
+  "policy_decisions": [],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_01_artifact_detector",
+      "uri": "evidence://dvaac/01/detectors/skill-static.json",
+      "role": "detector_output",
+      "digest": "sha256:9b6d4433b86f7c739222b9d6293040ba5348bc66b739f98af2a68d347ef7445a"
+    },
+    {
+      "artifact_id": "dvaac_01_artifact_aibom",
+      "uri": "evidence://dvaac/01/aibom.cdx.json",
+      "role": "aibom",
+      "digest": "sha256:164b3c7a1d34dc2b5bdb28ad1e76fb47f6b9bdff0fc5eaab8ef835e346f5d53b"
+    }
+  ],
+  "aibom_ref": "evidence://dvaac/01/aibom.cdx.json",
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:00:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.1/corpus.manifest.schema.json",
+  "title": "DVAAC corpus manifest",
+  "type": "object",
+  "required": [
+    "corpus_id",
+    "corpus_version",
+    "corpus_name",
+    "aac_compatibility",
+    "digest_binding",
+    "detector_classes",
+    "verdict_legend",
+    "fixtures",
+    "claiming_coverage"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "corpus_id": {
+      "const": "dvaac"
+    },
+    "corpus_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "corpus_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aac_compatibility": {
+      "type": "object",
+      "required": ["aac_version", "aac_schema_uri"],
+      "additionalProperties": false,
+      "properties": {
+        "aac_version": {
+          "const": "0.2-candidate.4"
+        },
+        "aac_schema_uri": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "digest_binding": {
+      "type": "object",
+      "required": [
+        "asset_digest",
+        "evidence_file_digest",
+        "file_excerpt_digest",
+        "policy_inputs_hash"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "asset_digest": {"type": "string"},
+        "evidence_file_digest": {"type": "string"},
+        "file_excerpt_digest": {"type": "string"},
+        "policy_inputs_hash": {"type": "string"}
+      }
+    },
+    "detector_classes": {
+      "type": "object",
+      "required": ["static-declared", "static-extended", "trace-aware"],
+      "additionalProperties": false,
+      "properties": {
+        "static-declared": {"type": "string"},
+        "static-extended": {"type": "string"},
+        "trace-aware": {"type": "string"}
+      }
+    },
+    "verdict_legend": {
+      "type": "object",
+      "required": ["pass", "hold", "fail"],
+      "additionalProperties": false,
+      "properties": {
+        "pass": {"type": "string"},
+        "hold": {"type": "string"},
+        "fail": {"type": "string"}
+      }
+    },
+    "fixtures": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/Fixture"
+      }
+    },
+    "claiming_coverage": {
+      "type": "object",
+      "required": ["rules"],
+      "additionalProperties": false,
+      "properties": {
+        "rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Fixture": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "expected_verdict",
+        "expected_finding_count",
+        "primary_threat_class",
+        "threat_surface",
+        "minimum_detector_class",
+        "expected_coverage",
+        "owasp_mapping",
+        "aac_profile",
+        "assurance_level"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "fixture_id": {
+          "type": "string",
+          "pattern": "^[0-9]{2}-[a-z0-9-]+$"
+        },
+        "expected_verdict": {
+          "enum": ["pass", "hold", "fail"]
+        },
+        "expected_finding_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "primary_threat_class": {
+          "type": "string"
+        },
+        "threat_surface": {
+          "type": "string"
+        },
+        "minimum_detector_class": {
+          "enum": ["static-declared", "static-extended", "trace-aware"]
+        },
+        "expected_coverage": {
+          "type": "object",
+          "required": ["static-declared", "static-extended", "trace-aware"],
+          "additionalProperties": false,
+          "properties": {
+            "static-declared": {"enum": ["pass", "catch", "miss"]},
+            "static-extended": {"enum": ["pass", "catch", "miss"]},
+            "trace-aware": {"enum": ["pass", "catch", "miss"]}
+          }
+        },
+        "owasp_mapping": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "aac_profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assurance_level": {
+          "enum": ["structural", "basic", "standard", "strict"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

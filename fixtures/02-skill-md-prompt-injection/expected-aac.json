@@ -1,0 +1,132 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_02_promptinj",
+  "created_at": "2026-05-14T15:05:00Z",
+  "profile": {
+    "profile_id": "runwright.skills.release",
+    "profile_version": "0.1.0",
+    "assurance_level": "basic"
+  },
+  "subject": {
+    "name": "url-fetch-helper skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-02",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "hold",
+  "verdict_reasons": [
+    "HIGH skill-prompt-injection finding unresolved",
+    "SKILL.md instructs agent to append API key to outbound URLs"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": [
+      "declared-skill-manifest"
+    ],
+    "scanned_refs": [
+      "skill/SKILL.md"
+    ],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.skill-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": [
+          "skill-manifest-integrity",
+          "skill-secret-exposure",
+          "skill-executable-surface",
+          "skill-tool-scope"
+        ],
+        "status": "findings_present",
+        "required": true,
+        "evidence_ref": "evidence://dvaac/02/detectors/skill-static.json"
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/02:url-fetch-helper@1.2.0",
+      "asset_type": "skill_bundle",
+      "name": "url-fetch-helper",
+      "version": "1.2.0",
+      "source_uri": "fixtures/02-skill-md-prompt-injection/skill",
+      "digest": "sha256:73093160e180edb700f5fe39074a7f109920623f0a2e87b1f2116ac38896141c",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_02_F1",
+      "category": "skill-prompt-injection",
+      "severity": "high",
+      "status": "open",
+      "subject_asset_id": "skill_bundle:dvaac/02:url-fetch-helper@1.2.0",
+      "title": "SKILL.md instructs the agent to append a secret to outbound URLs",
+      "description": "The SKILL.md 'Behaviour' section directs the agent to append the value of ANTHROPIC_API_KEY as a query parameter on every URL fetch. This is an instruction-layer exfiltration directive, detectable from the manifest alone.",
+      "evidence_refs": [
+        "evidence://dvaac/02/files/skill/SKILL.md#L20-L20"
+      ],
+      "detector": {
+        "name": "dvaac.reference.skill-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-SKILL-PROMPTINJ-01"
+      },
+      "remediation": "Remove the directive that appends ANTHROPIC_API_KEY to outbound URLs. Pin the skill to a version that does not contain the directive. Revoke any keys that may have been exfiltrated.",
+      "created_at": "2026-05-14T15:04:30Z"
+    }
+  ],
+  "policy_decisions": [
+    {
+      "policy_id": "dvaac/skills/no-secret-in-outbound-urls",
+      "policy_version": "0.1.0",
+      "outcome": "hold",
+      "inputs_hash": "sha256:24b5563e6bd0b8d6f10d9e112ba180b5b315d5f2f127a4384589157d6a479fa8"
+    }
+  ],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_02_artifact_detector",
+      "uri": "evidence://dvaac/02/detectors/skill-static.json",
+      "role": "detector_output",
+      "digest": "sha256:df9b6cd355bc8cb1449dd02c2a0dd35c90bb9b06438495e38a371b44d871ab76"
+    },
+    {
+      "artifact_id": "dvaac_02_artifact_source",
+      "uri": "evidence://dvaac/02/files/skill/SKILL.md#L20-L20",
+      "role": "file_excerpt",
+      "digest": "sha256:26e85f938753ea177a5d6b63351aa242d929a828799961e0b170cb8df6015898"
+    },
+    {
+      "artifact_id": "dvaac_02_artifact_aibom",
+      "uri": "evidence://dvaac/02/aibom.cdx.json",
+      "role": "aibom",
+      "digest": "sha256:e12ec5f427aff7359b49f5be651ad398715d7e771a996cad06e38da1bc32ca1f"
+    }
+  ],
+  "aibom_ref": "evidence://dvaac/02/aibom.cdx.json",
+  "compliance_mappings": [
+    {
+      "framework": "OWASP Agentic Skills Top 10",
+      "control": "AST01",
+      "evidence_refs": [
+        "evidence://dvaac/02/files/skill/SKILL.md#L20-L20"
+      ],
+      "notes": "Instruction-layer malicious skill directive."
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:05:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

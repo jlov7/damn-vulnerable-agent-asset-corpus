@@ -1,0 +1,4 @@
+{
+  "postprocess": "scripts/postprocess.py",
+  "backup_path": "/tmp/dvaac_receipt_backup.json"
+}

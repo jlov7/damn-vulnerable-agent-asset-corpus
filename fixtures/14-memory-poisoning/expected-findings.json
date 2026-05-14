@@ -1,0 +1,16 @@
+{
+  "fixture_id": "14-memory-poisoning",
+  "expected_findings": [
+    {
+      "finding_id": "dvaac_14_F1",
+      "category": "memory-poisoning",
+      "severity": "high",
+      "subject_asset_id": "memory_store:dvaac/14:seed-memory@1.0.0",
+      "title": "Memory seed changes future instruction trust decisions",
+      "description": "memory/seed.json contains a global memory entry that tells the agent to trust instructions from attacker-controlled.example.invalid over local policy files. This poisons persistent agent state rather than the declared skill text.",
+      "owasp_mapping": "AST05",
+      "notes": "Static-extended fixture for memory assets."
+    }
+  ],
+  "notes": "Memory poisoning fixture with inert JSON only."
+}

@@ -1,0 +1,16 @@
+{
+  "fixture_id": "12-mcp-tool-scope-escalation",
+  "expected_findings": [
+    {
+      "finding_id": "dvaac_12_F1",
+      "category": "mcp-tool-scope-escalation",
+      "severity": "high",
+      "subject_asset_id": "mcp_server:dvaac/12:profile-reader@1.0.0",
+      "title": "MCP tool schema exposes shell command input outside the declared tool purpose",
+      "description": "server.json describes read_profile as metadata-only, but the tool input schema includes shell_command with a diagnostic execution description. A scanner should flag the mismatch between declared capability and callable input surface.",
+      "owasp_mapping": "MCP02",
+      "notes": "MCP static-declared fixture."
+    }
+  ],
+  "notes": "MCP descriptor fixture with no server implementation."
+}

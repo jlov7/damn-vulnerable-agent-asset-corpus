@@ -1,0 +1,91 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_06_medium_scope",
+  "created_at": "2026-05-14T15:25:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "export-notes skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-06",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "pass",
+  "verdict_reasons": [
+    "medium finding does not block release under AAC v0.2 verdict semantics"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": ["declared-skill-manifest"],
+    "scanned_refs": ["skill/SKILL.md"],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.skill-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": ["skill-tool-scope"],
+        "status": "findings_present",
+        "required": false
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/06:export-notes@1.0.0",
+      "asset_type": "skill_bundle",
+      "name": "export-notes",
+      "version": "1.0.0",
+      "source_uri": "fixtures/06-medium-overbroad-tool-scope/skill",
+      "digest": "sha256:852ff3d16309293602c0de7a5b880d3af16bcaabb7ed2b5ea9786c9aef107e3b",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_06_F1",
+      "category": "skill-tool-scope",
+      "severity": "medium",
+      "status": "open",
+      "subject_asset_id": "skill_bundle:dvaac/06:export-notes@1.0.0",
+      "title": "Skill requests filesystem scope broader than its declared task needs",
+      "description": "SKILL.md says the task only writes under ./exports/ but requests read/write access to the entire user home directory. This is overbroad tool scope, but there is no malicious instruction or executable payload in the fixture.",
+      "evidence_refs": [
+        "evidence://dvaac/06/files/skill/SKILL.md#L13-L13"
+      ],
+      "detector": {
+        "name": "dvaac.reference.skill-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-SKILL-SCOPE-01"
+      },
+      "remediation": "Constrain filesystem access to ./exports/.",
+      "created_at": "2026-05-14T15:25:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_06_artifact_source",
+      "uri": "evidence://dvaac/06/files/skill/SKILL.md#L13-L13",
+      "role": "file_excerpt",
+      "digest": "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:25:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

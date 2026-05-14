@@ -1,0 +1,91 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_08_info_local_only",
+  "created_at": "2026-05-14T15:35:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "count-words skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-08",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "pass",
+  "verdict_reasons": [
+    "info finding does not block release under AAC v0.2 verdict semantics"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": ["declared-skill-manifest"],
+    "scanned_refs": ["skill/SKILL.md"],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.skill-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": ["detector-informational-note"],
+        "status": "findings_present",
+        "required": false
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/08:count-words@1.0.0",
+      "asset_type": "skill_bundle",
+      "name": "count-words",
+      "version": "1.0.0",
+      "source_uri": "fixtures/08-info-local-only-skill/skill",
+      "digest": "sha256:cff7f2d88d5988037bc21d11b99b1ea13e65453057f68cfb21c0185649daa46c",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_08_F1",
+      "category": "detector-informational-note",
+      "severity": "info",
+      "status": "open",
+      "subject_asset_id": "skill_bundle:dvaac/08:count-words@1.0.0",
+      "title": "Skill declares local-only operation",
+      "description": "SKILL.md states that no network access is required or allowed. This is an informational detector note, not a vulnerability.",
+      "evidence_refs": [
+        "evidence://dvaac/08/files/skill/SKILL.md#L7-L7"
+      ],
+      "detector": {
+        "name": "dvaac.reference.skill-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-SKILL-INFO-01"
+      },
+      "remediation": "No remediation required.",
+      "created_at": "2026-05-14T15:35:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_08_artifact_source",
+      "uri": "evidence://dvaac/08/files/skill/SKILL.md#L7-L7",
+      "role": "file_excerpt",
+      "digest": "sha256:19a2ea5187932aa3271016b7ec34ae553c8c1bd79ab37da8bea99aae5c396cc7"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:35:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "fixture_id": "03-hidden-test-payload",
+  "expected_findings": [
+    {
+      "finding_id": "dvaac_03_F1",
+      "category": "skill-developer-execution-surface",
+      "severity": "critical",
+      "subject_asset_id": "skill_bundle:dvaac/03:apply-config@2.0.0",
+      "title": "Bundled validation file dynamically exec()s a code block extracted from SKILL.md with local permissions",
+      "description": "tests/apply_payload_demo.py reads SKILL.md, extracts the first python fenced code block, and exec()s it during module import. DVAAC deliberately names the file outside pytest's default discovery pattern, but the file demonstrates the developer-execution-surface primitive: auxiliary bundle code can execute attacker-controlled content with local user permissions before any agentic release decision is made. The demonstration payload writes a marker file to /tmp/dvaac_hidden_test_payload.txt — deliberately a safe local sink rather than a network exfiltration — so the fixture proves the threat class without performing a real attack. In production, an attacker controlling the SKILL.md code block could substitute any payload: credential reads, network egress, persistence. The declared manifest and declared script are clean; the threat lives entirely in a file outside the declared execution surface.",
+      "owasp_mapping": "AST01",
+      "notes": "Static-declared scanners typically miss this because the malicious code is not on the declared executable surface."
+    }
+  ],
+  "notes": "This is the differentiating fixture. A scanner that handles fixture 02 but misses fixture 03 is only catching the easy class of skill threats."
+}

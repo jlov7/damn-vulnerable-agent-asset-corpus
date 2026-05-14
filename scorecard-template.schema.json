@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.1/scorecard-template.schema.json",
+  "title": "DVAAC Scorecard Template",
+  "type": "object",
+  "required": [
+    "corpus_id",
+    "corpus_version",
+    "scanner",
+    "detector_class_claimed",
+    "summary",
+    "per_fixture_results"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "corpus_id": {
+      "const": "dvaac"
+    },
+    "corpus_version": {
+      "type": "string",
+      "pattern": "^0\\.1\\.1$"
+    },
+    "scanner": {
+      "type": "object",
+      "required": ["name", "version", "vendor_or_project", "run_at"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "vendor_or_project": {
+          "type": "string"
+        },
+        "run_at": {
+          "type": "string"
+        }
+      }
+    },
+    "detector_class_claimed": {
+      "enum": ["static-declared", "static-extended", "trace-aware"]
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "fixtures_total",
+        "fixtures_passed",
+        "coverage_at_claimed_class"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "fixtures_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fixtures_passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_at_claimed_class": {
+          "type": "boolean"
+        }
+      }
+    },
+    "per_fixture_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fixture_id", "passed", "emitted_findings", "notes"],
+        "additionalProperties": false,
+        "properties": {
+          "fixture_id": {
+            "type": "string",
+            "pattern": "^[0-9]{2}-[a-z0-9-]+$"
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "emitted_findings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["finding_id", "category", "severity", "evidence"],
+              "additionalProperties": false,
+              "properties": {
+                "finding_id": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "severity": {
+                  "enum": ["critical", "high", "medium", "low", "info", ""]
+                },
+                "evidence": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

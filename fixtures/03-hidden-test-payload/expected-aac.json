@@ -1,0 +1,137 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_03_hiddenpayload",
+  "created_at": "2026-05-14T15:10:00Z",
+  "profile": {
+    "profile_id": "runwright.skills.release",
+    "profile_version": "0.1.0",
+    "assurance_level": "basic"
+  },
+  "subject": {
+    "name": "apply-config skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-03",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "fail",
+  "verdict_reasons": [
+    "CRITICAL skill-developer-execution-surface finding unresolved",
+    "Bundled validation file reads SKILL.md and exec()s extracted content with local permissions"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": [
+      "declared-skill-manifest",
+      "bundle-walk"
+    ],
+    "scanned_refs": [
+      "skill/SKILL.md",
+      "skill/scripts/apply.py",
+      "skill/tests/apply_payload_demo.py"
+    ],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.skill-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": [
+          "skill-manifest-integrity",
+          "skill-secret-exposure",
+          "skill-executable-surface",
+          "skill-tool-scope"
+        ],
+        "status": "findings_present",
+        "required": true,
+        "evidence_ref": "evidence://dvaac/03/detectors/skill-static.json"
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/03:apply-config@2.0.0",
+      "asset_type": "skill_bundle",
+      "name": "apply-config",
+      "version": "2.0.0",
+      "source_uri": "fixtures/03-hidden-test-payload/skill",
+      "digest": "sha256:3357505f5d92bb095cd4f66d4645848df4053fc91044d0f9bc006fd3b59eadf7",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md",
+        "bundled_scripts": ["scripts/apply.py"],
+        "bundled_test_files": ["tests/apply_payload_demo.py"]
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_03_F1",
+      "category": "skill-developer-execution-surface",
+      "severity": "critical",
+      "status": "open",
+      "subject_asset_id": "skill_bundle:dvaac/03:apply-config@2.0.0",
+      "title": "Bundled validation file dynamically exec()s a code block extracted from SKILL.md with local permissions",
+      "description": "tests/apply_payload_demo.py reads SKILL.md, extracts the first python fenced code block, and exec()s it during module import. DVAAC deliberately names the file outside pytest's default discovery pattern, but the file demonstrates the developer-execution-surface primitive: auxiliary bundle code can execute attacker-controlled content with local user permissions before any agentic release decision is made. The demonstration payload writes a marker file to /tmp/dvaac_hidden_test_payload.txt — deliberately a safe local sink rather than a network exfiltration — so the fixture proves the threat class without performing a real attack. In production, an attacker controlling the SKILL.md code block could substitute any payload: credential reads, network egress, persistence. The declared manifest and declared script are clean; the threat lives entirely in a file outside the declared execution surface.",
+      "evidence_refs": [
+        "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L37-L39"
+      ],
+      "detector": {
+        "name": "dvaac.reference.skill-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-SKILL-DEVEXEC-01"
+      },
+      "remediation": "Reject the skill bundle. Treat the bundle as malicious. Audit any developer machine on which the test suite has been executed.",
+      "created_at": "2026-05-14T15:09:30Z"
+    }
+  ],
+  "policy_decisions": [
+    {
+      "policy_id": "dvaac/skills/no-dynamic-exec-from-manifest",
+      "policy_version": "0.1.0",
+      "outcome": "deny",
+      "inputs_hash": "sha256:b520030e70f7eb817c2b7ffd1444dddc4ec6af8f7e9b4c107fe09d65b571297f"
+    }
+  ],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_03_artifact_detector",
+      "uri": "evidence://dvaac/03/detectors/skill-static.json",
+      "role": "detector_output",
+      "digest": "sha256:c71249aac7bc1ddd8934659b16eed3215d189d014990374b00eb6d3bf4c65436"
+    },
+    {
+      "artifact_id": "dvaac_03_artifact_source",
+      "uri": "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L37-L39",
+      "role": "file_excerpt",
+      "digest": "sha256:85723ef7d8803e1eb74706fe5feef154bfab8a950de8b52154f5cd764d9c2608"
+    },
+    {
+      "artifact_id": "dvaac_03_artifact_aibom",
+      "uri": "evidence://dvaac/03/aibom.cdx.json",
+      "role": "aibom",
+      "digest": "sha256:fc1addd8fec55d7bf3e537654464771da2526db6de4e8b13dcbc0ac26e5c153d"
+    }
+  ],
+  "aibom_ref": "evidence://dvaac/03/aibom.cdx.json",
+  "compliance_mappings": [
+    {
+      "framework": "OWASP Agentic Skills Top 10",
+      "control": "AST01",
+      "evidence_refs": [
+        "evidence://dvaac/03/files/skill/tests/apply_payload_demo.py#L37-L39"
+      ],
+      "notes": "Developer-execution-surface malicious skill variant."
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:10:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}

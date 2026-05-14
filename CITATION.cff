@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this corpus in research or in a security product comparison, please cite it."
+title: "Damn Vulnerable Agent Asset Corpus"
+abstract: >-
+  A compact, runnable benchmark of vulnerable and clean agentic AI release fixtures.
+  Each fixture ships with expected findings and an Agent Assurance Case (AAC v0.2)
+  template that the runner signs and verifies at conformance time. Intended as a
+  conformance corpus for agent-asset security tools. Fixture content and
+  documentation are CC BY 4.0; runner code and machine-readable schemas are
+  Apache 2.0.
+type: dataset
+authors:
+  - family-names: Lovell
+    given-names: Jason
+    alias: jlov7
+version: "0.1.1"
+date-released: "2026-05-14"
+license: CC-BY-4.0
+repository-code: "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus"
+keywords:
+  - agentic AI
+  - agent security
+  - skill security
+  - assurance case
+  - benchmark
+  - supply chain
+  - agent asset
+preferred-citation:
+  type: data
+  title: "Damn Vulnerable Agent Asset Corpus"
+  authors:
+    - family-names: Lovell
+      given-names: Jason
+  version: "0.1.1"
+  year: 2026
+  url: "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus"

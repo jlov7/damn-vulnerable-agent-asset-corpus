@@ -1,0 +1,105 @@
+{
+  "schema_version": "0.2",
+  "case_id": "case_dvaac_10_skill_drift",
+  "created_at": "2026-05-14T15:45:00Z",
+  "profile": {
+    "profile_id": "aac.core",
+    "profile_version": "0.2.0",
+    "assurance_level": "structural"
+  },
+  "subject": {
+    "name": "calendar-summarizer skill release",
+    "subject_type": "skill_bundle",
+    "release_ref": "dvaac-fixture-10",
+    "environment": "test",
+    "owner": "dvaac"
+  },
+  "verdict": "hold",
+  "verdict_reasons": [
+    "HIGH skill-drift finding unresolved"
+  ],
+  "coverage": {
+    "inventory_status": "complete",
+    "inventory_methods": ["bundle-walk"],
+    "scanned_refs": ["skill/SKILL.md", "skill/skill.lock.json", "skill/runtime_override.md"],
+    "detector_runs": [
+      {
+        "detector": {"name": "dvaac.reference.bundle-static", "version": "0.1.1"},
+        "scope": ["skill_bundle"],
+        "categories": ["skill-drift"],
+        "status": "findings_present",
+        "required": false
+      }
+    ],
+    "runtime_coverage": {"status": "none"}
+  },
+  "assets": [
+    {
+      "asset_id": "skill_bundle:dvaac/10:calendar-summarizer@1.0.0",
+      "asset_type": "skill_bundle",
+      "name": "calendar-summarizer",
+      "version": "1.0.0",
+      "source_uri": "fixtures/10-skill-drift/skill",
+      "digest": "sha256:9cb47504a7314c4812e9842fa8dcacf82c105d1a926bf25ae25151ff35a65290",
+      "owner": "dvaac",
+      "metadata": {
+        "skill_format": "anthropic",
+        "manifest_path": "SKILL.md"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "dvaac_10_F1",
+      "category": "skill-drift",
+      "severity": "high",
+      "status": "open",
+      "subject_asset_id": "skill_bundle:dvaac/10:calendar-summarizer@1.0.0",
+      "title": "Runtime override conflicts with the declared skill privacy boundary",
+      "description": "SKILL.md says not to include attendee email addresses, but skill.lock.json points at runtime_override.md, which tells the runtime to include attendee email addresses for debugging. The finding requires comparing declared and runtime-loaded instructions.",
+      "evidence_refs": [
+        "evidence://dvaac/10/files/skill/SKILL.md#L7-L9",
+        "evidence://dvaac/10/files/skill/skill.lock.json#L2-L3",
+        "evidence://dvaac/10/files/skill/runtime_override.md#L3-L3"
+      ],
+      "detector": {
+        "name": "dvaac.reference.bundle-static",
+        "version": "0.1.1",
+        "rule_id": "DVAAC-BUNDLE-DRIFT-01"
+      },
+      "remediation": "Remove the runtime override or make it match the declared privacy boundary.",
+      "created_at": "2026-05-14T15:45:30Z"
+    }
+  ],
+  "policy_decisions": [],
+  "evidence_artifacts": [
+    {
+      "artifact_id": "dvaac_10_artifact_manifest",
+      "uri": "evidence://dvaac/10/files/skill/SKILL.md#L7-L9",
+      "role": "file_excerpt",
+      "digest": "sha256:2a5b788bd8155d91b6f2cfc77a1dbf6855295413d3da7aaa9cd41eed08df5842"
+    },
+    {
+      "artifact_id": "dvaac_10_artifact_lock",
+      "uri": "evidence://dvaac/10/files/skill/skill.lock.json#L2-L3",
+      "role": "file_excerpt",
+      "digest": "sha256:6c6ceb29a217fa6c37dddb370add3e6b07145262e391c3e1df59bc4de01dd442"
+    },
+    {
+      "artifact_id": "dvaac_10_artifact_override",
+      "uri": "evidence://dvaac/10/files/skill/runtime_override.md#L3-L3",
+      "role": "file_excerpt",
+      "digest": "sha256:53cacff7ca4a08a5d4081a9497dcdccc8aa554bcbc4e4ccdcbb40268efd47c21"
+    }
+  ],
+  "evidence": {
+    "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "signature": "ed25519:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+    "signed_by": "urn:agent-assurance-case:demo-issuer",
+    "signed_at": "2026-05-14T15:45:00Z",
+    "key_id": "aac-demo-v0.2",
+    "signature_algorithm": "Ed25519-JCS-SHA256-v1",
+    "canonicalization": "RFC8785-JCS",
+    "offline_verifier": "python verifier/verify.py case.json --allow-demo-key"
+  }
+}
