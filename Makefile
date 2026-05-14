@@ -6,6 +6,7 @@ SIGNED_AAC_DIR ?= dist/signed-aac
 
 install:
 	$(PYTHON) -m pip install -r runner/requirements.txt
+	$(PYTHON) -m pip install -r runner/requirements-dev.txt
 
 verify:
 	PYTHONDONTWRITEBYTECODE=1 AAC_VERIFIER_PATH=$(AAC_VERIFIER_PATH) $(PYTHON) runner/verify_fixtures.py

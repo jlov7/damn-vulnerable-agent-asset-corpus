@@ -58,7 +58,7 @@
       "title": "Skill requests filesystem scope broader than its declared task needs",
       "description": "SKILL.md says the task only writes under ./exports/ but requests read/write access to the entire user home directory. This is overbroad tool scope, but there is no malicious instruction or executable payload in the fixture.",
       "evidence_refs": [
-        "evidence://dvaac/06/files/skill/SKILL.md#L13-L13"
+        "evidence://dvaac/06/files/skill/SKILL.md#L14-L14"
       ],
       "detector": {
         "name": "dvaac.reference.skill-static",
@@ -73,9 +73,9 @@
   "evidence_artifacts": [
     {
       "artifact_id": "dvaac_06_artifact_source",
-      "uri": "evidence://dvaac/06/files/skill/SKILL.md#L13-L13",
+      "uri": "evidence://dvaac/06/files/skill/SKILL.md#L14-L14",
       "role": "file_excerpt",
-      "digest": "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      "digest": "sha256:ab0598e70636f2777f6d1f501652409806afb8d5da936ef8d89a6b9a9da02aee"
     }
   ],
   "evidence": {

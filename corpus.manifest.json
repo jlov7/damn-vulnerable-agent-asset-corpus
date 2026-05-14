@@ -10,7 +10,7 @@
     "asset_digest": "sha256 over canonical JSON entries of every non-generated file under the local source_uri directory: path plus file sha256; symlinks are rejected",
     "evidence_file_digest": "sha256 over local files under fixtures/NN-name/evidence/",
     "file_excerpt_digest": "sha256 over the exact referenced lines joined by newline with one trailing newline",
-    "policy_inputs_hash": "sha256 over canonical JSON for the policy decision object with inputs_hash removed"
+    "policy_inputs_hash": "sha256 over AAC/JCS canonical JSON for the policy decision object with inputs_hash removed"
   },
   "detector_classes": {
     "static-declared": "Inspects only files declared as the skill or tool's instruction surface in the manifest.",

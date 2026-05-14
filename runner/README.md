@@ -76,7 +76,7 @@ The runner cannot prove that prose is semantically true. Threat descriptions, ev
 - Asset digests are SHA-256 hashes over canonical JSON entries of each file under the asset's `source_uri` directory: `{"path": "...", "sha256": "..."}`. Generated local cache files (`__pycache__/`, `.coverage`, `.mypy_cache/`, `.pyre/`, `.pytest_cache/`, `.pytype/`, `.ruff_cache/`, `.tox/`, `.venv/`, `*.pyc`, `*.pyo`, `.DS_Store`) are ignored.
 - Detector and AIBOM evidence digests are SHA-256 hashes of the local files under `fixtures/NN-name/evidence/`.
 - File-excerpt evidence digests are SHA-256 hashes over the exact referenced lines joined with `\n` plus one trailing `\n`.
-- Policy input hashes are SHA-256 hashes over canonical JSON for the policy decision object after removing `inputs_hash`.
+- Policy input hashes are SHA-256 hashes over AAC/JCS canonical JSON for the policy decision object after removing `inputs_hash`.
 
 ## Pinning to an AAC version
 

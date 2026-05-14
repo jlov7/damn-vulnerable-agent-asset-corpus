@@ -58,7 +58,7 @@
       "title": "Skill declares local-only operation",
       "description": "SKILL.md states that no network access is required or allowed. This is an informational detector note, not a vulnerability.",
       "evidence_refs": [
-        "evidence://dvaac/08/files/skill/SKILL.md#L7-L7"
+        "evidence://dvaac/08/files/skill/SKILL.md#L7-L9"
       ],
       "detector": {
         "name": "dvaac.reference.skill-static",
@@ -73,9 +73,9 @@
   "evidence_artifacts": [
     {
       "artifact_id": "dvaac_08_artifact_source",
-      "uri": "evidence://dvaac/08/files/skill/SKILL.md#L7-L7",
+      "uri": "evidence://dvaac/08/files/skill/SKILL.md#L7-L9",
       "role": "file_excerpt",
-      "digest": "sha256:19a2ea5187932aa3271016b7ec34ae553c8c1bd79ab37da8bea99aae5c396cc7"
+      "digest": "sha256:2a900372cdbdfbe0201111f4c1941fbf234a554c19b1b0f51b91e109d7658812"
     }
   ],
   "evidence": {

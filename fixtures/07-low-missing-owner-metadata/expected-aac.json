@@ -57,7 +57,7 @@
       "title": "Skill ownership metadata is unresolved",
       "description": "SKILL.md sets Maintainer to TBD. This weakens release accountability but does not create a direct execution or exfiltration path.",
       "evidence_refs": [
-        "evidence://dvaac/07/files/skill/SKILL.md#L7-L7"
+        "evidence://dvaac/07/files/skill/SKILL.md#L7-L9"
       ],
       "detector": {
         "name": "dvaac.reference.skill-static",
@@ -72,9 +72,9 @@
   "evidence_artifacts": [
     {
       "artifact_id": "dvaac_07_artifact_source",
-      "uri": "evidence://dvaac/07/files/skill/SKILL.md#L7-L7",
+      "uri": "evidence://dvaac/07/files/skill/SKILL.md#L7-L9",
       "role": "file_excerpt",
-      "digest": "sha256:7d978ca61d721596d9190dc83eaa3fd46eb2cf7ae27686127864634552dc1f0a"
+      "digest": "sha256:00be701daf94bd9a22272eb42c96d3f562a84eea9b0d1e74c5a7ba338e3e698c"
     }
   ],
   "evidence": {

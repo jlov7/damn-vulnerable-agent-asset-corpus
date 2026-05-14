@@ -19,6 +19,9 @@
 - Expanded the initial corpus to 16 fixtures, covering trace-aware shadow skills, medium/low/info severity calibration, cross-file bundle logic, skill drift, dynamic remote fetch, MCP scope escalation, allowed-tool exfiltration, memory poisoning, A2A delegation misuse, and accepted critical risk.
 - Changed DVAAC schema `$id` values to raw GitHub content URLs.
 - Clarified that demo-key signing is a conformance plumbing check, not an issuer-trust claim.
+- Pinned CI to AAC `v0.2-candidate.5` and added CI checks for committed JSON syntax and citation metadata.
+- Aligned runner policy input hash checks with the AAC/JCS canonicalizer.
+- Retargeted weak evidence line references in fixtures 06, 07, 08, and 13 to the exact source lines supporting each finding.
 
 ### Known limitations
 

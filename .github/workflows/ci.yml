@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: jlov7/agent-assurance-case
-          ref: v0.2-candidate.4
+          ref: v0.2-candidate.5
           path: agent-assurance-case
 
       - name: Set up Python
@@ -34,6 +34,17 @@ jobs:
 
       - name: Compile runner
         run: python -m py_compile dvaac/runner/verify_fixtures.py
+
+      - name: Validate committed JSON files
+        working-directory: dvaac
+        run: |
+          while IFS= read -r file; do
+            python -m json.tool "$file" >/dev/null
+          done < <(find . -path ./.git -prune -o -path ./dist -prune -o -name '*.json' -type f -print | sort)
+
+      - name: Validate citation metadata
+        working-directory: dvaac
+        run: cffconvert --validate --infile CITATION.cff
 
       - name: Run DVAAC fixture conformance gate
         env:

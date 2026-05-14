@@ -202,7 +202,7 @@ def load_aac_verifier(path: Path) -> Any:
 
 
 def validate_aac_verifier_api(module: Any, verifier_path: Path) -> None:
-    for name in ("_demo_keypair", "sign_case", "verify", "load_json_no_duplicates"):
+    for name in ("_demo_keypair", "sign_case", "verify", "load_json_no_duplicates", "canonicalize"):
         if not callable(getattr(module, name, None)):
             sys.stderr.write(f"AAC verifier missing required callable {name}: {verifier_path}\n")
             sys.exit(2)
@@ -720,14 +720,14 @@ def demo_evidence_consistent(aac: dict) -> list[str]:
     return errors
 
 
-def policy_inputs_consistent(aac: dict) -> list[str]:
+def policy_inputs_consistent(aac_module: Any, aac: dict) -> list[str]:
     errors: list[str] = []
     for decision in aac.get("policy_decisions", []) or []:
         if not isinstance(decision, dict):
             continue
         declared = decision.get("inputs_hash")
         payload = {k: v for k, v in decision.items() if k != "inputs_hash"}
-        computed = _sha256_bytes(_canonical_json_bytes(payload))
+        computed = _sha256_bytes(aac_module.canonicalize(payload))
         if declared != computed:
             errors.append(
                 f"policy inputs_hash mismatch for {decision.get('policy_id')}: "
@@ -799,7 +799,7 @@ def verify_fixture(
     errors = validate_expected_findings_doc(expected_findings_doc, fixture)
     errors += findings_consistent(expected_findings_doc, aac)
     errors += local_digests_consistent(fixture, aac)
-    errors += policy_inputs_consistent(aac)
+    errors += policy_inputs_consistent(aac_module, aac)
     errors += demo_evidence_consistent(aac)
     signed = sign_case_copy(aac_module, aac)
     errors += verify_signed_case(aac_module, signed, fixture.name)

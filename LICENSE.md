@@ -9,14 +9,14 @@ https://creativecommons.org/licenses/by/4.0/
 
 You may share and adapt this material for any purpose, including commercial, provided you give appropriate credit and indicate any changes.
 
-This includes every file under `fixtures/**`, including fixture test files. Those tests are dataset content, not runner test scaffolding.
+This includes `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, `TAXONOMY.md`, `docs/**`, `mappings/**`, `assets/**`, `.github/pull_request_template.md`, `corpus.manifest.json`, `scorecard-template.json`, and every file under `fixtures/**`, including fixture test files. Those tests are dataset content, not runner test scaffolding.
 
 ## Runner code and machine-readable schemas
 
 Licensed under **Apache License 2.0**.
 https://www.apache.org/licenses/LICENSE-2.0
 
-This includes `runner/**`, `Makefile`, `corpus.manifest.schema.json`, `scorecard-template.schema.json`, and future tests for the runner itself.
+This includes `runner/**`, `Makefile`, `conftest.py`, `pytest.ini`, `.github/workflows/**`, `corpus.manifest.schema.json`, `scorecard-template.schema.json`, and future tests for the runner itself.
 
 ## What "attribution" means in practice
 
