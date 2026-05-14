@@ -43,19 +43,38 @@ Attach:
 - `SHA256SUMS`, covering the release manifest plus signed AACs, `corpus.manifest.json`, `scorecard-template.json`, and runner schemas;
 - release notes summarizing fixture count, AAC compatibility, and known limits.
 
+## Private Draft Release
+
+Before making the repository public, it is safe to create a GitHub *draft* release and upload artifacts. Do not publish the release while the repository is private. A draft release lets maintainers review the release page and attached artifacts before the public Zenodo flow starts.
+
+Use:
+
+```bash
+gh release create vX.Y.Z \
+  --repo jlov7/damn-vulnerable-agent-asset-corpus \
+  --target main \
+  --title "DVAAC vX.Y.Z" \
+  --notes-file docs/releases/vX.Y.Z.md \
+  --draft \
+  dist/signed-aac-vX.Y.Z.tar.gz \
+  dist/signed-aac/RELEASE-MANIFEST.json \
+  dist/signed-aac/SHA256SUMS
+```
+
 ## Zenodo
 
-Zenodo's GitHub integration requires the repository to be public. Keep the repository private for review, then switch it to public immediately before enabling/refreshing the Zenodo GitHub integration and creating the GitHub release.
+Zenodo's GitHub integration requires the repository to be public. Keep the repository private for review, then switch it to public immediately before enabling/refreshing the Zenodo GitHub integration and publishing the GitHub release.
 
 Recommended order:
 
 1. Confirm `main` is green in GitHub Actions.
 2. Generate release artifacts with `make write-signed`.
-3. Switch the GitHub repository from private to public.
-4. In Zenodo, sync GitHub repositories and enable this repository.
-5. Create the GitHub release for the exact tag.
-6. Wait for Zenodo to archive the release and mint the release DOI.
-7. Update citation text in the next patch commit if needed.
+3. Create or update a private GitHub draft release with the release artifacts attached.
+4. Switch the GitHub repository from private to public.
+5. In Zenodo, sync GitHub repositories and enable this repository.
+6. Publish the GitHub draft release for the exact tag.
+7. Wait for Zenodo to archive the release and mint the release DOI.
+8. Update citation text in the next patch commit if needed.
 
 After the GitHub release is final and archived, update:
 
