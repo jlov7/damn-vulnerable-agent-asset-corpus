@@ -7,6 +7,7 @@ import argparse
 import base64
 import hashlib
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -34,16 +35,26 @@ def load_json(path: Path) -> dict[str, Any]:
 
 
 def release_label(path: Path, signed_dir: Path) -> str:
-    if path.parent == signed_dir:
-        return path.name
-    return path.relative_to(ROOT).as_posix()
+    return path.relative_to(signed_dir).as_posix()
+
+
+def copy_release_metadata(signed_dir: Path) -> list[Path]:
+    copied: list[Path] = []
+    metadata_dir = signed_dir / "release-metadata"
+    for rel in STATIC_RELEASE_FILES:
+        src = ROOT / rel
+        dest = metadata_dir / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dest)
+        copied.append(dest)
+    return copied
 
 
 def release_files(signed_dir: Path) -> list[Path]:
     signed_cases = sorted(signed_dir.glob("*-signed-aac.json"))
     if not signed_cases:
         raise SystemExit(f"no signed AAC artifacts found in {signed_dir}")
-    return [ROOT / rel for rel in STATIC_RELEASE_FILES] + signed_cases
+    return copy_release_metadata(signed_dir) + signed_cases
 
 
 def write_sha256sums(signed_dir: Path, paths: list[Path]) -> None:
