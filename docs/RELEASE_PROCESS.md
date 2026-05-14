@@ -45,7 +45,19 @@ Attach:
 
 ## Zenodo
 
-After the GitHub release is final, archive the release on Zenodo and update:
+Zenodo's GitHub integration requires the repository to be public. Keep the repository private for review, then switch it to public immediately before enabling/refreshing the Zenodo GitHub integration and creating the GitHub release.
+
+Recommended order:
+
+1. Confirm `main` is green in GitHub Actions.
+2. Generate release artifacts with `make write-signed`.
+3. Switch the GitHub repository from private to public.
+4. In Zenodo, sync GitHub repositories and enable this repository.
+5. Create the GitHub release for the exact tag.
+6. Wait for Zenodo to archive the release and mint the release DOI.
+7. Update citation text in the next patch commit if needed.
+
+After the GitHub release is final and archived, update:
 
 - `CITATION.cff` if a DOI is assigned before tagging;
 - README citation text in the next patch release if the DOI is assigned after tagging.
