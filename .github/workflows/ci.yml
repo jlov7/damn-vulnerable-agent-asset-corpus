@@ -4,30 +4,33 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   conformance:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Checkout DVAAC
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: dvaac
 
       - name: Checkout AAC reference verifier
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: jlov7/agent-assurance-case
           ref: 1fd8f644f55195b5dc90a81896b1bbdec3d9daee
           path: agent-assurance-case
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v8
 
       - name: Install runner dependencies
         run: |
