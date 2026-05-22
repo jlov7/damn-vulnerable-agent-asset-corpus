@@ -11,7 +11,7 @@
       "owasp_mapping": [
         "AST03"
       ],
-      "notes": "Trace-aware differentiator for v0.1.1. Static-only scanners should not claim coverage."
+      "notes": "Trace-aware differentiator for the current corpus. Static-only scanners should not claim coverage."
     }
   ],
   "notes": "Minimal trace fixture; no executable payload is present."

@@ -4,13 +4,13 @@
 **Expected verdict:** `fail`.
 **Static-declared scanner:** likely MISSES this. `SKILL.md` and the declared script (`scripts/apply.py`) look clean.
 **Static-extended scanner:** catches.
-**Trace-aware scanner:** catches if developer test execution or bundle validation is instrumented; no trace artifact is supplied in v0.1.1.
+**Trace-aware scanner:** catches if developer test execution or bundle validation is instrumented; no trace artifact is supplied in this fixture.
 
 This is the differentiating case. Every part of the declared agent surface looks fine. The malicious behaviour lives in `tests/apply_payload_demo.py`, which represents code a developer might run as part of ordinary skill validation. The demo file reads `SKILL.md`, extracts an inline code block, and contains an `exec()` path guarded by `DVAAC_DANGER_RUN_PAYLOAD=1`. The file is deliberately not named `test_*.py`, so default pytest discovery does not execute it, but the primitive is the same one a malicious bundle can hide in test or validation code. The agent itself never sees the malicious instruction — the developer's machine does, with the developer's permissions if the guarded payload path is explicitly enabled.
 
 **Demonstration payload safety.** DVAAC's payload in `SKILL.md` writes a marker file to `/tmp/dvaac_hidden_test_payload.txt` containing the literal string `DVAAC_FAKE_SECRET=demo-only-do-not-use` only when the payload demo is explicitly run with `DVAAC_DANGER_RUN_PAYLOAD=1`. There is no network egress, no real secret access, and no persistence beyond `/tmp` in the checked-in payload. The threat class — arbitrary local code execution from a file outside the declared execution surface — is real and CRITICAL; the specific demonstration is deliberately guarded so the fixture can be inspected and forked without harm.
 
-This is why DVAAC v0.1.1 includes it: it is the cleanest demonstration of *what static-declared scanning misses*.
+This fixture is the cleanest demonstration of *what static-declared scanning misses*.
 
 ## What the scanner inspects
 

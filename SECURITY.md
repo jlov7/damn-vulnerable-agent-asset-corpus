@@ -24,7 +24,7 @@ The runner never imports, exec's, or otherwise runs code from `fixtures/NN-name/
 - **Do not run** `python fixtures/NN-name/skill/scripts/*.py` outside a disposable sandbox.
 - **Do not** copy fixture skills into a real Claude, Codex, Cursor, or other agent runtime.
 
-The checked-in payloads in v0.1.1 are deliberately safe — non-network, no real secrets, local-only — and future payloads must stay within the same safety envelope. If a fork changes fixture payload text, those safety properties must be re-reviewed; DVAAC is inspectable source, not a sandbox. Treat the entire `fixtures/*/` tree as untrusted.
+The checked-in payloads in the current corpus are deliberately safe — non-network, no real secrets, local-only — and future payloads must stay within the same safety envelope. If a fork changes fixture payload text, those safety properties must be re-reviewed; DVAAC is inspectable source, not a sandbox. Treat the entire `fixtures/*/` tree as untrusted.
 
 ## What DVAAC payloads are allowed to do
 

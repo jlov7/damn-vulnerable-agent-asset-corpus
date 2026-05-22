@@ -4,7 +4,7 @@
 **Expected verdict:** `pass`.
 **Static-declared scanner:** correctly emits no findings.
 **Static-extended scanner:** correctly emits no findings.
-**Trace-aware scanner:** no trace artifact is supplied in v0.1.1.
+**Trace-aware scanner:** no trace artifact is supplied in this fixture.
 
 This fixture is the portable AAC baseline. It is intentionally similar to fixture 01, but its expected AAC declares the profile-agnostic `aac.core` profile instead of `runwright.skills.release`.
 
