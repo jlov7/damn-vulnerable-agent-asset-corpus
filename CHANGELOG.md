@@ -1,5 +1,18 @@
 # DVAAC Changelog
 
+## v0.1.3 — 2026-05-22 — Signed provenance refresh
+
+### Fixed
+
+- Publishes a signed replacement release from current `main` so release provenance no longer depends on the older lightweight `v0.1.2` tag.
+- Pins DVAAC to AAC `v0.2-candidate.6` at commit `a51c7bd4a2de326333b149ad321785a276376cfa`.
+- Aligns citation and independence metadata with the maintainer's ORCID identity.
+- Keeps fixture semantics unchanged from `v0.1.2`; this is a provenance, metadata, and compatibility-pin release.
+
+### DOI
+
+- Zenodo DOI pending until the signed GitHub Release is archived.
+
 ## v0.1.2 — 2026-05-14 — Public packaging cleanup
 
 ### Fixed

@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v6.0.2
         with:
           repository: jlov7/agent-assurance-case
-          ref: 1fd8f644f55195b5dc90a81896b1bbdec3d9daee
+          ref: a51c7bd4a2de326333b149ad321785a276376cfa
           path: agent-assurance-case
 
       - name: Set up Python
