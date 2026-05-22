@@ -1,6 +1,7 @@
+---
 name: dvaac-conformance
 
-on:
+"on":
   push:
   pull_request:
 
@@ -38,29 +39,50 @@ jobs:
           uv pip install --system -r dvaac/runner/requirements-dev.txt
 
       - name: Compile runner
-        run: python -m py_compile dvaac/runner/verify_fixtures.py dvaac/runner/write_release_manifest.py
+        run: |
+          python -m py_compile \
+            dvaac/runner/verify_fixtures.py \
+            dvaac/runner/write_release_manifest.py
 
       - name: Validate committed JSON files
         working-directory: dvaac
         run: |
           while IFS= read -r file; do
             python -m json.tool "$file" >/dev/null
-          done < <(find . -path ./.git -prune -o -path ./dist -prune -o -name '*.json' -type f -print | sort)
+          done < <(
+            find . \
+              -path ./.git -prune -o \
+              -path ./dist -prune -o \
+              -name '*.json' \
+              -type f \
+              -print | sort
+          )
 
       - name: Validate citation metadata
         working-directory: dvaac
-        run: uvx --from cffconvert cffconvert --validate --infile CITATION.cff
+        run: |
+          uvx --from cffconvert cffconvert \
+            --validate \
+            --infile CITATION.cff
 
       - name: Run DVAAC fixture conformance gate
         env:
-          AAC_VERIFIER_PATH: ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
+          AAC_VERIFIER_PATH: >-
+            ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
         run: python dvaac/runner/verify_fixtures.py
 
       - name: Verify signed AAC emission
         working-directory: dvaac
         run: |
           make write-signed
-          test "$(find dist/signed-aac -type f -name '*-signed-aac.json' | wc -l | tr -d ' ')" = "16"
+          signed_count="$(
+            find dist/signed-aac \
+              -type f \
+              -name '*-signed-aac.json' |
+              wc -l |
+              tr -d ' '
+          )"
+          test "$signed_count" = "16"
           test -f dist/signed-aac/RELEASE-MANIFEST.json
           test "$(wc -l < dist/signed-aac/SHA256SUMS | tr -d ' ')" = "22"
           python - <<'PY'
@@ -72,8 +94,14 @@ jobs:
           sys.path.insert(0, "runner")
           import verify_fixtures
 
-          aac_module = verify_fixtures.load_aac_verifier(Path("../agent-assurance-case/verifier/verify.py"))
-          manifest = json.loads(Path("dist/signed-aac/RELEASE-MANIFEST.json").read_text(encoding="utf-8"))
+          aac_module = verify_fixtures.load_aac_verifier(
+              Path("../agent-assurance-case/verifier/verify.py")
+          )
+          manifest = json.loads(
+              Path("dist/signed-aac/RELEASE-MANIFEST.json").read_text(
+                  encoding="utf-8"
+              )
+          )
           signature = manifest.pop("signature")
           _, public_key = aac_module._demo_keypair()
           public_key.verify(
@@ -92,16 +120,27 @@ jobs:
       - name: Block pytest-discoverable fixture payload names
         working-directory: dvaac
         run: |
-          matches="$(find fixtures -type f \( -name 'test_*.py' -o -name '*_test.py' -o -name 'conftest.py' \) -print)"
+          matches="$(
+            find fixtures \
+              -type f \
+              \( \
+                -name 'test_*.py' -o \
+                -name '*_test.py' -o \
+                -name 'conftest.py' \
+              \) \
+              -print
+          )"
           test -z "$matches" || { echo "$matches"; exit 1; }
 
       - name: Negative test evidence tamper detection
         env:
-          AAC_VERIFIER_PATH: ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
+          AAC_VERIFIER_PATH: >-
+            ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
         run: |
           tmp="$(mktemp -d)"
           cp -R dvaac "$tmp/dvaac"
-          printf '\ncorruption\n' >> "$tmp/dvaac/fixtures/05-shadow-skill-from-trace/evidence/traces/otel-genai.jsonl"
+          printf '\ncorruption\n' >> \
+            "$tmp/dvaac/fixtures/05-shadow-skill-from-trace/evidence/traces/otel-genai.jsonl"
           set +e
           python "$tmp/dvaac/runner/verify_fixtures.py" > "$tmp/out.txt" 2>&1
           rc=$?
@@ -111,11 +150,13 @@ jobs:
 
       - name: Negative test fixture symlink rejection
         env:
-          AAC_VERIFIER_PATH: ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
+          AAC_VERIFIER_PATH: >-
+            ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
         run: |
           tmp="$(mktemp -d)"
           cp -R dvaac "$tmp/dvaac"
-          ln -s /tmp "$tmp/dvaac/fixtures/01-clean-declared-skill/skill/symlink-dir"
+          ln -s /tmp \
+            "$tmp/dvaac/fixtures/01-clean-declared-skill/skill/symlink-dir"
           set +e
           python "$tmp/dvaac/runner/verify_fixtures.py" > "$tmp/out.txt" 2>&1
           rc=$?
