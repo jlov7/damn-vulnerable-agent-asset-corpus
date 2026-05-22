@@ -177,7 +177,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full fixture acceptance checklist
 
 See [CITATION.cff](CITATION.cff). Cite the archived release:
 
-> Lovell, J. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.2.* Zenodo. https://doi.org/10.5281/zenodo.20187301.
+> Lovell, J. M. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.2.* Zenodo. https://doi.org/10.5281/zenodo.20187301.
 
 The superseded `v0.1.1` archive remains available at <https://doi.org/10.5281/zenodo.20186918>.
 
@@ -192,4 +192,4 @@ See [LICENSE.md](LICENSE.md).
 
 ## Independence Notice
 
-This is personal, independent work by Jason Lovell. It is not authored, sponsored, endorsed, or reviewed by, and does not represent the views of, any employer, client, standards body, or affiliated organization.
+This is personal, independent work by Jason Mark Lovell. It is not authored, sponsored, endorsed, or reviewed by, and does not represent the views of, any employer, client, standards body, or affiliated organization.

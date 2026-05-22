@@ -11,8 +11,9 @@ abstract: >-
 type: dataset
 authors:
   - family-names: Lovell
-    given-names: Jason
+    given-names: Jason Mark
     alias: jlov7
+    orcid: "https://orcid.org/0009-0001-6300-9155"
 version: "0.1.2"
 doi: 10.5281/zenodo.20187301
 date-released: "2026-05-14"
@@ -31,7 +32,8 @@ preferred-citation:
   title: "Damn Vulnerable Agent Asset Corpus"
   authors:
     - family-names: Lovell
-      given-names: Jason
+      given-names: Jason Mark
+      orcid: "https://orcid.org/0009-0001-6300-9155"
   version: "0.1.2"
   doi: 10.5281/zenodo.20187301
   year: 2026
