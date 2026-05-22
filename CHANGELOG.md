@@ -11,7 +11,7 @@
 
 ### DOI
 
-- Zenodo DOI pending until the signed GitHub Release is archived.
+- Zenodo DOI: <https://doi.org/10.5281/zenodo.20345025>.
 
 ## v0.1.2 — 2026-05-14 — Public packaging cleanup
 
