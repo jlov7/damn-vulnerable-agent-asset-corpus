@@ -140,7 +140,7 @@ This writes `dist/signed-aac/*.json`, `dist/signed-aac/RELEASE-MANIFEST.json`, a
 
 DVAAC does not award partial credit. A fixture is covered only when the expected category, severity, and evidence are represented accurately enough for a reviewer to recognize the same finding.
 
-For third-party scanner submissions and critique boundaries, see [External Validation](docs/EXTERNAL_VALIDATION.md).
+For third-party scanner submissions and critique boundaries, see [External Validation](docs/EXTERNAL_VALIDATION.md) and the current [DVAAC v0.1.3 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
 
 ## Safety
 
@@ -175,6 +175,8 @@ SECURITY.md                safe inspection rules
 Fixture contributions are welcome after publication, but they must preserve DVAAC’s safety envelope: no network activity, no real secret access, no destructive behavior, no persistence, no subprocess spawning, and no symlinks under `fixtures/**`.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full fixture acceptance checklist.
+
+Scanner results and corpus-level critique should go to the current [public validation thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
 
 ## Citation
 

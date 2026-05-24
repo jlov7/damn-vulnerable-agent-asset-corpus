@@ -92,4 +92,4 @@ Good critiques are specific enough to become a fixture, test, schema change, or 
 - a fixture should move between `static-declared`, `static-extended`, and `trace-aware`;
 - a missing threat class should be added as a new fixture.
 
-Security-sensitive runner issues should be reported privately according to `SECURITY.md`. Ordinary benchmark critique and scanner results can be opened with the [scanner result issue form](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/new?template=scanner-result.yml) or as public pull requests.
+The current public thread is [Call for scanner results and corpus critique for DVAAC v0.1.3](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1). Security-sensitive runner issues should be reported privately according to `SECURITY.md`. Focused scanner results can use the [scanner result issue form](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/new?template=scanner-result.yml), and corpus changes can be opened as public pull requests.
