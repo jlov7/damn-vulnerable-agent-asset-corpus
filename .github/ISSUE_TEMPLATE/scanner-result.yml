@@ -1,0 +1,79 @@
+---
+name: Scanner result
+description: Submit a DVAAC scanner result or external validation report.
+title: "[scanner-result] "
+labels:
+  - scanner-result
+body:
+  - type: input
+    id: scanner
+    attributes:
+      label: Scanner
+      description: Scanner or tool name.
+    validations:
+      required: true
+  - type: input
+    id: scanner_version
+    attributes:
+      label: Scanner version or commit
+      description: Include a release URL or commit SHA when available.
+    validations:
+      required: true
+  - type: dropdown
+    id: detector_class
+    attributes:
+      label: Claimed detector class
+      options:
+        - static-declared
+        - static-extended
+        - trace-aware
+        - no detector-class claim
+    validations:
+      required: true
+  - type: input
+    id: dvaac_target
+    attributes:
+      label: DVAAC target
+      description: Use v0.1.3 or a full commit SHA.
+      placeholder: v0.1.3
+    validations:
+      required: true
+  - type: input
+    id: aac_target
+    attributes:
+      label: AAC verifier target
+      description: Use v0.2-candidate.6, commit a51c7bd4..., or "not used".
+      placeholder: v0.2-candidate.6
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and environment
+      description: Include OS, runtime, scanner command, and relevant config.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: scorecard
+    attributes:
+      label: Scorecard or per-fixture result
+      description: Paste scorecard-template.json output or link to a public artifact.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: misses
+    attributes:
+      label: Misses, false positives, or unsupported fixtures
+      description: List any failed fixtures and the reason.
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: Claim wording
+      description: State the exact public claim this result supports.
+      placeholder: This scanner covers the DVAAC v0.1.3 fixtures for static-declared detection.
+    validations:
+      required: true

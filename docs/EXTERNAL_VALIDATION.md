@@ -92,4 +92,4 @@ Good critiques are specific enough to become a fixture, test, schema change, or 
 - a fixture should move between `static-declared`, `static-extended`, and `trace-aware`;
 - a missing threat class should be added as a new fixture.
 
-Security-sensitive runner issues should be reported privately according to `SECURITY.md`. Ordinary benchmark critique and scanner results can be opened as public GitHub issues or pull requests.
+Security-sensitive runner issues should be reported privately according to `SECURITY.md`. Ordinary benchmark critique and scanner results can be opened with the [scanner result issue form](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/new?template=scanner-result.yml) or as public pull requests.
