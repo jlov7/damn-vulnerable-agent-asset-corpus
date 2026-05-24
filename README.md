@@ -13,7 +13,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20345025.svg)](https://doi.org/10.5281/zenodo.20345025)
 ![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
 
-[Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [Security policy](SECURITY.md)
+[Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [External validation](docs/EXTERNAL_VALIDATION.md) · [Security policy](SECURITY.md)
 
 </div>
 
@@ -140,6 +140,8 @@ This writes `dist/signed-aac/*.json`, `dist/signed-aac/RELEASE-MANIFEST.json`, a
 
 DVAAC does not award partial credit. A fixture is covered only when the expected category, severity, and evidence are represented accurately enough for a reviewer to recognize the same finding.
 
+For third-party scanner submissions and critique boundaries, see [External Validation](docs/EXTERNAL_VALIDATION.md).
+
 ## Safety
 
 DVAAC fixtures are intentionally vulnerable. Do not execute fixture payloads. The conformance runner does not import or execute fixture code. Read [SECURITY.md](SECURITY.md) before running anything beyond the documented verification commands.
@@ -159,6 +161,7 @@ These mappings are informative. They are not endorsements by OWASP, CSA, NIST, o
 ```text
 fixtures/                  vulnerable and clean benchmark fixtures
 mappings/                  informative mappings to external taxonomies
+docs/                      evaluation, validation, and release-process notes
 runner/                    conformance runner and runner schemas
 .github/workflows/ci.yml   corpus conformance CI
 corpus.manifest.json       machine-readable corpus index
