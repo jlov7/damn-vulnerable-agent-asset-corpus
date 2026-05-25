@@ -2,6 +2,17 @@
 
 This document is the publication checklist for a DVAAC release.
 
+## Current Repository State
+
+This repository is already public. Future releases should preserve the current provenance bar:
+
+- changes land through protected pull requests;
+- required checks pass on the exact `main` SHA: `conformance`, CodeQL `Analyze Python`, and `Verify DVAAC release fingerprint`;
+- release tags are signed annotated tags and are never moved;
+- GitHub Releases are created from existing tags with `gh release create --verify-tag`;
+- release assets are attached before publication and verified again after publication;
+- DOI metadata is added only after Zenodo archives the GitHub Release.
+
 ## Pre-Release Gates
 
 Run from the repository root:
@@ -20,6 +31,12 @@ Then validate citation metadata:
 
 ```bash
 uvx --from cffconvert cffconvert --validate --infile CITATION.cff
+```
+
+After any release-fingerprint tooling or release-fingerprint documentation update, run:
+
+```bash
+python3 scripts/verify_release_fingerprints.py
 ```
 
 ## Required Review Evidence
@@ -44,19 +61,22 @@ Attach:
 - `SHA256SUMS`, covering the release manifest plus signed AACs, `corpus.manifest.json`, `scorecard-template.json`, and runner schemas;
 - release notes summarizing fixture count, AAC compatibility, and known limits.
 
-## Private Draft Release
+## Signed Tag And GitHub Release
 
-Before making the repository public, it is safe to create a GitHub *draft* release and upload artifacts. Do not publish the release while the repository is private. A draft release lets maintainers review the release page and attached artifacts before the public Zenodo flow starts.
+Create a signed annotated tag for the exact checked commit and push that tag. Do not move old tags; supersede them with a new patch, minor, or major version.
+
+Create the GitHub Release from the existing tag with `--verify-tag` so `gh` cannot create an unsigned tag implicitly.
 
 Use:
 
 ```bash
+git tag -s vX.Y.Z <release-commit-sha> -m "DVAAC vX.Y.Z"
+git push origin vX.Y.Z
 gh release create vX.Y.Z \
   --repo jlov7/damn-vulnerable-agent-asset-corpus \
-  --target main \
+  --verify-tag \
   --title "DVAAC vX.Y.Z" \
   --notes-file docs/releases/vX.Y.Z.md \
-  --draft \
   dist/signed-aac-vX.Y.Z.tar.gz \
   dist/signed-aac-vX.Y.Z.tar.gz.sha256 \
   dist/signed-aac/RELEASE-MANIFEST.json \
@@ -65,23 +85,25 @@ gh release create vX.Y.Z \
 
 ## Zenodo
 
-Zenodo's GitHub integration requires the repository to be public. Keep the repository private for review, then switch it to public immediately before enabling/refreshing the Zenodo GitHub integration and publishing the GitHub release.
+Zenodo archives a GitHub Release after the repository is public and the Zenodo GitHub integration is enabled.
 
 Recommended order:
 
 1. Confirm `main` is green in GitHub Actions.
 2. Generate release artifacts with `make write-signed`.
-3. Create or update a private GitHub draft release with the release artifacts attached.
-4. Switch the GitHub repository from private to public.
-5. In Zenodo, sync GitHub repositories and enable this repository.
-6. Publish the GitHub draft release for the exact tag.
-7. Wait for Zenodo to archive the release and mint the release DOI.
-8. Update citation text in the next patch commit if needed.
+3. Create and push the signed release tag for the exact checked commit.
+4. Publish the GitHub Release from the existing signed tag with `--verify-tag`.
+5. Wait for Zenodo to archive the release and mint the release DOI.
+6. Update citation text, release-fingerprint docs, and repository metadata in the next patch commit if needed.
 
 After the GitHub release is final and archived, update:
 
 - `CITATION.cff` if a DOI is assigned before tagging;
 - README citation text in the next patch release if the DOI is assigned after tagging.
+
+## Initial Private Publication Only
+
+The original private-to-public choreography is only relevant for a first public release of a private repository: prepare a draft release privately, make the repository public, enable Zenodo, then publish the release. Do not apply that sequence to this repository's normal future releases now that the repository is already public.
 
 ## Versioning
 
