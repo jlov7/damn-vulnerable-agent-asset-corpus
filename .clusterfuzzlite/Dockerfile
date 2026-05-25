@@ -4,8 +4,6 @@ COPY . $SRC/damn-vulnerable-agent-asset-corpus
 COPY .clusterfuzzlite/build.sh $SRC/build.sh
 WORKDIR $SRC/damn-vulnerable-agent-asset-corpus
 
-RUN pip3 install --no-cache-dir \
-    -r runner/requirements.txt \
-    atheris==3.0.0 \
-    pyinstaller==6.10.0 \
+RUN pip3 install --no-cache-dir --require-hashes \
+    -r .clusterfuzzlite/requirements.txt \
     && chmod +x "$SRC/build.sh"
