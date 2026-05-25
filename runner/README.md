@@ -14,6 +14,9 @@ A scanner author should:
 4. Preserve the local digest-binding rules if they reuse DVAAC evidence artifacts.
 5. Publish scanner results using `scorecard-template.json`.
 
+For the end-to-end scanner-author path, see
+[`docs/SCANNER_INTEGRATION_GUIDE.md`](../docs/SCANNER_INTEGRATION_GUIDE.md).
+
 ## Locating the AAC verifier
 
 The runner needs to import the AAC reference verifier (`verify.py`). It looks for it in this order:

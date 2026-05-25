@@ -4,6 +4,8 @@ This guide defines how to fill `scorecard-template.json` for a scanner result su
 
 Validation proves structure and internal consistency. It does not prove that a scanner's evidence is semantically correct; maintainers and reviewers still inspect the submitted evidence.
 
+For an end-to-end scanner-author workflow, see [Scanner Integration Guide](SCANNER_INTEGRATION_GUIDE.md).
+
 ## Validate Before Submitting
 
 From a current `main` checkout of this repository, after installing the runner dependencies:
