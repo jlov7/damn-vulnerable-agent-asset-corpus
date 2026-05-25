@@ -78,6 +78,24 @@ def test_rejects_unknown_finding_subject_fixture(tmp_path: Path) -> None:
     assert "findings[0].subject.ref unknown fixture: 99-missing-fixture" in errors
 
 
+def test_rejects_missing_or_placeholder_reproduction_steps(tmp_path: Path) -> None:
+    report = _valid_critique()
+    report["scope"]["commands_run"] = []
+
+    errors = validate_corpus_critique.validate_corpus_critique(
+        _write_critique(tmp_path, report)
+    )
+
+    assert "scope.commands_run must include at least one public reproduction step" in errors
+
+    report["scope"]["commands_run"] = ["todo"]
+    errors = validate_corpus_critique.validate_corpus_critique(
+        _write_critique(tmp_path, report)
+    )
+
+    assert "scope.commands_run must not contain placeholders" in errors
+
+
 def test_rejects_duplicate_finding_ids(tmp_path: Path) -> None:
     report = _valid_critique()
     report["findings"].append(copy.deepcopy(report["findings"][0]))

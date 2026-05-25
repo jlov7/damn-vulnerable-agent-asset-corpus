@@ -20,10 +20,15 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 CRITIQUE_SCHEMA_PATH = ROOT / "corpus-critique.schema.json"
 UTC_SECOND_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
+PLACEHOLDER_STRINGS = {"", "n/a", "none", "todo", "tbd", "placeholder"}
 
 
 def _is_populated(value: Any) -> bool:
     return isinstance(value, str) and bool(value.strip())
+
+
+def _is_placeholder(value: Any) -> bool:
+    return str(value).strip().lower() in PLACEHOLDER_STRINGS
 
 
 def _manifest_fixture_ids() -> set[str]:
@@ -61,6 +66,11 @@ def validate_corpus_critique(path: Path) -> list[str]:
         for fixture_id in scope.get("fixture_ids", []):
             if isinstance(fixture_id, str) and fixture_id not in fixture_ids:
                 errors.append(f"scope.fixture_ids contains unknown fixture: {fixture_id}")
+        commands_run = scope.get("commands_run", [])
+        if not isinstance(commands_run, list) or not commands_run:
+            errors.append("scope.commands_run must include at least one public reproduction step")
+        elif any(_is_placeholder(command) for command in commands_run):
+            errors.append("scope.commands_run must not contain placeholders")
         if not _is_populated(scope.get("environment")):
             errors.append("scope.environment must describe the review environment")
 

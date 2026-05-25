@@ -109,9 +109,10 @@ Expected output:
 DVAAC corpus critique: valid submission.
 ```
 
-This validator checks report shape, target identity, fixture references,
-duplicate finding IDs, public reproducibility fields, and claim-boundary fields.
-It does not prove the critique is correct or accepted.
+This validator checks report shape, target identity, fixture references, at
+least one public reproduction step, duplicate finding IDs, public
+reproducibility fields, and claim-boundary fields. It does not prove the
+critique is correct or accepted.
 
 ## Current External Validation Status
 
