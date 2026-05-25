@@ -1,0 +1,95 @@
+---
+name: release-assets
+
+"on":
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing signed DVAAC release tag, for example v0.1.5.
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build-attest-upload:
+    name: Build, attest, and upload DVAAC release assets
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      attestations: write
+      contents: write
+      id-token: write
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      PIP_NO_CACHE_DIR: "1"
+    steps:
+      - name: Checkout DVAAC release tag
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ inputs.tag }}
+          path: dvaac
+          persist-credentials: false
+
+      - name: Read pinned AAC release commit
+        id: aac
+        working-directory: dvaac
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+
+          manifest = json.loads(Path("corpus.manifest.json").read_text())
+          print(f"commit={manifest['aac_compatibility']['aac_commit']}")
+          PY
+
+      - name: Checkout pinned AAC verifier
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: jlov7/agent-assurance-case
+          ref: ${{ steps.aac.outputs.commit }}
+          path: agent-assurance-case
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
+
+      - name: Install runner dependencies
+        working-directory: dvaac
+        run: |
+          uv pip install --system -r runner/requirements.txt
+          uv pip install --system -r runner/requirements-dev.txt
+
+      - name: Verify release target exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: gh release view "$TAG" --repo "$GITHUB_REPOSITORY"
+
+      - name: Build release assets from signed tag checkout
+        working-directory: dvaac
+        env:
+          AAC_VERIFIER_PATH: ../agent-assurance-case/verifier/verify.py
+          TAG: ${{ inputs.tag }}
+        run: scripts/build_release_assets.sh "$TAG" dist/release
+
+      - name: Generate GitHub artifact attestation
+        uses: >-
+          actions/attest-build-provenance@c4fbc648846ca6f503a13a2281a5e7b98aa57202
+        with:
+          subject-path: dvaac/dist/release/*
+
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: >-
+          gh release upload "$TAG" dvaac/dist/release/*
+          --repo "$GITHUB_REPOSITORY"

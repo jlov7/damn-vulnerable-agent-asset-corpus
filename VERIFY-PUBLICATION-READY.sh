@@ -249,7 +249,7 @@ else
   check "citation metadata" "fail" "$(tail_detail "$cff_out")"
 fi
 
-if shellcheck_out=$(uvx --from shellcheck-py shellcheck .clusterfuzzlite/build.sh VERIFY-PUBLICATION-READY.sh 2>&1); then
+if shellcheck_out=$(uvx --from shellcheck-py shellcheck .clusterfuzzlite/build.sh VERIFY-PUBLICATION-READY.sh scripts/build_release_assets.sh 2>&1); then
   check "shellcheck" "ok"
 else
   check "shellcheck" "fail" "$(tail_detail "$shellcheck_out")"

@@ -51,6 +51,12 @@ Release assets attached to `v0.1.4`:
 | `signed-aac-v0.1.4.tar.gz` | `sha256:ba73b6b3b75c8043feb2cc9e039c0bd5ee3d40b7e1b7aa99e65ad55ef516a43b` |
 | `signed-aac-v0.1.4.tar.gz.sha256` | `sha256:a7878cb84bbddf708c3852889a700d027967033169533e804de37340b2ccfa35` |
 
+`v0.1.4` predates the `release-assets` workflow and does not claim GitHub
+artifact-attestation provenance. Future releases should be generated through
+that workflow so the release assets are bound to a GitHub-hosted provenance
+attestation in addition to the signed tag, manifest signature, and checksums
+documented here.
+
 Verify the archive sidecar:
 
 ```bash

@@ -9,8 +9,10 @@ This repository is already public. Future releases should preserve the current p
 - changes land through protected pull requests;
 - required checks pass on the exact `main` SHA: `conformance`, CodeQL `Analyze Python`, `Verify DVAAC release fingerprint`, and `Quality checks`;
 - release tags are signed annotated tags and are never moved;
-- GitHub Releases are created from existing tags with `gh release create --verify-tag`;
-- release assets are attached before publication and verified again after publication;
+- GitHub Releases are created as drafts from existing tags with `gh release create --verify-tag --draft`;
+- release assets are generated from the signed tag checkout, attested with GitHub
+  artifact attestations, attached before publication, and verified again after
+  publication;
 - DOI metadata is added only after Zenodo archives the GitHub Release.
 
 ## Pre-Release Gates
@@ -54,11 +56,20 @@ Attach:
 - `SHA256SUMS`, covering the release manifest plus signed AACs, `corpus.manifest.json`, `scorecard-template.json`, and runner schemas;
 - release notes summarizing fixture count, AAC compatibility, and known limits.
 
+The preferred path for future releases is the protected
+`release-assets` workflow. It checks out the signed DVAAC release tag, checks out
+the AAC verifier commit pinned in `corpus.manifest.json`, regenerates the release
+assets, creates a GitHub artifact attestation for the generated files, and
+uploads those files to the existing GitHub Release. This should be used only
+after the signed tag and release shell exist; it does not create or move tags.
+
 ## Signed Tag And GitHub Release
 
 Create a signed annotated tag for the exact checked commit and push that tag. Do not move old tags; supersede them with a new patch, minor, or major version.
 
-Create the GitHub Release from the existing tag with `--verify-tag` so `gh` cannot create an unsigned tag implicitly.
+Create the GitHub Release draft from the existing tag with `--verify-tag` so
+`gh` cannot create an unsigned tag implicitly. Keep it as a draft until the
+release assets and attestations are present.
 
 Use:
 
@@ -68,12 +79,15 @@ git push origin vX.Y.Z
 gh release create vX.Y.Z \
   --repo jlov7/damn-vulnerable-agent-asset-corpus \
   --verify-tag \
+  --draft \
   --title "DVAAC vX.Y.Z" \
-  --notes-file docs/releases/vX.Y.Z.md \
-  dist/signed-aac-vX.Y.Z.tar.gz \
-  dist/signed-aac-vX.Y.Z.tar.gz.sha256 \
-  dist/signed-aac/RELEASE-MANIFEST.json \
-  dist/signed-aac/SHA256SUMS
+  --notes-file docs/releases/vX.Y.Z.md
+gh workflow run release-assets.yml \
+  --repo jlov7/damn-vulnerable-agent-asset-corpus \
+  -f tag=vX.Y.Z
+gh release edit vX.Y.Z \
+  --repo jlov7/damn-vulnerable-agent-asset-corpus \
+  --draft=false
 ```
 
 ## Zenodo
@@ -83,11 +97,14 @@ Zenodo archives a GitHub Release after the repository is public and the Zenodo G
 Recommended order:
 
 1. Confirm `main` is green in GitHub Actions.
-2. Generate release artifacts with `make write-signed`.
+2. Generate release artifacts with `make write-signed` for local review.
 3. Create and push the signed release tag for the exact checked commit.
-4. Publish the GitHub Release from the existing signed tag with `--verify-tag`.
-5. Wait for Zenodo to archive the release and mint the release DOI.
-6. Update citation text, release-fingerprint docs, and repository metadata in the next patch commit if needed.
+4. Create the GitHub Release draft from the existing signed tag with `--verify-tag --draft`.
+5. Run `release-assets.yml` for the signed tag and confirm the attestation is
+   visible with `gh attestation verify`.
+6. Publish the release draft.
+7. Wait for Zenodo to archive the release and mint the release DOI.
+8. Update citation text, release-fingerprint docs, and repository metadata in the next patch commit if needed.
 
 After the GitHub release is final and archived, update:
 
