@@ -13,7 +13,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20379817.svg)](https://doi.org/10.5281/zenodo.20379817)
 ![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
 
-[Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [External validation](docs/EXTERNAL_VALIDATION.md) · [Security policy](SECURITY.md)
+[Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [External validation](docs/EXTERNAL_VALIDATION.md) · [Release fingerprints](docs/RELEASE_FINGERPRINTS.md) · [Security policy](SECURITY.md)
 
 </div>
 
@@ -141,7 +141,7 @@ This writes `dist/signed-aac/*.json`, `dist/signed-aac/RELEASE-MANIFEST.json`, a
 
 DVAAC does not award partial credit. A fixture is covered only when the expected category, severity, and evidence are represented accurately enough for a reviewer to recognize the same finding.
 
-For third-party scanner submissions and critique boundaries, see [External Validation](docs/EXTERNAL_VALIDATION.md), the [Scorecard Field Guide](docs/SCORECARD_FIELD_GUIDE.md), the [Validation Ledger](docs/VALIDATION_LEDGER.md), and the current [DVAAC v0.1.4 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
+For third-party scanner submissions and critique boundaries, see [External Validation](docs/EXTERNAL_VALIDATION.md), the [Scorecard Field Guide](docs/SCORECARD_FIELD_GUIDE.md), the [Validation Ledger](docs/VALIDATION_LEDGER.md), the [Release Fingerprints](docs/RELEASE_FINGERPRINTS.md), and the current [DVAAC v0.1.4 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
 
 ## Safety
 

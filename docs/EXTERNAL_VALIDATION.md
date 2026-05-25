@@ -11,7 +11,7 @@ This guide defines how third parties should critique DVAAC or submit scanner res
 - Pinned AAC verifier: `v0.2-candidate.7`
 - Pinned AAC verifier commit: `689198d9c249a966a0abab6415ae8668efb512d9`
 
-This file is a living validation guide on `main`. For an immutable corpus target, use the release tag and DOI above. The corpus fixtures, scorecard template, schemas, and scorecard validator are pinned by the release.
+This file is a living validation guide on `main`. For an immutable corpus target, use the release tag and DOI above. The corpus fixtures, scorecard template, schemas, and scorecard validator are pinned by the release. Public release fingerprints, signed-tag checks, asset digests, CI run links, and claim boundaries are recorded in [RELEASE_FINGERPRINTS.md](RELEASE_FINGERPRINTS.md).
 
 ## Fast Verification Path
 
