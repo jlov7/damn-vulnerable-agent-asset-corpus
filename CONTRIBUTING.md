@@ -33,6 +33,12 @@ make write-signed
 
 Include the runner output in the PR description.
 
+## Review And Merge Policy
+
+The `main` branch is protected. Changes should land through pull requests after the required GitHub Actions checks pass: `conformance` and CodeQL `Analyze Python`.
+
+Release tags are signed, treated as immutable, and superseded by new tags rather than rewritten.
+
 ## Expected-Findings Rules
 
 `expected-findings.json` is the source of scanner truth. Its finding IDs, categories, severities, titles, descriptions, and subject asset IDs must match `expected-aac.json` exactly.
