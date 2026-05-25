@@ -103,12 +103,13 @@ GitHub also runs the same check through the `release-fingerprints` workflow on r
 
 ## Baseline Post-Release Evidence
 
-The release tag is immutable review evidence. `main` may contain later documentation clarifications. This baseline evidence records a green post-release `main` state after the DOI and validation-entry updates, without implying it will remain the latest `main` commit:
+The release tag is immutable review evidence. `main` may contain later documentation clarifications. This baseline evidence records a green post-release `main` state after the DOI, validation-entry, and release-fingerprint workflow updates, without implying it will remain the latest `main` commit:
 
 - Evidence checked: `2026-05-25`
-- Workflow commit: `d6c77e6fe4fdde9816dc10e521bb4aa5c5026060`
-- DVAAC conformance workflow: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/runs/26408137145>
-- CodeQL workflow: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/runs/26408137108>
+- Workflow commit: `c6c3a9caec88cc728dc312f1dd66cf90518a4bc8`
+- Release-fingerprints workflow: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/runs/26409297378>
+- DVAAC conformance workflow: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/runs/26409297376>
+- CodeQL workflow: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/runs/26409297373>
 - Open code-scanning alerts at last check: `0`
 - Historical fixed CodeQL alert: `py/empty-except` note, state `fixed`
 
