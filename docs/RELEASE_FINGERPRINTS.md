@@ -93,9 +93,9 @@ Expected output for a structurally valid scorecard:
 DVAAC scorecard: valid submission.
 ```
 
-## Post-Release Main Evidence
+## Baseline Post-Release Evidence
 
-The release tag is immutable review evidence. `main` may contain later documentation clarifications. Latest green post-release workflow evidence when this page was added:
+The release tag is immutable review evidence. `main` may contain later documentation clarifications. This baseline evidence records a green post-release `main` state after the DOI and validation-entry updates, without implying it will remain the latest `main` commit:
 
 - Evidence checked: `2026-05-25`
 - Workflow commit: `d6c77e6fe4fdde9816dc10e521bb4aa5c5026060`
