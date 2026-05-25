@@ -29,6 +29,7 @@
       "tag": "v0.2-candidate.7",
       "signature_type": "git-ssh-ed25519",
       "signer": "jase.lovell@me.com",
+      "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBD4r6uZD5gvmyQqXSM/HX3gKtl2+HOzX6T1oaGsUlVu",
       "key_sha256": "SHA256:WGevS9odnPKBtzTZjoVXSj2aexpZo4k6VL/dHaVaJdY",
       "expected_object": "689198d9c249a966a0abab6415ae8668efb512d9"
     },
@@ -37,6 +38,7 @@
       "tag": "v0.1.4",
       "signature_type": "git-ssh-ed25519",
       "signer": "jase.lovell@me.com",
+      "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBD4r6uZD5gvmyQqXSM/HX3gKtl2+HOzX6T1oaGsUlVu",
       "key_sha256": "SHA256:WGevS9odnPKBtzTZjoVXSj2aexpZo4k6VL/dHaVaJdY",
       "expected_object": "e90a76daf9107871d1ff6a2d7c438d2b92709e53"
     }

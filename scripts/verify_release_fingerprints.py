@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import shutil
 import subprocess
@@ -13,38 +14,11 @@ import tempfile
 import urllib.request
 import venv
 from pathlib import Path
+from typing import Any
 
 
-DVAAC_REPO_URL = "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus"
-DVAAC_RELEASE_TAG = "v0.1.4"
-DVAAC_RELEASE_COMMIT = "e90a76daf9107871d1ff6a2d7c438d2b92709e53"
-AAC_REPO_URL = "https://github.com/jlov7/agent-assurance-case"
-AAC_RELEASE_TAG = "v0.2-candidate.7"
-AAC_RELEASE_COMMIT = "689198d9c249a966a0abab6415ae8668efb512d9"
-SIGNING_PRINCIPAL = "jase.lovell@me.com"
-SIGNING_PUBLIC_KEY = (
-    "ssh-ed25519 "
-    "AAAAC3NzaC1lZDI1NTE5AAAAIBD4r6uZD5gvmyQqXSM/HX3gKtl2+HOzX6T1oaGsUlVu"
-)
-
-ASSET_BASE_URL = (
-    "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/"
-    f"download/{DVAAC_RELEASE_TAG}"
-)
-ASSET_DIGESTS = {
-    "RELEASE-MANIFEST.json": (
-        "91ca62843fd1576ae90c2a7ebcd506a499621d108f4b876f5a11008555299170"
-    ),
-    "SHA256SUMS": (
-        "5bbd4df2ac987315fd1460fa48646672a804316e0e481b35180fc73fa732a513"
-    ),
-    "signed-aac-v0.1.4.tar.gz": (
-        "ba73b6b3b75c8043feb2cc9e039c0bd5ee3d40b7e1b7aa99e65ad55ef516a43b"
-    ),
-    "signed-aac-v0.1.4.tar.gz.sha256": (
-        "a7878cb84bbddf708c3852889a700d027967033169533e804de37340b2ccfa35"
-    ),
-}
+ROOT = Path(__file__).resolve().parents[1]
+RELEASE_EVIDENCE_PATH = ROOT / "docs" / "release-evidence.v0.1.4.json"
 
 
 def run(
@@ -73,10 +47,29 @@ def require_tool(name: str) -> None:
         raise SystemExit(f"required tool not found on PATH: {name}")
 
 
-def write_allowed_signers(workdir: Path) -> Path:
+def load_release_evidence() -> dict[str, Any]:
+    return json.loads(RELEASE_EVIDENCE_PATH.read_text(encoding="utf-8"))
+
+
+def signed_tag_evidence(
+    evidence: dict[str, Any],
+    artifact: str,
+) -> dict[str, Any]:
+    for item in evidence["signed_tags"]:
+        if item["artifact"] == artifact:
+            return item
+    raise SystemExit(f"release evidence missing signed tag for {artifact}")
+
+
+def write_allowed_signers(
+    workdir: Path,
+    *,
+    principal: str,
+    public_key: str,
+) -> Path:
     path = workdir / "allowed_signers"
     path.write_text(
-        f"{SIGNING_PRINCIPAL} {SIGNING_PUBLIC_KEY} aac-release-signing\n",
+        f"{principal} {public_key} aac-release-signing\n",
         encoding="utf-8",
     )
     return path
@@ -142,10 +135,15 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def download_release_assets(destination: Path) -> None:
+def download_release_assets(
+    destination: Path,
+    *,
+    asset_base_url: str,
+    asset_digests: dict[str, str],
+) -> None:
     destination.mkdir(parents=True)
-    for name, expected_digest in ASSET_DIGESTS.items():
-        url = f"{ASSET_BASE_URL}/{name}"
+    for name, expected_digest in asset_digests.items():
+        url = f"{asset_base_url}/{name}"
         target = destination / name
         print(f"download {url}", flush=True)
         with urllib.request.urlopen(url, timeout=30) as response:
@@ -226,26 +224,40 @@ def block_pytest_discoverable_fixture_names(repo: Path) -> None:
 
 def main() -> int:
     require_tool("git")
+    evidence = load_release_evidence()
+    release = evidence["release"]
+    pinned_aac = evidence["pinned_aac"]
+    dvaac_tag = signed_tag_evidence(evidence, "damn-vulnerable-agent-asset-corpus")
+    aac_tag = signed_tag_evidence(evidence, "agent-assurance-case")
+    asset_digests = {
+        asset["name"]: asset["github_asset_digest"].removeprefix("sha256:")
+        for asset in evidence["release_assets"]
+    }
+    asset_base_url = f"{release['repository']}/releases/download/{release['tag']}"
 
     with tempfile.TemporaryDirectory(prefix="dvaac-release-fingerprint-") as tmp:
         tmp_path = Path(tmp)
-        allowed_signers = write_allowed_signers(tmp_path)
+        allowed_signers = write_allowed_signers(
+            tmp_path,
+            principal=str(dvaac_tag["signer"]),
+            public_key=str(dvaac_tag["public_key"]),
+        )
         aac_repo = tmp_path / "agent-assurance-case"
         dvaac_repo = tmp_path / "damn-vulnerable-agent-asset-corpus"
 
-        clone_release(AAC_REPO_URL, AAC_RELEASE_TAG, aac_repo)
+        clone_release(str(pinned_aac["repository"]), str(pinned_aac["tag"]), aac_repo)
         verify_release_checkout(
             aac_repo,
-            tag=AAC_RELEASE_TAG,
-            expected_commit=AAC_RELEASE_COMMIT,
+            tag=str(aac_tag["tag"]),
+            expected_commit=str(aac_tag["expected_object"]),
             allowed_signers=allowed_signers,
         )
 
-        clone_release(DVAAC_REPO_URL, DVAAC_RELEASE_TAG, dvaac_repo)
+        clone_release(str(release["repository"]), str(release["tag"]), dvaac_repo)
         verify_release_checkout(
             dvaac_repo,
-            tag=DVAAC_RELEASE_TAG,
-            expected_commit=DVAAC_RELEASE_COMMIT,
+            tag=str(dvaac_tag["tag"]),
+            expected_commit=str(dvaac_tag["expected_object"]),
             allowed_signers=allowed_signers,
         )
 
@@ -273,7 +285,11 @@ def main() -> int:
         block_pytest_discoverable_fixture_names(dvaac_repo)
 
         assets_dir = tmp_path / "release-assets"
-        download_release_assets(assets_dir)
+        download_release_assets(
+            assets_dir,
+            asset_base_url=asset_base_url,
+            asset_digests=asset_digests,
+        )
         verify_archive_sidecar(assets_dir)
         extract_dir = tmp_path / "signed-aac-extract"
         safe_extract_tar(assets_dir / "signed-aac-v0.1.4.tar.gz", extract_dir)
