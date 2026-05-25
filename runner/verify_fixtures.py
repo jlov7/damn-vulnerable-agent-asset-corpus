@@ -309,11 +309,12 @@ def validate_manifest(fixtures: list[Path]) -> list[str]:
 
     fixture_names = [fixture.name for fixture in fixtures]
     manifest_fixtures = manifest.get("fixtures", [])
-    manifest_names = [
-        item.get("fixture_id")
-        for item in manifest_fixtures
-        if isinstance(item, dict)
-    ]
+    manifest_names: list[str] = []
+    for item in manifest_fixtures:
+        if isinstance(item, dict):
+            fixture_id = item.get("fixture_id")
+            if isinstance(fixture_id, str):
+                manifest_names.append(fixture_id)
     if sorted(manifest_names) != sorted(fixture_names):
         errors.append(
             f"manifest fixture ids do not match fixture directories: "
@@ -381,7 +382,8 @@ def validate_coverage_claims(fixture_id: str, item: dict) -> list[str]:
     expected_verdict = item.get("expected_verdict")
     expected_finding_count = item.get("expected_finding_count")
     minimum = item.get("minimum_detector_class")
-    coverage = item.get("expected_coverage") or {}
+    coverage_value = item.get("expected_coverage")
+    coverage = coverage_value if isinstance(coverage_value, dict) else {}
     errors: list[str] = []
     if expected_finding_count == 0:
         if expected_verdict != "pass":
@@ -412,6 +414,9 @@ def validate_coverage_claims(fixture_id: str, item: dict) -> list[str]:
             "trace-aware": "catch",
         },
     }
+    if not isinstance(minimum, str):
+        errors.append(f"{fixture_id}: unknown minimum_detector_class={minimum}")
+        return errors
     expected = expected_by_minimum.get(minimum)
     if expected is None:
         errors.append(f"{fixture_id}: unknown minimum_detector_class={minimum}")
@@ -438,11 +443,12 @@ def validate_scorecard_template(fixtures: list[Path]) -> list[str]:
     errors += validate_json_schema(scorecard, SCORECARD_TEMPLATE_SCHEMA)
 
     fixture_names = [fixture.name for fixture in fixtures]
-    result_names = [
-        item.get("fixture_id")
-        for item in scorecard.get("per_fixture_results", [])
-        if isinstance(item, dict)
-    ]
+    result_names: list[str] = []
+    for item in scorecard.get("per_fixture_results", []):
+        if isinstance(item, dict):
+            fixture_id = item.get("fixture_id")
+            if isinstance(fixture_id, str):
+                result_names.append(fixture_id)
     if sorted(result_names) != sorted(fixture_names):
         errors.append(
             "scorecard fixture ids do not match fixture directories: "
@@ -767,10 +773,8 @@ def verify_signed_case(aac_module: Any, signed: dict, fixture_id: str) -> list[s
                 message += f": {detail}"
             errors.append(message)
     finally:
-        try:
+        with contextlib.suppress(OSError):
             tmp_path.unlink()
-        except OSError:
-            pass
     return errors
 
 
