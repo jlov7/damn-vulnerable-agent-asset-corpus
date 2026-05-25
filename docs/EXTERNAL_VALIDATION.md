@@ -11,7 +11,7 @@ This guide defines how third parties should critique DVAAC or submit scanner res
 - Pinned AAC verifier: `v0.2-candidate.6`
 - Pinned AAC verifier commit: `a51c7bd4a2de326333b149ad321785a276376cfa`
 
-This file is a living validation guide on `main`. For an immutable corpus target, use the release tag and DOI above.
+This file is a living validation guide on `main`. For an immutable corpus target, use the release tag and DOI above. Commands marked `main` use review tooling added after `v0.1.3`; the corpus fixtures, scorecard template, and schemas remain pinned by the release.
 
 ## Fast Verification Path
 
@@ -67,6 +67,8 @@ If a scanner claims a detector class, it should pass every fixture whose `minimu
 Before submitting a result, validate the filled scorecard:
 
 ```bash
+git clone --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus dvaac-main-tools
+cd dvaac-main-tools
 python runner/validate_scorecard.py path/to/scorecard.json
 ```
 
@@ -76,7 +78,7 @@ Expected output for a structurally valid submission:
 DVAAC scorecard: valid submission.
 ```
 
-The scorecard validator checks schema conformance, fixture coverage, summary counts, claimed detector-class coverage, populated scanner metadata, and exact `(finding_id, category, severity)` agreement for fixtures marked as passed. It does not prove that the scanner's evidence is semantically correct; reviewers still need to inspect evidence references.
+The scorecard validator is a `main` review tool for submissions that target `v0.1.3` or a later commit. It checks schema conformance, fixture coverage, summary counts, claimed detector-class coverage, populated scanner metadata, and exact `(finding_id, category, severity)` agreement for fixtures marked as passed. It does not prove that the scanner's evidence is semantically correct; reviewers still need to inspect evidence references.
 
 ## What A Passing Result Means
 

@@ -66,7 +66,7 @@ body:
     id: validator_output
     attributes:
       label: Scorecard validator output
-      description: Include the output from `python runner/validate_scorecard.py path/to/scorecard.json`, or explain why a full scorecard is not being submitted.
+      description: Include output from `python runner/validate_scorecard.py path/to/scorecard.json` using current main review tooling, or explain why a full scorecard is not being submitted.
       render: text
     validations:
       required: true
