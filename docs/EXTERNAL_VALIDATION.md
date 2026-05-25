@@ -7,11 +7,11 @@ This guide defines how third parties should critique DVAAC or submit scanner res
 - Repository: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus>
 - Release: `v0.1.4`
 - Release commit: the Git tag target for `v0.1.4`
-- DOI: pending Zenodo archival
+- DOI: <https://doi.org/10.5281/zenodo.20379817>
 - Pinned AAC verifier: `v0.2-candidate.7`
 - Pinned AAC verifier commit: `689198d9c249a966a0abab6415ae8668efb512d9`
 
-This file is a living validation guide on `main`. For an immutable corpus target, use the release tag above; the DOI is added after Zenodo archives the GitHub Release. The corpus fixtures, scorecard template, schemas, and scorecard validator are pinned by the release.
+This file is a living validation guide on `main`. For an immutable corpus target, use the release tag and DOI above. The corpus fixtures, scorecard template, schemas, and scorecard validator are pinned by the release.
 
 ## Fast Verification Path
 
@@ -45,7 +45,7 @@ This repository currently has no accepted third-party scanner submissions record
 |---|---|---:|---|---|
 | none yet | none yet | n/a | n/a | no accepted external result |
 
-This is intentional claim discipline. DVAAC is ready to receive independent results, but a signed release is not the same thing as independent validation. DOI archival is completed after Zenodo archives the GitHub Release.
+This is intentional claim discipline. DVAAC is signed, CI-green, DOI-archived, and ready to receive independent results, but a signed release is not the same thing as independent validation.
 
 ## Valid Scanner Result Submission
 

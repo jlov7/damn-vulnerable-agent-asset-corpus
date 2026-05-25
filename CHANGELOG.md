@@ -11,7 +11,7 @@
 
 ### DOI
 
-- Zenodo DOI: pending after GitHub Release archival.
+- Zenodo DOI: <https://doi.org/10.5281/zenodo.20379817>.
 
 ## v0.1.3 — 2026-05-22 — Signed provenance refresh
 
