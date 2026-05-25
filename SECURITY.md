@@ -2,6 +2,8 @@
 
 DVAAC fixtures are **intentionally vulnerable**. Read this before running anything outside an inspection workflow.
 
+Repository-level security posture and unresolved automated supply-chain signals are summarized in `SECURITY_POSTURE.md`.
+
 ## What the fixtures contain
 
 Each fixture under `fixtures/NN-name/` represents one specific failure mode in an agentic AI release. The vulnerable input artifacts — `SKILL.md`, bundled scripts, MCP descriptors, A2A cards, memory seeds, and trace evidence — are deliberately constructed to exercise that failure mode.

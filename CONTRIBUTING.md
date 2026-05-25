@@ -39,6 +39,8 @@ The `main` branch is protected. Changes should land through pull requests after 
 
 Release tags are signed, treated as immutable, and superseded by new tags rather than rewritten.
 
+Repository-level security posture and unresolved automated supply-chain signals are documented in `SECURITY_POSTURE.md`.
+
 ## Expected-Findings Rules
 
 `expected-findings.json` is the source of scanner truth. Its finding IDs, categories, severities, titles, descriptions, and subject asset IDs must match `expected-aac.json` exactly.
