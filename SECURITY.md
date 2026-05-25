@@ -42,6 +42,9 @@ PRs that add aggressive, network-touching, secret-reading, destructive, persiste
 
 ## Reporting issues
 
+Preferred private reporting channel for runner bugs that could execute fixture payloads:
+<https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/security/advisories/new>.
+
 If you discover that a DVAAC payload does something the fixture README does not declare — for example, a payload that touches the network when the README claims it does not — open an issue with the label `security`. This is a payload-correctness bug, not a vulnerability in a third-party system, and it will be triaged within seven days.
 
 If you discover a bug in the **runner** (`runner/verify_fixtures.py`) that allows the runner itself to execute fixture payloads, please email the maintainer privately before opening a public issue. Treat that as a confidentiality-7-day responsible disclosure window.
