@@ -11,6 +11,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import urllib.parse
 import urllib.request
 import venv
 from pathlib import Path
@@ -192,9 +193,12 @@ def download_release_assets(
     destination.mkdir(parents=True)
     for name, expected_digest in asset_digests.items():
         url = f"{asset_base_url}/{name}"
+        parsed_url = urllib.parse.urlparse(url)
+        if parsed_url.scheme != "https" or parsed_url.netloc != "github.com":
+            raise SystemExit(f"refusing non-GitHub HTTPS release asset URL: {url}")
         target = destination / name
         print(f"download {url}", flush=True)
-        with urllib.request.urlopen(url, timeout=30) as response:
+        with urllib.request.urlopen(url, timeout=30) as response:  # nosec B310
             target.write_bytes(response.read())
         actual_digest = sha256(target)
         if actual_digest != expected_digest:
