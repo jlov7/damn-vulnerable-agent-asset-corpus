@@ -39,7 +39,7 @@ The conformance runner validates the corpus. It is not a scanner and it does not
 
 ## Current External Validation Status
 
-As of 2026-05-24, this repository has no accepted third-party scanner submissions recorded in-tree.
+As of 2026-05-24, this repository has no accepted third-party scanner submissions recorded in-tree. The canonical record is [VALIDATION_LEDGER.md](VALIDATION_LEDGER.md).
 
 | Source | Scanner | Version | Claimed detector class | Status |
 |---|---|---:|---|---|
@@ -92,4 +92,4 @@ Good critiques are specific enough to become a fixture, test, schema change, or 
 - a fixture should move between `static-declared`, `static-extended`, and `trace-aware`;
 - a missing threat class should be added as a new fixture.
 
-The current public thread is [Call for scanner results and corpus critique for DVAAC v0.1.3](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1). Security-sensitive runner issues should be reported privately according to `SECURITY.md`. Focused scanner results can use the [scanner result issue form](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/new?template=scanner-result.yml), and corpus changes can be opened as public pull requests.
+The current public thread is [Call for scanner results and corpus critique for DVAAC v0.1.3](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1). Accepted results are recorded in [VALIDATION_LEDGER.md](VALIDATION_LEDGER.md). Security-sensitive runner issues should be reported privately according to `SECURITY.md`. Focused scanner results can use the [scanner result issue form](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/new?template=scanner-result.yml), and corpus changes can be opened as public pull requests.
