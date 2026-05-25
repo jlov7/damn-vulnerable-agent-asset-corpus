@@ -1,6 +1,7 @@
 ---
 name: Runner bug
-description: Report conformance runner behavior that accepts or rejects incorrectly.
+description: >-
+  Report conformance runner behavior that accepts or rejects incorrectly.
 title: "[runner] "
 labels:
   - runner-bug
@@ -16,7 +17,9 @@ body:
     id: reproduction
     attributes:
       label: Reproduction
-      description: Include the command and any fixture mutation or negative test needed to reproduce.
+      description: >-
+        Include the command and any fixture mutation or negative test needed to
+        reproduce.
       render: shell
       value: "make verify"
     validations:

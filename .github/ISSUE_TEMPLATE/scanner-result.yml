@@ -34,16 +34,16 @@ body:
     id: dvaac_target
     attributes:
       label: DVAAC target
-      description: Use v0.1.3 or a full commit SHA.
-      placeholder: v0.1.3
+      description: Use v0.1.4 or a full commit SHA.
+      placeholder: v0.1.4
     validations:
       required: true
   - type: input
     id: aac_target
     attributes:
       label: AAC verifier target
-      description: Use v0.2-candidate.6, commit a51c7bd4..., or "not used".
-      placeholder: v0.2-candidate.6
+      description: Use v0.2-candidate.7, commit 689198d9..., or "not used".
+      placeholder: v0.2-candidate.7
     validations:
       required: true
   - type: textarea
@@ -58,7 +58,8 @@ body:
     id: scorecard
     attributes:
       label: Scorecard or per-fixture result
-      description: Paste scorecard-template.json output or link to a public artifact.
+      description: >-
+        Paste scorecard-template.json output or link to a public artifact.
       render: json
     validations:
       required: true
@@ -66,7 +67,10 @@ body:
     id: validator_output
     attributes:
       label: Scorecard validator output
-      description: Include output from `python runner/validate_scorecard.py path/to/scorecard.json` using current main review tooling, or explain why a full scorecard is not being submitted.
+      description: >-
+        Include output from `python runner/validate_scorecard.py
+        path/to/scorecard.json` using the release validator, or explain why a
+        full scorecard is not being submitted.
       render: text
     validations:
       required: true
@@ -82,6 +86,8 @@ body:
     attributes:
       label: Claim wording
       description: State the exact public claim this result supports.
-      placeholder: This scanner covers the DVAAC v0.1.3 fixtures for static-declared detection.
+      placeholder: >-
+        This scanner covers the DVAAC v0.1.4 fixtures for static-declared
+        detection.
     validations:
       required: true

@@ -1,5 +1,18 @@
 # DVAAC Changelog
 
+## v0.1.4 — 2026-05-25 — Review tooling and AAC candidate refresh
+
+### Fixed
+
+- Publishes a signed patch release from current `main` so the immutable release target includes the external validation guide, validation ledger, structured issue forms, scorecard validator, CodeQL workflow, Dependabot coverage, and protected-branch policy documentation.
+- Pins DVAAC to AAC `v0.2-candidate.7` at commit `689198d9c249a966a0abab6415ae8668efb512d9`.
+- Updates runner dependency floors and clears the CodeQL cleanup finding on `runner/verify_fixtures.py`.
+- Keeps fixture semantics unchanged from `v0.1.3`; this is a review-tooling, supply-chain, and compatibility-pin patch release.
+
+### DOI
+
+- Zenodo DOI: pending after GitHub Release archival.
+
 ## v0.1.3 — 2026-05-22 — Signed provenance refresh
 
 ### Fixed

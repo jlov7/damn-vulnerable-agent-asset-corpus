@@ -26,8 +26,8 @@ The runner needs to import the AAC reference verifier (`verify.py`). It looks fo
 To use a checked-out copy of the public AAC repository:
 
 ```bash
-git clone --branch v0.2-candidate.6 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
-test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "a51c7bd4a2de326333b149ad321785a276376cfa"
+git clone --branch v0.2-candidate.7 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
+test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "689198d9c249a966a0abab6415ae8668efb512d9"
 AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py
 ```
 
@@ -105,6 +105,6 @@ The runner cannot prove that prose is semantically true. Threat descriptions, ev
 
 ## Pinning to an AAC version
 
-DVAAC v0.1.3 expects AAC v0.2-candidate.6 at commit `a51c7bd4a2de326333b149ad321785a276376cfa` (schema URI `https://raw.githubusercontent.com/jlov7/agent-assurance-case/a51c7bd4a2de326333b149ad321785a276376cfa/schemas/agent-assurance-case-v0.2.schema.json`).
+DVAAC v0.1.4 expects AAC v0.2-candidate.7 at commit `689198d9c249a966a0abab6415ae8668efb512d9` (schema URI `https://raw.githubusercontent.com/jlov7/agent-assurance-case/689198d9c249a966a0abab6415ae8668efb512d9/schemas/agent-assurance-case-v0.2.schema.json`).
 
 When AAC issues a new minor or major version, DVAAC will publish a corresponding corpus version with re-signed fixtures. Until then, use the AAC v0.2 reference verifier.

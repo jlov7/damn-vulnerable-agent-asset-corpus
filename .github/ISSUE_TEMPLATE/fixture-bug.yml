@@ -1,6 +1,7 @@
 ---
 name: Fixture bug
-description: Report incorrect expected findings, evidence, digest, or fixture behavior.
+description: >-
+  Report incorrect expected findings, evidence, digest, or fixture behavior.
 title: "[fixture] "
 labels:
   - fixture-bug
@@ -24,7 +25,8 @@ body:
     id: expected
     attributes:
       label: Expected behavior
-      description: What should the fixture, evidence, expected finding, or AAC say instead?
+      description: >-
+        What should the fixture, evidence, expected finding, or AAC say instead?
     validations:
       required: true
   - type: textarea
