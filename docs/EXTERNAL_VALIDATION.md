@@ -67,9 +67,7 @@ If a scanner claims a detector class, it should pass every fixture whose `minimu
 Before submitting a result, validate the filled scorecard:
 
 ```bash
-git clone --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus dvaac-main-tools
-cd dvaac-main-tools
-python runner/validate_scorecard.py path/to/scorecard.json
+make validate-scorecard SCORECARD=path/to/scorecard.json
 ```
 
 Expected output for a structurally valid submission:
@@ -79,6 +77,8 @@ DVAAC scorecard: valid submission.
 ```
 
 The scorecard validator ships in `v0.1.4` for submissions that target `v0.1.4` or a later commit. It checks schema conformance, fixture coverage, summary counts, claimed detector-class coverage, populated scanner metadata, and exact `(finding_id, category, severity)` agreement for fixtures marked as passed. It does not prove that the scanner's evidence is semantically correct; reviewers still need to inspect evidence references.
+
+For field-by-field submission guidance, see [Scorecard Field Guide](SCORECARD_FIELD_GUIDE.md).
 
 ## What A Passing Result Means
 

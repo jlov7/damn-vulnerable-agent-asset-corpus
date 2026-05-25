@@ -3,7 +3,7 @@ UV ?= uv
 AAC_VERIFIER_PATH ?= $(shell if [ -f ../agent-assurance-case/verifier/verify.py ]; then printf '%s' ../agent-assurance-case/verifier/verify.py; elif [ -f ../agent-assurance-case-spec/verifier/verify.py ]; then printf '%s' ../agent-assurance-case-spec/verifier/verify.py; else printf '%s' ../agent-assurance-case/verifier/verify.py; fi)
 SIGNED_AAC_DIR ?= dist/signed-aac
 
-.PHONY: install verify write-signed pytest-safety clean
+.PHONY: install verify write-signed validate-scorecard pytest-safety clean
 
 install:
 	$(UV) pip install --python $(PYTHON) -r runner/requirements.txt
@@ -15,6 +15,10 @@ verify:
 write-signed:
 	PYTHONDONTWRITEBYTECODE=1 AAC_VERIFIER_PATH=$(AAC_VERIFIER_PATH) $(PYTHON) runner/verify_fixtures.py --write-signed $(SIGNED_AAC_DIR)
 	PYTHONDONTWRITEBYTECODE=1 $(PYTHON) runner/write_release_manifest.py --aac-verifier "$(AAC_VERIFIER_PATH)" $(SIGNED_AAC_DIR)
+
+validate-scorecard:
+	@test -n "$(SCORECARD)" || { echo "usage: make validate-scorecard SCORECARD=path/to/scorecard.json"; exit 2; }
+	@PYTHONDONTWRITEBYTECODE=1 $(PYTHON) runner/validate_scorecard.py "$(SCORECARD)"
 
 pytest-safety:
 	rm -f /tmp/dvaac_hidden_test_payload.txt
