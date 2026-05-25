@@ -1,0 +1,43 @@
+---
+name: Runner bug
+description: Report conformance runner behavior that accepts or rejects incorrectly.
+title: "[runner] "
+labels:
+  - runner-bug
+body:
+  - type: textarea
+    id: observation
+    attributes:
+      label: Observation
+      description: What did the runner accept or reject incorrectly?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include the command and any fixture mutation or negative test needed to reproduce.
+      render: shell
+      value: "make verify"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should the runner have reported?
+    validations:
+      required: true
+  - type: dropdown
+    id: trust_impact
+    attributes:
+      label: Trust impact
+      options:
+        - Cosmetic or documentation only
+        - False rejection of a valid fixture
+        - False acceptance of a bad fixture
+        - Digest or evidence binding confusion
+        - AAC verifier integration confusion
+        - Safety guard bypass
+    validations:
+      required: true

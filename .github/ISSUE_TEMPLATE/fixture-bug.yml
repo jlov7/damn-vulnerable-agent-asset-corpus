@@ -1,0 +1,50 @@
+---
+name: Fixture bug
+description: Report incorrect expected findings, evidence, digest, or fixture behavior.
+title: "[fixture] "
+labels:
+  - fixture-bug
+body:
+  - type: input
+    id: fixture
+    attributes:
+      label: Fixture
+      description: Use the fixture directory name.
+      placeholder: fixtures/NN-name
+    validations:
+      required: true
+  - type: textarea
+    id: observation
+    attributes:
+      label: Observation
+      description: What is wrong? Include file paths and line numbers.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should the fixture, evidence, expected finding, or AAC say instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction or inspection steps
+      description: Include commands or exact inspection steps.
+      render: shell
+    validations:
+      required: true
+  - type: dropdown
+    id: safety_impact
+    attributes:
+      label: Safety impact
+      options:
+        - No unexpected execution or safety impact
+        - Unexpected execution concern
+        - Network access concern
+        - Secret or credential access concern
+        - Destructive behavior concern
+        - Unsure
+    validations:
+      required: true

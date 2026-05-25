@@ -1,1 +1,8 @@
-blank_issues_enabled: true
+---
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/security/advisories/new
+    about: >
+      Report runner payload-execution bugs, unexpected fixture behavior, or
+      other security-sensitive issues privately.
