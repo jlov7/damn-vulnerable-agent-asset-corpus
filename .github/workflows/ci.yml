@@ -11,7 +11,7 @@ permissions:
 jobs:
   conformance:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Checkout DVAAC
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -193,3 +193,12 @@ jobs:
           set -e
           cat "$tmp/out.txt"
           test "$rc" -eq 1
+
+      - name: Run publication-readiness gate
+        working-directory: dvaac
+        env:
+          AAC_VERIFIER_PATH: >-
+            ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
+        run: |
+          make clean
+          ./VERIFY-PUBLICATION-READY.sh
