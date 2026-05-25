@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.4/docs/release-evidence.schema.json",
+  "title": "DVAAC Release Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact",
+    "evidence_type",
+    "schema_version",
+    "release",
+    "pinned_aac",
+    "citation",
+    "signed_tags",
+    "release_assets",
+    "release_checks",
+    "protected_branch",
+    "external_validation",
+    "claim_boundary"
+  ],
+  "properties": {
+    "artifact": { "const": "damn-vulnerable-agent-asset-corpus" },
+    "evidence_type": { "const": "release-provenance" },
+    "schema_version": { "const": "1.0" },
+    "release": { "$ref": "#/$defs/release" },
+    "pinned_aac": { "$ref": "#/$defs/pinned_aac" },
+    "citation": { "$ref": "#/$defs/citation" },
+    "signed_tags": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/signed_tag" }
+    },
+    "release_assets": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "$ref": "#/$defs/release_asset" }
+    },
+    "release_checks": { "$ref": "#/$defs/release_checks" },
+    "protected_branch": { "$ref": "#/$defs/protected_branch" },
+    "external_validation": { "$ref": "#/$defs/external_validation" },
+    "claim_boundary": { "$ref": "#/$defs/claim_boundary" }
+  },
+  "$defs": {
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version",
+        "tag",
+        "release_url",
+        "repository",
+        "release_commit",
+        "doi",
+        "doi_url",
+        "published_at"
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "const": "0.1.4" },
+        "tag": { "const": "v0.1.4" },
+        "release_url": { "type": "string", "format": "uri" },
+        "repository": { "type": "string", "format": "uri" },
+        "release_commit": { "$ref": "#/$defs/sha1" },
+        "doi": { "const": "10.5281/zenodo.20379817" },
+        "doi_url": { "type": "string", "format": "uri" },
+        "published_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "pinned_aac": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tag", "commit", "doi", "repository"],
+      "properties": {
+        "tag": { "const": "v0.2-candidate.7" },
+        "commit": { "$ref": "#/$defs/sha1" },
+        "doi": { "const": "10.5281/zenodo.20379393" },
+        "repository": { "const": "https://github.com/jlov7/agent-assurance-case" }
+      }
+    },
+    "citation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cff_file", "orcid"],
+      "properties": {
+        "cff_file": { "const": "CITATION.cff" },
+        "orcid": { "const": "https://orcid.org/0009-0001-6300-9155" }
+      }
+    },
+    "signed_tag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact",
+        "tag",
+        "signature_type",
+        "signer",
+        "key_sha256",
+        "expected_object"
+      ],
+      "properties": {
+        "artifact": { "type": "string", "minLength": 1 },
+        "tag": { "type": "string", "minLength": 1 },
+        "signature_type": { "const": "git-ssh-ed25519" },
+        "signer": { "type": "string", "minLength": 1 },
+        "key_sha256": { "type": "string", "pattern": "^SHA256:[A-Za-z0-9+/=]+$" },
+        "expected_object": { "$ref": "#/$defs/sha1" }
+      }
+    },
+    "release_asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "github_asset_digest"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "github_asset_digest": { "$ref": "#/$defs/sha256_digest" }
+      }
+    },
+    "release_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "immutable_checkout_commands",
+        "expected_conformance_output",
+        "current_main_release_fingerprint_command"
+      ],
+      "properties": {
+        "immutable_checkout_commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "expected_conformance_output": { "const": "DVAAC: all fixtures conform." },
+        "current_main_release_fingerprint_command": {
+          "const": "python3 scripts/verify_release_fingerprints.py"
+        }
+      }
+    },
+    "protected_branch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "branch",
+        "recorded_as_of",
+        "strict_required_checks",
+        "initial_required_fingerprint_gate"
+      ],
+      "properties": {
+        "branch": { "const": "main" },
+        "recorded_as_of": { "type": "string", "format": "date" },
+        "strict_required_checks": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "conformance" },
+            { "const": "Analyze Python" },
+            { "const": "Verify DVAAC release fingerprint" }
+          ],
+          "items": false
+        },
+        "initial_required_fingerprint_gate": { "$ref": "#/$defs/workflow_evidence" }
+      }
+    },
+    "external_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ledger",
+        "public_issue",
+        "accepted_third_party_scanner_result",
+        "accepted_independent_corpus_critique"
+      ],
+      "properties": {
+        "ledger": { "const": "docs/VALIDATION_LEDGER.md" },
+        "public_issue": { "type": "string", "format": "uri" },
+        "accepted_third_party_scanner_result": { "const": false },
+        "accepted_independent_corpus_critique": { "const": false }
+      }
+    },
+    "claim_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maturity",
+        "self_verification_evidence",
+        "third_party_validation_claimed",
+        "not_claimed"
+      ],
+      "properties": {
+        "maturity": { "const": "public validation candidate" },
+        "self_verification_evidence": { "const": true },
+        "third_party_validation_claimed": { "const": false },
+        "not_claimed": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "workflow_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "main_commit",
+        "release_fingerprints_run",
+        "dvaac_conformance_run",
+        "codeql_run"
+      ],
+      "properties": {
+        "main_commit": { "$ref": "#/$defs/sha1" },
+        "release_fingerprints_run": { "type": "string", "format": "uri" },
+        "dvaac_conformance_run": { "type": "string", "format": "uri" },
+        "codeql_run": { "type": "string", "format": "uri" }
+      }
+    },
+    "sha1": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "sha256_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

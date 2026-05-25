@@ -68,6 +68,27 @@ jobs:
             --validate \
             --infile CITATION.cff
 
+      - name: Validate release evidence schema
+        working-directory: dvaac
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+
+          schema = json.loads(
+              Path("docs/release-evidence.schema.json").read_text()
+          )
+          evidence = json.loads(
+              Path("docs/release-evidence.v0.1.4.json").read_text()
+          )
+          Draft202012Validator.check_schema(schema)
+          Draft202012Validator(
+              schema,
+              format_checker=FormatChecker(),
+          ).validate(evidence)
+          PY
+
       - name: Run DVAAC fixture conformance gate
         env:
           AAC_VERIFIER_PATH: >-
