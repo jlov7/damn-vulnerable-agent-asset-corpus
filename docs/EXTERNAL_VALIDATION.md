@@ -95,6 +95,24 @@ handling of misses or false positives.
 Useful result: enough public detail for another reviewer to reproduce the same
 fixture-level outcome.
 
+For non-scanner corpus critique, start from
+[`corpus-critique-template.json`](../corpus-critique-template.json) and validate
+the filled report from current `main`:
+
+```bash
+python runner/validate_corpus_critique.py path/to/corpus-critique.json
+```
+
+Expected output:
+
+```text
+DVAAC corpus critique: valid submission.
+```
+
+This validator checks report shape, target identity, fixture references,
+duplicate finding IDs, public reproducibility fields, and claim-boundary fields.
+It does not prove the critique is correct or accepted.
+
 ## Current External Validation Status
 
 This repository currently has no accepted third-party scanner submissions recorded in-tree. The canonical record is [VALIDATION_LEDGER.md](VALIDATION_LEDGER.md).
