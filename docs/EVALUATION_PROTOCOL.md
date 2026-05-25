@@ -10,7 +10,7 @@ DVAAC uses three detector classes:
 - `static-extended`: inspects the full checked-in asset bundle.
 - `trace-aware`: inspects runtime traces, tool-call sequences, memory mutations, and side effects.
 
-A scanner claiming a detector class must cover every fixture whose `minimum_detector_class` is that class or weaker.
+A scanner claiming a detector class must cover every fixture whose `minimum_detector_class` is that class or weaker. A submitted scorecard should claim the strongest detector class fully covered by its per-fixture results.
 
 ## Passing A Fixture
 

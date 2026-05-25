@@ -134,6 +134,18 @@ def test_rejects_passed_fixture_with_wrong_finding_category(tmp_path: Path) -> N
     )
 
 
+def test_rejects_underclaimed_detector_class(tmp_path: Path) -> None:
+    scorecard = _valid_scorecard_for_claimed_class("static-extended")
+    scorecard["detector_class_claimed"] = "static-declared"
+
+    errors = validate_scorecard.validate_scorecard(_write_scorecard(tmp_path, scorecard))
+
+    assert (
+        "detector_class_claimed=static-declared, expected strongest fully "
+        "covered detector class: static-extended"
+    ) in errors
+
+
 def _result_for(scorecard: dict, fixture_id: str) -> dict:
     for result in scorecard["per_fixture_results"]:
         if result["fixture_id"] == fixture_id:

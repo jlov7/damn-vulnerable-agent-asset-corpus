@@ -48,9 +48,9 @@ DVAAC scorecard: valid submission.
 
 ## Detector Class Rule
 
-If a scorecard claims a detector class, every fixture at that class or weaker must pass. The validator enforces this against `corpus.manifest.json`.
+If a scorecard claims a detector class, every fixture at that class or weaker must pass. The validator enforces this against `corpus.manifest.json` and requires the claimed class to be the strongest detector class fully covered by the submitted per-fixture results.
 
-Use the weakest honest claim:
+Use the strongest fully covered claim:
 
 - `static-declared`: scanner uses declared fixture metadata and source artifacts.
 - `static-extended`: scanner reasons across files or non-declared local artifacts.
@@ -64,7 +64,7 @@ If your scanner is partial, do not inflate the detector class. If no detector cl
 
 `summary.fixtures_passed` must equal the number of `per_fixture_results[*].passed` values set to `true`.
 
-`summary.coverage_at_claimed_class` must be `true` only when every required fixture for `detector_class_claimed` passed.
+`summary.coverage_at_claimed_class` must be `true` only when every required fixture for `detector_class_claimed` passed. If a stronger detector class is also fully covered, update `detector_class_claimed` to that stronger class.
 
 ## Per-Fixture Results
 
