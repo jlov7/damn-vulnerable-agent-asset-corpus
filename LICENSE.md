@@ -18,6 +18,8 @@ https://www.apache.org/licenses/LICENSE-2.0
 
 This includes `runner/**`, `Makefile`, `conftest.py`, `pytest.ini`, `.github/workflows/**`, `corpus.manifest.schema.json`, `scorecard-template.schema.json`, and future tests for the runner itself.
 
+Machine-readable licensing metadata is provided in `REUSE.toml`; full license texts are in `LICENSES/Apache-2.0.txt` and `LICENSES/CC-BY-4.0.txt`.
+
 ## What "attribution" means in practice
 
 When citing DVAAC in a paper, blog post, vendor comparison, or standards-body submission, please use the citation form in `CITATION.cff` and include the Zenodo DOI once minted.
