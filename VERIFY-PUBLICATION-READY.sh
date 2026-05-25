@@ -250,6 +250,12 @@ else
   check "Security Insights metadata" "fail" "$(tail_detail "$security_insights_out")"
 fi
 
+if repository_posture_out=$("$PYTHON_BIN" scripts/verify_repository_posture.py 2>&1); then
+  check "repository posture metadata" "ok"
+else
+  check "repository posture metadata" "fail" "$(tail_detail "$repository_posture_out")"
+fi
+
 if cff_out=$(uvx --from cffconvert cffconvert --validate --infile CITATION.cff 2>&1); then
   check "citation metadata" "ok"
 else
