@@ -3,7 +3,7 @@ UV ?= uv
 AAC_VERIFIER_PATH ?= $(shell if [ -f ../agent-assurance-case/verifier/verify.py ]; then printf '%s' ../agent-assurance-case/verifier/verify.py; elif [ -f ../agent-assurance-case-spec/verifier/verify.py ]; then printf '%s' ../agent-assurance-case-spec/verifier/verify.py; else printf '%s' ../agent-assurance-case/verifier/verify.py; fi)
 SIGNED_AAC_DIR ?= dist/signed-aac
 
-.PHONY: install verify write-signed validate-scorecard pytest-safety clean
+.PHONY: install verify write-signed validate-scorecard pytest-safety publication-ready clean
 
 install:
 	$(UV) pip install --python $(PYTHON) -r runner/requirements.txt
@@ -26,6 +26,9 @@ pytest-safety:
 	PYTHONDONTWRITEBYTECODE=1 $(PYTHON) -m pytest --collect-only -q || test $$? -eq 5
 	test ! -e /tmp/dvaac_hidden_test_payload.txt
 
+publication-ready:
+	./VERIFY-PUBLICATION-READY.sh
+
 clean:
-	rm -rf dist .pytest_cache .ruff_cache
+	rm -rf dist .pytest_cache .ruff_cache .hypothesis
 	find . -type d -name __pycache__ -prune -exec rm -rf {} +
