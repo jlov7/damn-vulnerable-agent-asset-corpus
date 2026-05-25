@@ -58,6 +58,7 @@ require_tool() {
 }
 
 require_tool git
+require_tool go
 require_tool make
 require_tool uv
 require_tool uvx
@@ -243,13 +244,19 @@ else
   check "REUSE licensing metadata" "fail" "$(tail_detail "$reuse_out")"
 fi
 
+if security_insights_out=$(scripts/validate_security_insights.sh 2>&1); then
+  check "Security Insights metadata" "ok"
+else
+  check "Security Insights metadata" "fail" "$(tail_detail "$security_insights_out")"
+fi
+
 if cff_out=$(uvx --from cffconvert cffconvert --validate --infile CITATION.cff 2>&1); then
   check "citation metadata" "ok"
 else
   check "citation metadata" "fail" "$(tail_detail "$cff_out")"
 fi
 
-if shellcheck_out=$(uvx --from shellcheck-py shellcheck .clusterfuzzlite/build.sh VERIFY-PUBLICATION-READY.sh scripts/build_release_assets.sh 2>&1); then
+if shellcheck_out=$(uvx --from shellcheck-py shellcheck .clusterfuzzlite/build.sh VERIFY-PUBLICATION-READY.sh scripts/build_release_assets.sh scripts/validate_security_insights.sh 2>&1); then
   check "shellcheck" "ok"
 else
   check "shellcheck" "fail" "$(tail_detail "$shellcheck_out")"

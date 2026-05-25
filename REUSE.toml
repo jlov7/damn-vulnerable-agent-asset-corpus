@@ -17,6 +17,7 @@ path = [
     "runner/**",
     "scorecard-template.schema.json",
     "scripts/**",
+    "security-insights.yml",
     "tests/**",
 ]
 precedence = "override"
