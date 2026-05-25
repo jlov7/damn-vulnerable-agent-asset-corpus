@@ -1,4 +1,4 @@
-# Mapping: DVAAC v0.1.2 → OWASP Agentic Skills Top 10
+# Mapping: DVAAC v0.1.3 → OWASP Agentic Skills Top 10
 
 OWASP's Agentic Skills Top 10 is the most relevant external taxonomy for skill-surface threats.
 
