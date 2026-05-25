@@ -236,6 +236,13 @@ else
   check "codespell" "fail" "$(tail_detail "$codespell_out")"
 fi
 
+if reuse_out=$(uvx reuse lint 2>&1); then
+  covered=$(printf "%s\n" "$reuse_out" | sed -nE 's#^\* Files with license information: ([0-9]+ / [0-9]+)$#\1#p' | head -1)
+  check "REUSE licensing metadata" "ok" "${covered:-all tracked files covered}"
+else
+  check "REUSE licensing metadata" "fail" "$(tail_detail "$reuse_out")"
+fi
+
 if cff_out=$(uvx --from cffconvert cffconvert --validate --infile CITATION.cff 2>&1); then
   check "citation metadata" "ok"
 else

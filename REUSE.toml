@@ -1,0 +1,48 @@
+version = 1
+
+[[annotations]]
+path = [
+    ".clusterfuzzlite/**",
+    ".github/dependabot.yml",
+    ".github/workflows/**",
+    ".gitignore",
+    "Makefile",
+    "REUSE.toml",
+    "VERIFY-PUBLICATION-READY.sh",
+    "conftest.py",
+    "corpus-critique.schema.json",
+    "corpus.manifest.schema.json",
+    "fuzz/**",
+    "pytest.ini",
+    "runner/**",
+    "scorecard-template.schema.json",
+    "scripts/**",
+    "tests/**",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Jason Mark Lovell"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = [
+    ".github/ISSUE_TEMPLATE/**",
+    ".github/pull_request_template.md",
+    "CHANGELOG.md",
+    "CITATION.cff",
+    "CONTRIBUTING.md",
+    "LICENSE.md",
+    "README.md",
+    "SECURITY.md",
+    "SECURITY_POSTURE.md",
+    "TAXONOMY.md",
+    "assets/**",
+    "corpus-critique-template.json",
+    "corpus.manifest.json",
+    "docs/**",
+    "fixtures/**",
+    "mappings/**",
+    "scorecard-template.json",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Jason Mark Lovell"
+SPDX-License-Identifier = "CC-BY-4.0"
