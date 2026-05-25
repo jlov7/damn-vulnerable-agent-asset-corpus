@@ -35,7 +35,7 @@ Include the runner output in the PR description.
 
 ## Review And Merge Policy
 
-The `main` branch is protected. Changes should land through pull requests after the required GitHub Actions checks pass: `conformance`, CodeQL `Analyze Python`, and `Verify DVAAC release fingerprint`.
+The `main` branch is protected. Changes should land through pull requests after the required GitHub Actions checks pass: `conformance`, CodeQL `Analyze Python`, `Verify DVAAC release fingerprint`, and `Quality checks`.
 
 Release tags are signed, treated as immutable, and superseded by new tags rather than rewritten.
 
