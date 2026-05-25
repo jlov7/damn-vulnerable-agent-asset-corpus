@@ -34,7 +34,7 @@ An entry can be added here when it has:
 - handling of misses and false positives;
 - maintainer disposition in a linked issue or pull request.
 
-Ledger candidates should include a complete scorecard based on
+Scanner-result ledger candidates should include a complete scorecard based on
 [`scorecard-template.json`](../scorecard-template.json), validated with one of
 the documented validator paths:
 
@@ -48,6 +48,20 @@ counts, claimed detector-class coverage, populated scanner metadata, and exact
 finding identity for fixtures marked as passed. Passing validation does not
 prove that scanner evidence is semantically correct; it only makes the
 submission reproducible enough for maintainer review.
+
+Corpus-critique ledger candidates should include a filled
+[`corpus-critique-template.json`](../corpus-critique-template.json), validated
+from current `main` with:
+
+```bash
+python runner/validate_corpus_critique.py path/to/corpus-critique.json
+```
+
+The corpus-critique validator checks report shape, target identity, fixture
+references, duplicate finding IDs, public reproducibility fields, and
+claim-boundary fields. Passing validation does not prove that the critique is
+correct or accepted; it only makes the report reproducible enough for
+maintainer review.
 
 Private comments, social-media reactions, stars, and vendor claims without reproducible fixture-level evidence do not count as accepted external validation.
 

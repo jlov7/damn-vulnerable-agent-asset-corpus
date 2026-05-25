@@ -1,0 +1,99 @@
+---
+name: Corpus critique
+description: >-
+  Submit a DVAAC fixture, taxonomy, safety, or documentation critique.
+title: "[corpus-critique] "
+labels:
+  - corpus-critique
+body:
+  - type: dropdown
+    id: review_type
+    attributes:
+      label: Review type
+      options:
+        - fixture-realism
+        - expected-findings
+        - taxonomy
+        - safety
+        - scorecard-format
+        - release-process
+        - documentation
+        - other
+    validations:
+      required: true
+  - type: input
+    id: dvaac_target
+    attributes:
+      label: DVAAC target
+      description: Use v0.1.4 or a full commit SHA.
+      placeholder: v0.1.4
+    validations:
+      required: true
+  - type: input
+    id: aac_target
+    attributes:
+      label: AAC verifier target
+      description: Use v0.2-candidate.7, commit 689198d9..., or "not used".
+      placeholder: v0.2-candidate.7
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and environment
+      description: >-
+        Include fixture IDs, files reviewed, commands run, OS, runtime, and any
+        relevant configuration.
+    validations:
+      required: true
+  - type: textarea
+    id: critique_report
+    attributes:
+      label: Structured critique report
+      description: >-
+        For validation-ledger consideration, paste a filled
+        corpus-critique-template.json report or link to a public artifact.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: critique_validation
+    attributes:
+      label: Corpus critique validator output
+      description: >-
+        Include output from `python runner/validate_corpus_critique.py
+        path/to/corpus-critique.json` on current main. Use N/A only if this is
+        an informal discussion issue rather than a validation-ledger candidate.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Critique summary
+      description: >-
+        State the issue, evidence, and why it matters for scanner evaluation or
+        corpus trust.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_change
+    attributes:
+      label: Proposed resolution
+      description: >-
+        State the smallest fixture, docs, schema, runner, or release-process
+        change that would address the critique.
+    validations:
+      required: true
+  - type: textarea
+    id: claim_boundary
+    attributes:
+      label: Claim boundary
+      description: >-
+        Confirm whether this is corpus critique only, and whether it does not
+        claim scanner validation, corpus correctness, or endorsement.
+      placeholder: >-
+        This is corpus critique only. It does not claim scanner validation,
+        corpus correctness, or endorsement.
+    validations:
+      required: true

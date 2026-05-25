@@ -155,7 +155,7 @@ This writes `dist/signed-aac/*.json`, `dist/signed-aac/RELEASE-MANIFEST.json`, a
 
 DVAAC does not award partial credit. A fixture is covered only when the expected category, severity, and evidence are represented accurately enough for a reviewer to recognize the same finding.
 
-For third-party scanner submissions and critique boundaries, see [Scanner Integration](docs/SCANNER_INTEGRATION_GUIDE.md), [External Validation](docs/EXTERNAL_VALIDATION.md), the [review recipes](docs/EXTERNAL_VALIDATION.md#review-recipes), the [Scorecard Field Guide](docs/SCORECARD_FIELD_GUIDE.md), the [Validation Ledger](docs/VALIDATION_LEDGER.md), the [Release Fingerprints](docs/RELEASE_FINGERPRINTS.md), and the current [DVAAC v0.1.4 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
+For third-party scanner submissions and critique boundaries, see [Scanner Integration](docs/SCANNER_INTEGRATION_GUIDE.md), [External Validation](docs/EXTERNAL_VALIDATION.md), the [review recipes](docs/EXTERNAL_VALIDATION.md#review-recipes), the [Scorecard Field Guide](docs/SCORECARD_FIELD_GUIDE.md), the [corpus critique template](corpus-critique-template.json), the [Validation Ledger](docs/VALIDATION_LEDGER.md), the [Release Fingerprints](docs/RELEASE_FINGERPRINTS.md), and the current [DVAAC v0.1.4 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
 
 ## Safety
 
@@ -195,7 +195,7 @@ Fixture contributions are welcome after publication, but they must preserve DVAA
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full fixture acceptance checklist.
 
-Scanner results and corpus-level critique should go to the current [public validation thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1). Start from the [review recipes](docs/EXTERNAL_VALIDATION.md#review-recipes) if you want a small, runnable review path. Accepted results are tracked in [docs/VALIDATION_LEDGER.md](docs/VALIDATION_LEDGER.md).
+Scanner results and corpus-level critique should go to the current [public validation thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1). Start from the [review recipes](docs/EXTERNAL_VALIDATION.md#review-recipes) if you want a small, runnable review path. Focused submissions can use the scanner-result or corpus-critique issue forms. Accepted results are tracked in [docs/VALIDATION_LEDGER.md](docs/VALIDATION_LEDGER.md).
 
 ## Citation
 
