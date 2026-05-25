@@ -105,6 +105,12 @@ make verify
 make pytest-safety
 ```
 
+Verify the published release fingerprint from current `main`:
+
+```bash
+python3 scripts/verify_release_fingerprints.py
+```
+
 ## What The Runner Checks
 
 `runner/verify_fixtures.py` verifies the corpus itself. It does not detect vulnerabilities.
@@ -164,6 +170,7 @@ fixtures/                  vulnerable and clean benchmark fixtures
 mappings/                  informative mappings to external taxonomies
 docs/                      evaluation, validation, and release-process notes
 runner/                    conformance runner and runner schemas
+scripts/                   executable release-fingerprint checks
 .github/workflows/ci.yml   corpus conformance CI
 corpus.manifest.json       machine-readable corpus index
 scorecard-template.json    scanner result publication template

@@ -43,7 +43,9 @@ jobs:
           python -m py_compile \
             dvaac/runner/verify_fixtures.py \
             dvaac/runner/validate_scorecard.py \
-            dvaac/runner/write_release_manifest.py
+            dvaac/runner/write_release_manifest.py \
+            dvaac/scripts/verify_release_fingerprints.py
+          rm -rf dvaac/scripts/__pycache__
 
       - name: Validate committed JSON files
         working-directory: dvaac
