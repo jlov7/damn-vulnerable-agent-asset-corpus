@@ -9,6 +9,7 @@
     "scanner",
     "detector_class_claimed",
     "summary",
+    "run_context",
     "per_fixture_results"
   ],
   "additionalProperties": false,
@@ -22,7 +23,7 @@
     },
     "scanner": {
       "type": "object",
-      "required": ["name", "version", "vendor_or_project", "run_at"],
+      "required": ["name", "version", "vendor_or_project", "source_url_or_commit", "run_at"],
       "additionalProperties": false,
       "properties": {
         "name": {
@@ -32,6 +33,9 @@
           "type": "string"
         },
         "vendor_or_project": {
+          "type": "string"
+        },
+        "source_url_or_commit": {
           "type": "string"
         },
         "run_at": {
@@ -60,6 +64,34 @@
           "minimum": 0
         },
         "coverage_at_claimed_class": {
+          "type": "boolean"
+        }
+      }
+    },
+    "run_context": {
+      "type": "object",
+      "required": [
+        "command",
+        "environment",
+        "configuration",
+        "public_artifact_url",
+        "evidence_publicly_reproducible"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string"
+        },
+        "configuration": {
+          "type": "string"
+        },
+        "public_artifact_url": {
+          "type": "string"
+        },
+        "evidence_publicly_reproducible": {
           "type": "boolean"
         }
       }
