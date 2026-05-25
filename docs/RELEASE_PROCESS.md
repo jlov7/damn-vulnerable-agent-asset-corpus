@@ -7,7 +7,7 @@ This document is the publication checklist for a DVAAC release.
 This repository is already public. Future releases should preserve the current provenance bar:
 
 - changes land through protected pull requests;
-- required checks pass on the exact `main` SHA: `conformance`, CodeQL `Analyze Python`, and `Verify DVAAC release fingerprint`;
+- required checks pass on the exact `main` SHA: `conformance`, CodeQL `Analyze Python`, `Verify DVAAC release fingerprint`, and `Quality checks`;
 - release tags are signed annotated tags and are never moved;
 - GitHub Releases are created from existing tags with `gh release create --verify-tag`;
 - release assets are attached before publication and verified again after publication;
