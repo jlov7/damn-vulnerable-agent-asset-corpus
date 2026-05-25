@@ -1,0 +1,45 @@
+{
+  "@context": "https://w3id.org/codemeta/3.1",
+  "@type": [
+    "SoftwareSourceCode",
+    "Dataset"
+  ],
+  "name": "Damn Vulnerable Agent Asset Corpus",
+  "description": "A compact, runnable benchmark of vulnerable and clean agentic AI release fixtures with signed Agent Assurance Case templates.",
+  "version": "0.1.4",
+  "identifier": "https://doi.org/10.5281/zenodo.20379817",
+  "sameAs": "https://doi.org/10.5281/zenodo.20379817",
+  "url": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
+  "codeRepository": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
+  "issueTracker": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues",
+  "datePublished": "2026-05-25",
+  "developmentStatus": "active",
+  "programmingLanguage": "Python",
+  "runtimePlatform": "Python 3.11+",
+  "license": [
+    "https://spdx.org/licenses/Apache-2.0",
+    "https://spdx.org/licenses/CC-BY-4.0"
+  ],
+  "author": {
+    "@type": "Person",
+    "@id": "https://orcid.org/0009-0001-6300-9155",
+    "givenName": "Jason Mark",
+    "familyName": "Lovell"
+  },
+  "isBasedOn": {
+    "@type": "SoftwareSourceCode",
+    "name": "Agent Assurance Case (AAC) Specification and Reference Verifier",
+    "version": "0.2-candidate.7",
+    "identifier": "https://doi.org/10.5281/zenodo.20379393",
+    "codeRepository": "https://github.com/jlov7/agent-assurance-case"
+  },
+  "keywords": [
+    "agentic-ai",
+    "agent-security",
+    "skill-security",
+    "assurance-case",
+    "benchmark",
+    "supply-chain",
+    "agent-asset"
+  ]
+}

@@ -256,6 +256,12 @@ else
   check "repository posture metadata" "fail" "$(tail_detail "$repository_posture_out")"
 fi
 
+if codemeta_out=$("$PYTHON_BIN" scripts/validate_codemeta.py 2>&1); then
+  check "CodeMeta metadata" "ok"
+else
+  check "CodeMeta metadata" "fail" "$(tail_detail "$codemeta_out")"
+fi
+
 if cff_out=$(uvx --from cffconvert cffconvert --validate --infile CITATION.cff 2>&1); then
   check "citation metadata" "ok"
 else
