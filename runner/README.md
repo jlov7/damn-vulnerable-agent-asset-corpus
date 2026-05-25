@@ -66,7 +66,9 @@ Use `make write-signed` for release packaging; it also writes `RELEASE-MANIFEST.
 ## Validating scanner scorecards
 
 Third-party scanner submissions should fill out `scorecard-template.json` and
-validate the submitted file before opening a result issue:
+validate the submitted file before opening a result issue. Use current `main`
+for validation-ledger candidates because current intake checks include scanner
+source provenance and runnable context:
 
 ```bash
 python runner/validate_scorecard.py path/to/scorecard.json
@@ -79,9 +81,10 @@ DVAAC scorecard: valid submission.
 ```
 
 The scorecard validator checks schema conformance, fixture coverage, summary
-counts, claimed detector-class coverage, populated scanner metadata, and exact
-`(finding_id, category, severity)` agreement for fixtures marked as passed. It
-does not prove that the scanner's evidence is semantically correct.
+counts, claimed detector-class coverage, populated scanner metadata, scanner
+source provenance, runnable context, and exact `(finding_id, category,
+severity)` agreement for fixtures marked as passed. It does not prove that the
+scanner's evidence is semantically correct.
 
 ## What the runner checks per fixture
 

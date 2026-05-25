@@ -35,8 +35,10 @@ An entry can be added here when it has:
 - maintainer disposition in a linked issue or pull request.
 
 Scanner-result ledger candidates should include a complete scorecard based on
-[`scorecard-template.json`](../scorecard-template.json), validated with one of
-the documented validator paths:
+[`scorecard-template.json`](../scorecard-template.json), validated from current
+`main` where possible. Current `main` may include stricter intake checks than
+the immutable release checkout, including scanner source provenance and runnable
+context:
 
 ```bash
 python runner/validate_scorecard.py path/to/scorecard.json
@@ -44,9 +46,10 @@ make validate-scorecard SCORECARD=path/to/scorecard.json
 ```
 
 The validator checks scorecard schema conformance, fixture coverage, summary
-counts, claimed detector-class coverage, populated scanner metadata, and exact
-finding identity for fixtures marked as passed. Passing validation does not
-prove that scanner evidence is semantically correct; it only makes the
+counts, claimed detector-class coverage, populated scanner metadata, scanner
+source provenance, runnable context, public reproducibility declaration, and
+exact finding identity for fixtures marked as passed. Passing validation does
+not prove that scanner evidence is semantically correct; it only makes the
 submission reproducible enough for maintainer review.
 
 Corpus-critique ledger candidates should include a filled
