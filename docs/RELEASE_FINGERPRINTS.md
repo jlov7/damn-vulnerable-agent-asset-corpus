@@ -99,6 +99,8 @@ From current `main`, reviewers can run the executable release-fingerprint verifi
 python3 scripts/verify_release_fingerprints.py
 ```
 
+GitHub also runs the same check through the `release-fingerprints` workflow on relevant pull requests, on changes to the fingerprint tooling or this document, on a weekly schedule, and on manual dispatch. Those workflow runs are self-verification evidence; they are not third-party scanner validation or independent corpus review.
+
 ## Baseline Post-Release Evidence
 
 The release tag is immutable review evidence. `main` may contain later documentation clarifications. This baseline evidence records a green post-release `main` state after the DOI and validation-entry updates, without implying it will remain the latest `main` commit:
