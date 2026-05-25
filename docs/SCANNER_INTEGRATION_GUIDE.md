@@ -78,16 +78,19 @@ ID and the DVAAC expected finding ID in the scorecard evidence or notes.
 
 ## Scorecard Validation
 
-From an immutable `v0.1.4` checkout:
-
-```bash
-python runner/validate_scorecard.py path/to/scorecard.json
-```
-
-From current `main`:
+For validation-ledger candidates, prefer current `main` because it includes the
+latest intake checks for scanner source provenance, runnable context, and public
+reproducibility:
 
 ```bash
 make validate-scorecard SCORECARD=path/to/scorecard.json
+```
+
+The immutable `v0.1.4` checkout remains useful for validating against the
+release-shipped validator:
+
+```bash
+python runner/validate_scorecard.py path/to/scorecard.json
 ```
 
 Expected output:
@@ -96,9 +99,10 @@ Expected output:
 DVAAC scorecard: valid submission.
 ```
 
-Validator success proves scorecard structure and self-consistency. It does not
-prove that scanner evidence is semantically correct, that the scanner is safe,
-or that the scanner has general agent-security coverage.
+Validator success proves scorecard structure, fixture-level self-consistency,
+and, on current `main`, public run provenance. It does not prove that scanner
+evidence is semantically correct, that the scanner is safe, or that the scanner
+has general agent-security coverage.
 
 ## Submission Packet
 
