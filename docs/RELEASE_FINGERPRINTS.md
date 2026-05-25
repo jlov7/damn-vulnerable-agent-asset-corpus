@@ -93,6 +93,12 @@ Expected output for a structurally valid scorecard:
 DVAAC scorecard: valid submission.
 ```
 
+From current `main`, reviewers can run the executable release-fingerprint verifier. It clones the immutable DVAAC and AAC release tags into a temporary directory, checks the exact commits, verifies both signed tags with the public release-signing key, runs corpus conformance, runs scorecard-validator tests when present, checks pytest collection safety, downloads the published release assets, verifies their GitHub asset digests, checks the archive sidecar, extracts the signed-AAC archive safely, and verifies the inner `SHA256SUMS` file:
+
+```bash
+python3 scripts/verify_release_fingerprints.py
+```
+
 ## Baseline Post-Release Evidence
 
 The release tag is immutable review evidence. `main` may contain later documentation clarifications. This baseline evidence records a green post-release `main` state after the DOI and validation-entry updates, without implying it will remain the latest `main` commit:
