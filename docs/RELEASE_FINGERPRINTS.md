@@ -118,8 +118,9 @@ As of `2026-05-25`, the protected `main` branch requires strict status checks fo
 - `Analyze Python`
 - `Verify DVAAC release fingerprint`
 - `Quality checks`
+- `OpenSSF Scorecard`
 
-The initial protected-gate evidence after enabling the release-fingerprint requirement is listed below. `Quality checks` was added as a required protected check after this initial evidence point. For the latest `main` status, use the workflow badges or GitHub Actions run history.
+The initial protected-gate evidence after enabling the release-fingerprint requirement is listed below. `Quality checks` and `OpenSSF Scorecard` were added as required protected checks after this initial evidence point. For the latest `main` status, use the workflow badges or GitHub Actions run history.
 
 - Main commit: `70662ba39170356d74ffe8eb807bbd508486d486`
 - Release-fingerprints workflow: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/runs/26409761070>
