@@ -18,6 +18,12 @@ This repository is already public. Future releases should preserve the current p
 Run from the repository root:
 
 ```bash
+./VERIFY-PUBLICATION-READY.sh
+```
+
+For targeted local iteration, the publication gate includes the checks that used to be run separately:
+
+```bash
 uv venv
 source .venv/bin/activate
 uv pip install -r runner/requirements.txt
@@ -27,24 +33,11 @@ make pytest-safety
 make write-signed
 ```
 
-Then validate citation metadata:
-
-```bash
-uvx --from cffconvert cffconvert --validate --infile CITATION.cff
-```
-
-After any release-fingerprint tooling or release-fingerprint documentation update, run:
-
-```bash
-python3 scripts/verify_release_fingerprints.py
-```
-
 ## Required Review Evidence
 
 Before publishing:
 
-- save the full `make verify` output;
-- save the full `make pytest-safety` output;
+- save the full `./VERIFY-PUBLICATION-READY.sh` output;
 - attach `dist/signed-aac/*.json`;
 - attach `dist/signed-aac/RELEASE-MANIFEST.json`;
 - attach `dist/signed-aac/SHA256SUMS`;

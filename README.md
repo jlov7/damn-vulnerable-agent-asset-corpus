@@ -107,6 +107,12 @@ make verify
 make pytest-safety
 ```
 
+Run the full publication-readiness gate:
+
+```bash
+./VERIFY-PUBLICATION-READY.sh
+```
+
 Verify the published release fingerprint from current `main`:
 
 ```bash
@@ -173,6 +179,7 @@ mappings/                  informative mappings to external taxonomies
 docs/                      evaluation, validation, and release-process notes
 runner/                    conformance runner and runner schemas
 scripts/                   executable release-fingerprint checks
+VERIFY-PUBLICATION-READY.sh one-command publication-readiness gate
 .github/workflows/ci.yml   corpus conformance CI
 corpus.manifest.json       machine-readable corpus index
 scorecard-template.json    scanner result publication template
