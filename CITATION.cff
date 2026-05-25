@@ -19,6 +19,7 @@ date-released: "2026-05-25"
 doi: 10.5281/zenodo.20379817
 license: CC-BY-4.0
 repository-code: "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus"
+url: "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus"
 keywords:
   - agentic AI
   - agent security
