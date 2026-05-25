@@ -42,6 +42,7 @@ jobs:
         run: |
           python -m py_compile \
             dvaac/runner/verify_fixtures.py \
+            dvaac/runner/validate_scorecard.py \
             dvaac/runner/write_release_manifest.py
 
       - name: Validate committed JSON files
@@ -70,6 +71,10 @@ jobs:
           AAC_VERIFIER_PATH: >-
             ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
         run: python dvaac/runner/verify_fixtures.py
+
+      - name: Run runner unit tests
+        working-directory: dvaac
+        run: PYTHONDONTWRITEBYTECODE=1 python -m pytest tests/ -q -p no:cacheprovider
 
       - name: Verify signed AAC emission
         working-directory: dvaac
