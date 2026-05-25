@@ -262,6 +262,12 @@ else
   check "CodeMeta metadata" "fail" "$(tail_detail "$codemeta_out")"
 fi
 
+if citation_out=$("$PYTHON_BIN" scripts/validate_citation.py 2>&1); then
+  check "citation metadata consistency" "ok"
+else
+  check "citation metadata consistency" "fail" "$(tail_detail "$citation_out")"
+fi
+
 if cff_out=$(uvx --from cffconvert cffconvert --validate --infile CITATION.cff 2>&1); then
   check "citation metadata" "ok"
 else
