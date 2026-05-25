@@ -8,6 +8,7 @@
 
 [![CI](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml)
 [![Release fingerprints](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/release-fingerprints.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/release-fingerprints.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/jlov7/damn-vulnerable-agent-asset-corpus/badge)](https://scorecard.dev/viewer/?uri=github.com/jlov7/damn-vulnerable-agent-asset-corpus)
 ![Status](https://img.shields.io/badge/status-v0.1.4-2f6f9f)
 ![Fixtures](https://img.shields.io/badge/fixtures-16-0f766e)
 ![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.7-111827)
