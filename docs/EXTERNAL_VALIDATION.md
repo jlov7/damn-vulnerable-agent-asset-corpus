@@ -37,6 +37,64 @@ DVAAC: all fixtures conform.
 
 The conformance runner validates the corpus. It is not a scanner and it does not execute fixture payloads.
 
+## Review Recipes
+
+Use one of these small paths if you want to contribute a focused review without
+running a full scanner integration first.
+
+### 10-Minute Corpus Conformance Check
+
+Run the release-pinned fast verification path above and paste the command/output
+into the public validation thread if anything differs from:
+
+```text
+DVAAC: all fixtures conform.
+```
+
+Useful result: the corpus validates exactly, or the report includes the failing
+fixture ID, command, environment, and observed output.
+
+### 20-Minute Fixture Realism Check
+
+Pick one fixture under `fixtures/`, read its `README.md`,
+`expected-findings.json`, and `expected-aac.json`, then answer:
+
+- is the threat class realistic enough to test a scanner?
+- is the `minimum_detector_class` too weak or too strong?
+- would a scanner be able to game the fixture without detecting the real issue?
+
+Useful result: a fixture ID, file path, and a concrete correction or missing
+threat class.
+
+### Scanner Scorecard Check
+
+If you can run a scanner, fill [`scorecard-template.json`](../scorecard-template.json)
+for every fixture and validate it:
+
+```bash
+python runner/validate_scorecard.py path/to/scorecard.json
+```
+
+or, from current `main`:
+
+```bash
+make validate-scorecard SCORECARD=path/to/scorecard.json
+```
+
+Useful result: `DVAAC scorecard: valid submission.` plus the scorecard JSON or a
+public artifact link. Validator success proves scorecard structure and
+self-consistency, not semantic scanner correctness.
+
+### Ledger-Ready Critique
+
+For a result that can be considered for [VALIDATION_LEDGER.md](VALIDATION_LEDGER.md),
+include the exact DVAAC release or commit, AAC verifier target if used, detector
+class claimed, command line, environment, scorecard or per-fixture result, and
+handling of misses or false positives.
+
+Useful result: enough public detail for another reviewer to reproduce the same
+fixture-level outcome.
+
 ## Current External Validation Status
 
 This repository currently has no accepted third-party scanner submissions recorded in-tree. The canonical record is [VALIDATION_LEDGER.md](VALIDATION_LEDGER.md).
