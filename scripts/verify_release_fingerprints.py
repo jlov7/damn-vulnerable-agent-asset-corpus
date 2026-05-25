@@ -51,27 +51,75 @@ def load_release_evidence() -> dict[str, Any]:
     return json.loads(RELEASE_EVIDENCE_PATH.read_text(encoding="utf-8"))
 
 
+def require_equal(label: str, actual: str, expected: str) -> None:
+    if actual != expected:
+        raise SystemExit(f"{label} mismatch: {actual} != {expected}")
+
+
 def signed_tag_evidence(
     evidence: dict[str, Any],
     artifact: str,
 ) -> dict[str, Any]:
-    for item in evidence["signed_tags"]:
-        if item["artifact"] == artifact:
-            return item
-    raise SystemExit(f"release evidence missing signed tag for {artifact}")
+    matches = [item for item in evidence["signed_tags"] if item["artifact"] == artifact]
+    if len(matches) == 1:
+        return matches[0]
+    if not matches:
+        raise SystemExit(f"release evidence missing signed tag for {artifact}")
+    raise SystemExit(f"release evidence contains duplicate signed tags for {artifact}")
+
+
+def validate_release_evidence(evidence: dict[str, Any]) -> None:
+    release = evidence["release"]
+    pinned_aac = evidence["pinned_aac"]
+    dvaac_tag = signed_tag_evidence(evidence, "damn-vulnerable-agent-asset-corpus")
+    aac_tag = signed_tag_evidence(evidence, "agent-assurance-case")
+
+    require_equal(
+        "release evidence filename tag",
+        str(release["tag"]),
+        RELEASE_EVIDENCE_PATH.stem.removeprefix("release-evidence."),
+    )
+    require_equal("DVAAC signed tag", str(dvaac_tag["tag"]), str(release["tag"]))
+    require_equal(
+        "DVAAC signed tag object",
+        str(dvaac_tag["expected_object"]),
+        str(release["release_commit"]),
+    )
+    require_equal("pinned AAC signed tag", str(aac_tag["tag"]), str(pinned_aac["tag"]))
+    require_equal(
+        "pinned AAC signed tag object",
+        str(aac_tag["expected_object"]),
+        str(pinned_aac["commit"]),
+    )
+
+    asset_names = [asset["name"] for asset in evidence["release_assets"]]
+    if len(asset_names) != len(set(asset_names)):
+        raise SystemExit("release evidence contains duplicate release asset names")
+    release_version = str(release["tag"]).removeprefix("v")
+    expected_asset_names = {
+        "RELEASE-MANIFEST.json",
+        "SHA256SUMS",
+        f"signed-aac-v{release_version}.tar.gz",
+        f"signed-aac-v{release_version}.tar.gz.sha256",
+    }
+    if set(asset_names) != expected_asset_names:
+        raise SystemExit(
+            "release evidence asset set mismatch: "
+            f"{sorted(asset_names)} != {sorted(expected_asset_names)}"
+        )
 
 
 def write_allowed_signers(
     workdir: Path,
     *,
-    principal: str,
-    public_key: str,
+    signed_tags: list[dict[str, Any]],
 ) -> Path:
     path = workdir / "allowed_signers"
-    path.write_text(
-        f"{principal} {public_key} aac-release-signing\n",
-        encoding="utf-8",
-    )
+    signers = {
+        f"{item['signer']} {item['public_key']} aac-release-signing"
+        for item in signed_tags
+    }
+    path.write_text("\n".join(sorted(signers)) + "\n", encoding="utf-8")
     return path
 
 
@@ -225,6 +273,7 @@ def block_pytest_discoverable_fixture_names(repo: Path) -> None:
 def main() -> int:
     require_tool("git")
     evidence = load_release_evidence()
+    validate_release_evidence(evidence)
     release = evidence["release"]
     pinned_aac = evidence["pinned_aac"]
     dvaac_tag = signed_tag_evidence(evidence, "damn-vulnerable-agent-asset-corpus")
@@ -239,8 +288,7 @@ def main() -> int:
         tmp_path = Path(tmp)
         allowed_signers = write_allowed_signers(
             tmp_path,
-            principal=str(dvaac_tag["signer"]),
-            public_key=str(dvaac_tag["public_key"]),
+            signed_tags=evidence["signed_tags"],
         )
         aac_repo = tmp_path / "agent-assurance-case"
         dvaac_repo = tmp_path / "damn-vulnerable-agent-asset-corpus"
