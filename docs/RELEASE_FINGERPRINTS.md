@@ -2,6 +2,8 @@
 
 This file records public, reproducible fingerprints for the current DVAAC release. It is release provenance, not third-party scanner validation.
 
+Machine-readable companion: [`release-evidence.v0.1.4.json`](release-evidence.v0.1.4.json).
+
 ## Current Release
 
 - Repository: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus>
