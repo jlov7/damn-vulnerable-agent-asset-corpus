@@ -2,7 +2,7 @@
 
 This file records public, reproducible fingerprints for the current DVAAC release. It is release provenance, not third-party scanner validation.
 
-Machine-readable companion: [`release-evidence.v0.1.4.json`](release-evidence.v0.1.4.json).
+Machine-readable companion: [`release-evidence.v0.1.4.json`](release-evidence.v0.1.4.json), validated by [`release-evidence.schema.json`](release-evidence.schema.json).
 
 ## Current Release
 
