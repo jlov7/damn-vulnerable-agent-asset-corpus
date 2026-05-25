@@ -13,6 +13,8 @@ This note explains the repository-level security posture for reviewers who use a
 - The quality gate checks ruff, pyright, codespell, CFF metadata, local Markdown links, and public-artifact hygiene.
 - ClusterFuzzLite PR fuzzing is configured for scorecard validation.
 - Dependabot is enabled for GitHub Actions and Python requirements.
+- GitHub secret scanning and push protection are enabled.
+- `security-insights.yml` provides machine-readable OpenSSF Security Insights metadata and is validated in CI.
 - GitHub private vulnerability reporting is enabled through `SECURITY.md`.
 - Fixture safety rules prohibit network access, real-secret access, destructive behavior, persistence, subprocess spawning, and symlinks.
 

@@ -1,0 +1,140 @@
+---
+# yamllint disable rule:line-length
+header:
+  schema-version: 2.2.0
+  last-updated: "2026-05-25"
+  last-reviewed: "2026-05-25"
+  url: https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/main/security-insights.yml
+  comment: |
+    Self-reported OpenSSF Security Insights metadata for the DVAAC repository.
+    This file makes the repository security posture machine-readable; it is
+    not an independent security review or third-party scanner validation.
+
+project:
+  name: Damn Vulnerable Agent Asset Corpus
+  homepage: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus
+  administrators:
+    - name: Jason Mark Lovell
+      affiliation: Independent
+      primary: true
+  documentation:
+    quickstart-guide: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus#quick-start
+    detailed-guide: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/docs/EVALUATION_PROTOCOL.md
+    release-process: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/docs/RELEASE_PROCESS.md
+    support-policy: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/SECURITY.md
+    signature-verification: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/docs/RELEASE_FINGERPRINTS.md
+  repositories:
+    - name: damn-vulnerable-agent-asset-corpus
+      url: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus
+      comment: |
+        DVAAC fixtures, expected findings, AAC templates, corpus runner,
+        scanner scorecard schema, and validation-ledger intake tooling.
+  vulnerability-reporting:
+    reports-accepted: true
+    bug-bounty-available: false
+    policy: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/SECURITY.md
+    contact:
+      name: GitHub private vulnerability reporting
+      primary: true
+    in-scope:
+      - runner behavior that executes fixture payloads unexpectedly
+      - symlink or fixture-safety bypass
+      - release artifact digest or signature confusion
+      - scorecard or corpus-critique validator bypass
+      - unsafe checked-in fixture payload behavior
+    out-of-scope:
+      - scanner accuracy claims outside submitted scorecards
+      - universal agent safety claims
+      - legal compliance certification
+      - intentionally vulnerable fixture behavior that is documented and safe
+
+repository:
+  url: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus
+  status: active
+  bug-fixes-only: false
+  accepts-change-request: true
+  accepts-automated-change-request: true
+  no-third-party-packages: false
+  core-team:
+    - name: Jason Mark Lovell
+      affiliation: Independent
+      primary: true
+  documentation:
+    contributing-guide: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/CONTRIBUTING.md
+    dependency-management-policy: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/SECURITY_POSTURE.md
+    governance: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/CONTRIBUTING.md
+    review-policy: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/SECURITY_POSTURE.md
+    security-policy: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/SECURITY.md
+  license:
+    url: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/LICENSE.md
+    expression: Apache-2.0 AND CC-BY-4.0
+  release:
+    automated-pipeline: true
+    changelog: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/CHANGELOG.md
+    distribution-points:
+      - uri: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases
+        comment: GitHub Releases.
+      - uri: https://doi.org/10.5281/zenodo.20379817
+        comment: Zenodo DOI for the current DVAAC release.
+  security:
+    assessments:
+      self:
+        evidence: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/blob/main/SECURITY_POSTURE.md
+        date: "2026-05-25"
+        comment: |
+          Self-assessed repository posture covering protected-branch policy,
+          required checks, release fingerprints, fixture safety, Scorecard
+          interpretation, and explicit non-claims. No independent third-party
+          security review, corpus critique, or scanner validation is claimed.
+    tools:
+      - name: CodeQL
+        type: SAST
+        rulesets:
+          - security-extended
+          - security-and-quality
+        integration:
+          adhoc: true
+          ci: true
+          release: false
+        results: {}
+        comment: Runs on pull requests, main pushes, and a weekly schedule.
+      - name: OpenSSF Scorecard
+        type: other
+        rulesets:
+          - default
+        integration:
+          adhoc: true
+          ci: true
+          release: false
+        results: {}
+        comment: Required protected-branch check; remaining maturity findings are documented in SECURITY_POSTURE.md.
+      - name: Dependabot
+        type: SCA
+        rulesets:
+          - default
+        integration:
+          adhoc: true
+          ci: true
+          release: false
+        results: {}
+        comment: GitHub Actions and Python requirement updates plus Dependabot security updates are enabled.
+      - name: GitHub secret scanning
+        type: secret
+        rulesets:
+          - default
+        integration:
+          adhoc: true
+          ci: false
+          release: false
+        results: {}
+        comment: Secret scanning and push protection are enabled for the public repository.
+      - name: ClusterFuzzLite
+        type: fuzzing
+        rulesets:
+          - default
+        integration:
+          adhoc: false
+          ci: true
+          release: false
+        results: {}
+        comment: PR fuzzing is configured for scorecard validator, runner, schema, and fuzz-harness changes.
