@@ -7,10 +7,10 @@
 **A compact, runnable benchmark for agent-asset assurance tools.**
 
 [![CI](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml)
-![Status](https://img.shields.io/badge/status-v0.1.3-2f6f9f)
+![Status](https://img.shields.io/badge/status-v0.1.4-2f6f9f)
 ![Fixtures](https://img.shields.io/badge/fixtures-16-0f766e)
-![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.6-111827)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20345025.svg)](https://doi.org/10.5281/zenodo.20345025)
+![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.7-111827)
+![DOI](https://img.shields.io/badge/DOI-pending%20Zenodo-lightgrey)
 ![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
 
 [Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [External validation](docs/EXTERNAL_VALIDATION.md) · [Security policy](SECURITY.md)
@@ -19,7 +19,7 @@
 
 DVAAC ships deliberately vulnerable and deliberately clean agentic AI release fixtures, expected findings, and Agent Assurance Case (AAC) templates that are verified against the AAC v0.2 reference verifier. The runner validates corpus truth; it is not a scanner and it does not import or execute fixture payloads.
 
-This release is pinned to AAC `v0.2-candidate.6` at commit `a51c7bd4a2de326333b149ad321785a276376cfa`.
+This release is pinned to AAC `v0.2-candidate.7` at commit `689198d9c249a966a0abab6415ae8668efb512d9`.
 
 ## Why This Exists
 
@@ -81,8 +81,8 @@ Detector classes are defined in [TAXONOMY.md](TAXONOMY.md). Machine-readable fix
 From a checkout of this repository:
 
 ```bash
-git clone --branch v0.2-candidate.6 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
-test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "a51c7bd4a2de326333b149ad321785a276376cfa"
+git clone --branch v0.2-candidate.7 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
+test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "689198d9c249a966a0abab6415ae8668efb512d9"
 uv venv
 source .venv/bin/activate
 uv pip install -r runner/requirements.txt
@@ -136,12 +136,12 @@ This writes `dist/signed-aac/*.json`, `dist/signed-aac/RELEASE-MANIFEST.json`, a
 2. Compare emitted findings against `expected-findings.json`.
 3. If your scanner emits AAC, compare its case against `expected-aac.json`.
 4. Publish results using [scorecard-template.json](scorecard-template.json).
-5. Validate the filled scorecard with the `main` review tool: `python runner/validate_scorecard.py path/to/scorecard.json`.
+5. Validate the filled scorecard with the release validator: `python runner/validate_scorecard.py path/to/scorecard.json`.
 6. State the detector class you claim: `static-declared`, `static-extended`, or `trace-aware`.
 
 DVAAC does not award partial credit. A fixture is covered only when the expected category, severity, and evidence are represented accurately enough for a reviewer to recognize the same finding.
 
-For third-party scanner submissions and critique boundaries, see [External Validation](docs/EXTERNAL_VALIDATION.md), the [Validation Ledger](docs/VALIDATION_LEDGER.md), and the current [DVAAC v0.1.3 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
+For third-party scanner submissions and critique boundaries, see [External Validation](docs/EXTERNAL_VALIDATION.md), the [Validation Ledger](docs/VALIDATION_LEDGER.md), and the current [DVAAC v0.1.4 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
 
 ## Safety
 
@@ -183,9 +183,9 @@ Scanner results and corpus-level critique should go to the current [public valid
 
 See [CITATION.cff](CITATION.cff). Cite the archived release:
 
-> Lovell, J. M. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.3.* Zenodo. https://doi.org/10.5281/zenodo.20345025.
+> Lovell, J. M. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.4.* Zenodo. DOI pending.
 
-The v0.1.3 release is archived at <https://doi.org/10.5281/zenodo.20345025>. The superseded `v0.1.2` archive remains available at <https://doi.org/10.5281/zenodo.20187301>, and the superseded `v0.1.1` archive remains available at <https://doi.org/10.5281/zenodo.20186918>.
+The v0.1.4 release is intended for Zenodo archival after the signed GitHub Release is published; its DOI will be added once Zenodo mints it. The superseded `v0.1.3` archive remains available at <https://doi.org/10.5281/zenodo.20345025>, the superseded `v0.1.2` archive remains available at <https://doi.org/10.5281/zenodo.20187301>, and the superseded `v0.1.1` archive remains available at <https://doi.org/10.5281/zenodo.20186918>.
 
 ## License
 

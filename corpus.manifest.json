@@ -1,11 +1,11 @@
 {
   "corpus_id": "dvaac",
-  "corpus_version": "0.1.3",
+  "corpus_version": "0.1.4",
   "corpus_name": "Damn Vulnerable Agent Asset Corpus",
   "aac_compatibility": {
-    "aac_version": "0.2-candidate.6",
-    "aac_commit": "a51c7bd4a2de326333b149ad321785a276376cfa",
-    "aac_schema_uri": "https://raw.githubusercontent.com/jlov7/agent-assurance-case/a51c7bd4a2de326333b149ad321785a276376cfa/schemas/agent-assurance-case-v0.2.schema.json"
+    "aac_version": "0.2-candidate.7",
+    "aac_commit": "689198d9c249a966a0abab6415ae8668efb512d9",
+    "aac_schema_uri": "https://raw.githubusercontent.com/jlov7/agent-assurance-case/689198d9c249a966a0abab6415ae8668efb512d9/schemas/agent-assurance-case-v0.2.schema.json"
   },
   "digest_binding": {
     "asset_digest": "sha256 over canonical JSON entries of every non-generated file under the local source_uri directory: path plus file sha256; symlinks are rejected",

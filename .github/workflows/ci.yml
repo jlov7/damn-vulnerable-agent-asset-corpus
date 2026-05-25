@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v6.0.2
         with:
           repository: jlov7/agent-assurance-case
-          ref: a51c7bd4a2de326333b149ad321785a276376cfa
+          ref: 689198d9c249a966a0abab6415ae8668efb512d9
           path: agent-assurance-case
 
       - name: Set up Python
@@ -74,7 +74,9 @@ jobs:
 
       - name: Run runner unit tests
         working-directory: dvaac
-        run: PYTHONDONTWRITEBYTECODE=1 python -m pytest tests/ -q -p no:cacheprovider
+        run: >-
+          PYTHONDONTWRITEBYTECODE=1
+          python -m pytest tests/ -q -p no:cacheprovider
 
       - name: Verify signed AAC emission
         working-directory: dvaac
