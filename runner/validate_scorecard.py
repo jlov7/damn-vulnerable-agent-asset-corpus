@@ -19,6 +19,7 @@ except ImportError:
     import verify_fixtures  # type: ignore[no-redef]
 
 UTC_SECOND_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
+DETECTOR_CLASS_ORDER = ["static-declared", "static-extended", "trace-aware"]
 
 
 def _finding_key(finding: dict[str, Any]) -> tuple[str, str, str]:
@@ -63,6 +64,29 @@ def _fixture_results(scorecard: dict[str, Any]) -> tuple[dict[str, dict[str, Any
                 f"{duplicates}"
             )
     return results, errors
+
+
+def _required_fixture_ids_for_class(
+    manifest_by_id: dict[str, dict[str, Any]],
+    detector_class: str,
+) -> list[str]:
+    required_fixture_ids: list[str] = []
+    for fixture_id, manifest_item in manifest_by_id.items():
+        coverage = manifest_item.get("expected_coverage", {})
+        if isinstance(coverage, dict) and coverage.get(detector_class) in {"pass", "catch"}:
+            required_fixture_ids.append(str(fixture_id))
+    return required_fixture_ids
+
+
+def _coverage_at_class(
+    results: dict[str, dict[str, Any]],
+    manifest_by_id: dict[str, dict[str, Any]],
+    detector_class: str,
+) -> bool:
+    return all(
+        results.get(fixture_id, {}).get("passed") is True
+        for fixture_id in _required_fixture_ids_for_class(manifest_by_id, detector_class)
+    )
 
 
 def validate_scorecard(path: Path) -> list[str]:
@@ -125,19 +149,24 @@ def validate_scorecard(path: Path) -> list[str]:
     claimed_class = scorecard.get("detector_class_claimed")
     required_fixture_ids: list[str] = []
     if isinstance(claimed_class, str):
-        for fixture_id, manifest_item in manifest_by_id.items():
-            coverage = manifest_item.get("expected_coverage", {})
-            if isinstance(coverage, dict) and coverage.get(claimed_class) in {"pass", "catch"}:
-                required_fixture_ids.append(str(fixture_id))
-        coverage_at_claimed_class = all(
-            results.get(fixture_id, {}).get("passed") is True
-            for fixture_id in required_fixture_ids
-        )
+        required_fixture_ids = _required_fixture_ids_for_class(manifest_by_id, claimed_class)
+        coverage_at_claimed_class = _coverage_at_class(results, manifest_by_id, claimed_class)
         declared = summary.get("coverage_at_claimed_class") if isinstance(summary, dict) else None
         if declared != coverage_at_claimed_class:
             errors.append(
                 "summary.coverage_at_claimed_class="
                 f"{declared}, expected={coverage_at_claimed_class}"
+            )
+        fully_covered_classes = [
+            detector_class
+            for detector_class in DETECTOR_CLASS_ORDER
+            if _coverage_at_class(results, manifest_by_id, detector_class)
+        ]
+        strongest_fully_covered = fully_covered_classes[-1] if fully_covered_classes else None
+        if strongest_fully_covered and claimed_class != strongest_fully_covered:
+            errors.append(
+                f"detector_class_claimed={claimed_class}, expected strongest fully "
+                f"covered detector class: {strongest_fully_covered}"
             )
 
     for fixture_id, result in sorted(results.items()):
