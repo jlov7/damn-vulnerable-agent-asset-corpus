@@ -10,7 +10,7 @@ This note explains the repository-level security posture for reviewers who use a
 - Release tags are signed and treated as immutable.
 - The published release has DOI-backed archival metadata.
 - The release-fingerprint verifier checks the signed tags, pinned AAC release, release commit, signing keys, DOI, release assets, and release-evidence consistency.
-- The quality gate checks ruff, pyright, codespell, CFF metadata, local Markdown links, and public-artifact hygiene.
+- The quality gate checks ruff, pyright, dependency vulnerability status, Bandit static-analysis findings, codespell, CFF metadata, local Markdown links, and public-artifact hygiene.
 - ClusterFuzzLite PR fuzzing is configured for scorecard validation.
 - Dependabot is enabled for GitHub Actions and Python requirements.
 - GitHub secret scanning and push protection are enabled.

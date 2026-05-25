@@ -231,6 +231,18 @@ else
   check "pyright" "fail" "$(tail_detail "$pyright_out")"
 fi
 
+if pip_audit_out=$(uv run --with-requirements runner/requirements-dev.txt --with pip-audit pip-audit 2>&1); then
+  check "Python dependency audit" "ok"
+else
+  check "Python dependency audit" "fail" "$(tail_detail "$pip_audit_out")"
+fi
+
+if bandit_out=$(uvx bandit -q -r runner scripts fuzz -x tests -s B404,B603,B607 2>&1); then
+  check "Bandit static security scan" "ok"
+else
+  check "Bandit static security scan" "fail" "$(tail_detail "$bandit_out")"
+fi
+
 if codespell_out=$(uvx codespell . --skip './.git,./.venv,./dist' 2>&1); then
   check "codespell" "ok"
 else
