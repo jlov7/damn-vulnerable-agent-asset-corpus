@@ -8,6 +8,10 @@ for fuzzer in fuzz/*_fuzzer.py; do
 
   pyinstaller \
     --paths "$SRC/damn-vulnerable-agent-asset-corpus" \
+    --add-data "$SRC/damn-vulnerable-agent-asset-corpus/corpus.manifest.json:." \
+    --add-data "$SRC/damn-vulnerable-agent-asset-corpus/corpus.manifest.schema.json:." \
+    --add-data "$SRC/damn-vulnerable-agent-asset-corpus/scorecard-template.schema.json:." \
+    --add-data "$SRC/damn-vulnerable-agent-asset-corpus/fixtures:fixtures" \
     --distpath "$OUT" \
     --onefile \
     --name "$fuzzer_package" \
