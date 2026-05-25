@@ -72,7 +72,7 @@ body:
         path/to/scorecard.json` using a v0.1.4 release checkout, or from
         `make validate-scorecard SCORECARD=path/to/scorecard.json` on current
         main. If no full scorecard is submitted, explain why.
-      render: text
+      render: shell
     validations:
       required: true
   - type: textarea

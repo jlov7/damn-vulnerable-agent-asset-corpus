@@ -34,6 +34,21 @@ An entry can be added here when it has:
 - handling of misses and false positives;
 - maintainer disposition in a linked issue or pull request.
 
+Ledger candidates should include a complete scorecard based on
+[`scorecard-template.json`](../scorecard-template.json), validated with one of
+the documented validator paths:
+
+```bash
+python runner/validate_scorecard.py path/to/scorecard.json
+make validate-scorecard SCORECARD=path/to/scorecard.json
+```
+
+The validator checks scorecard schema conformance, fixture coverage, summary
+counts, claimed detector-class coverage, populated scanner metadata, and exact
+finding identity for fixtures marked as passed. Passing validation does not
+prove that scanner evidence is semantically correct; it only makes the
+submission reproducible enough for maintainer review.
+
 Private comments, social-media reactions, stars, and vendor claims without reproducible fixture-level evidence do not count as accepted external validation.
 
 ## Local Evidence That Does Not Count As External Validation
