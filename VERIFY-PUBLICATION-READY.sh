@@ -243,6 +243,12 @@ else
   check "Bandit static security scan" "fail" "$(tail_detail "$bandit_out")"
 fi
 
+if sbom_out=$("$PYTHON_BIN" scripts/validate_dependency_sbom.py 2>&1); then
+  check "runtime dependency SBOM" "ok"
+else
+  check "runtime dependency SBOM" "fail" "$(tail_detail "$sbom_out")"
+fi
+
 if codespell_out=$(uvx codespell . --skip './.git,./.venv,./dist' 2>&1); then
   check "codespell" "ok"
 else
