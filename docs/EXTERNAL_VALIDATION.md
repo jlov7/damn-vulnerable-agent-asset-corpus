@@ -64,6 +64,20 @@ A useful result submission should include:
 
 If a scanner claims a detector class, it should pass every fixture whose `minimum_detector_class` is that class or weaker. DVAAC does not award partial credit at the fixture level.
 
+Before submitting a result, validate the filled scorecard:
+
+```bash
+python runner/validate_scorecard.py path/to/scorecard.json
+```
+
+Expected output for a structurally valid submission:
+
+```text
+DVAAC scorecard: valid submission.
+```
+
+The scorecard validator checks schema conformance, fixture coverage, summary counts, claimed detector-class coverage, populated scanner metadata, and exact `(finding_id, category, severity)` agreement for fixtures marked as passed. It does not prove that the scanner's evidence is semantically correct; reviewers still need to inspect evidence references.
+
 ## What A Passing Result Means
 
 A passing DVAAC result can support a narrow claim:
