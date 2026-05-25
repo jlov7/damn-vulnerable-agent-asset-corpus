@@ -6,7 +6,7 @@ Validation proves structure and internal consistency. It does not prove that a s
 
 ## Validate Before Submitting
 
-From a checkout of this repository, after installing the runner dependencies:
+From a current `main` checkout of this repository, after installing the runner dependencies:
 
 ```bash
 uv venv
@@ -20,7 +20,7 @@ Then run:
 make validate-scorecard SCORECARD=path/to/scorecard.json
 ```
 
-Equivalent direct command:
+Equivalent direct command, including from an immutable `v0.1.4` release checkout:
 
 ```bash
 python runner/validate_scorecard.py path/to/scorecard.json

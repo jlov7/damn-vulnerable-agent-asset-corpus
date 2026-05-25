@@ -69,8 +69,9 @@ body:
       label: Scorecard validator output
       description: >-
         Include output from `python runner/validate_scorecard.py
-        path/to/scorecard.json` using the release validator, or explain why a
-        full scorecard is not being submitted.
+        path/to/scorecard.json` using a v0.1.4 release checkout, or from
+        `make validate-scorecard SCORECARD=path/to/scorecard.json` on current
+        main. If no full scorecard is submitted, explain why.
       render: text
     validations:
       required: true
