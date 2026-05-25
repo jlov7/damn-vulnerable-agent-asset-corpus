@@ -31,14 +31,14 @@ jobs:
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
 
       - name: Run ruff
-        run: uvx ruff check --no-cache runner tests scripts
+        run: uvx ruff check --no-cache runner tests scripts fuzz
 
       - name: Run pyright
         run: >-
           uv run
           --with-requirements runner/requirements-dev.txt
           --with pyright
-          pyright runner tests scripts
+          pyright runner tests scripts fuzz
 
       - name: Run codespell
         run: uvx codespell . --skip './.git,./.venv,./dist'
@@ -53,3 +53,8 @@ jobs:
         run: >-
           uvx --from cffconvert
           cffconvert --validate --infile CITATION.cff
+
+      - name: Run shellcheck
+        run: >-
+          uvx --from shellcheck-py
+          shellcheck .clusterfuzzlite/build.sh
