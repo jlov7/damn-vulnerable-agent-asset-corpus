@@ -39,7 +39,7 @@ The conformance runner validates the corpus. It is not a scanner and it does not
 
 ## Current External Validation Status
 
-As of 2026-05-24, this repository has no accepted third-party scanner submissions recorded in-tree. The canonical record is [VALIDATION_LEDGER.md](VALIDATION_LEDGER.md).
+This repository currently has no accepted third-party scanner submissions recorded in-tree. The canonical record is [VALIDATION_LEDGER.md](VALIDATION_LEDGER.md).
 
 | Source | Scanner | Version | Claimed detector class | Status |
 |---|---|---:|---|---|
