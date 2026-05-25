@@ -21,9 +21,17 @@ def _valid_scorecard_for_claimed_class(claimed_class: str) -> dict:
         "name": "ExampleScanner",
         "version": "1.2.3",
         "vendor_or_project": "example",
+        "source_url_or_commit": "https://example.com/example-scanner/tree/abc1234",
         "run_at": "2026-05-24T12:00:00Z",
     }
     scorecard["detector_class_claimed"] = claimed_class
+    scorecard["run_context"] = {
+        "command": "example-scanner scan fixtures/",
+        "environment": "Ubuntu 24.04, Python 3.12",
+        "configuration": "default ruleset with DVAAC fixture root",
+        "public_artifact_url": "https://example.com/dvaac-scorecard",
+        "evidence_publicly_reproducible": True,
+    }
 
     manifest_by_id = {item["fixture_id"]: item for item in manifest["fixtures"]}
     passed = 0
@@ -94,6 +102,33 @@ def test_rejects_unpopulated_scanner_metadata(tmp_path: Path) -> None:
     errors = validate_scorecard.validate_scorecard(_write_scorecard(tmp_path, scorecard))
 
     assert "scanner.name must be populated for a submitted scorecard" in errors
+
+
+def test_rejects_missing_scanner_source_provenance(tmp_path: Path) -> None:
+    scorecard = _valid_scorecard_for_claimed_class("static-declared")
+    scorecard["scanner"]["source_url_or_commit"] = "todo"
+
+    errors = validate_scorecard.validate_scorecard(_write_scorecard(tmp_path, scorecard))
+
+    assert "scanner.source_url_or_commit must be populated for a submitted scorecard" in errors
+
+
+def test_rejects_unreproducible_run_context(tmp_path: Path) -> None:
+    scorecard = _valid_scorecard_for_claimed_class("static-declared")
+    scorecard["run_context"]["command"] = ""
+    scorecard["run_context"]["environment"] = "n/a"
+    scorecard["run_context"]["configuration"] = "todo"
+    scorecard["run_context"]["evidence_publicly_reproducible"] = False
+
+    errors = validate_scorecard.validate_scorecard(_write_scorecard(tmp_path, scorecard))
+
+    assert "run_context.command must be populated for a submitted scorecard" in errors
+    assert "run_context.environment must be populated for a submitted scorecard" in errors
+    assert "run_context.configuration must be populated for a submitted scorecard" in errors
+    assert (
+        "run_context.evidence_publicly_reproducible must be true for validation-ledger candidates"
+        in errors
+    )
 
 
 def test_rejects_summary_passed_count_drift(tmp_path: Path) -> None:

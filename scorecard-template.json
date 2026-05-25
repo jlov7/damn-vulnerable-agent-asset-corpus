@@ -5,6 +5,7 @@
     "name": "",
     "version": "",
     "vendor_or_project": "",
+    "source_url_or_commit": "",
     "run_at": "YYYY-MM-DDTHH:MM:SSZ"
   },
   "detector_class_claimed": "static-declared",
@@ -12,6 +13,13 @@
     "fixtures_total": 16,
     "fixtures_passed": 0,
     "coverage_at_claimed_class": false
+  },
+  "run_context": {
+    "command": "",
+    "environment": "",
+    "configuration": "",
+    "public_artifact_url": "",
+    "evidence_publicly_reproducible": false
   },
   "per_fixture_results": [
     {

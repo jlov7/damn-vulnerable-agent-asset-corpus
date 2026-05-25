@@ -20,6 +20,7 @@ except ImportError:
 
 UTC_SECOND_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
 DETECTOR_CLASS_ORDER = ["static-declared", "static-extended", "trace-aware"]
+PLACEHOLDER_STRINGS = {"", "n/a", "none", "todo", "tbd", "placeholder"}
 
 
 def _finding_key(finding: dict[str, Any]) -> tuple[str, str, str]:
@@ -38,6 +39,10 @@ def _load_expected_finding_keys(fixture_id: str) -> list[tuple[str, str, str]]:
     if not isinstance(findings, list):
         return []
     return sorted(_finding_key(finding) for finding in findings if isinstance(finding, dict))
+
+
+def _is_placeholder(value: object) -> bool:
+    return str(value).strip().lower() in PLACEHOLDER_STRINGS
 
 
 def _fixture_results(scorecard: dict[str, Any]) -> tuple[dict[str, dict[str, Any]], list[str]]:
@@ -117,12 +122,22 @@ def validate_scorecard(path: Path) -> list[str]:
 
     scanner = scorecard.get("scanner", {})
     if isinstance(scanner, dict):
-        for field in ("name", "version", "vendor_or_project"):
-            if not str(scanner.get(field, "")).strip():
+        for field in ("name", "version", "vendor_or_project", "source_url_or_commit"):
+            if _is_placeholder(scanner.get(field, "")):
                 errors.append(f"scanner.{field} must be populated for a submitted scorecard")
         run_at = scanner.get("run_at")
         if not isinstance(run_at, str) or not UTC_SECOND_RE.fullmatch(run_at):
             errors.append("scanner.run_at must be UTC RFC3339 seconds: YYYY-MM-DDTHH:MM:SSZ")
+
+    run_context = scorecard.get("run_context", {})
+    if isinstance(run_context, dict):
+        for field in ("command", "environment", "configuration"):
+            if _is_placeholder(run_context.get(field, "")):
+                errors.append(f"run_context.{field} must be populated for a submitted scorecard")
+        if run_context.get("evidence_publicly_reproducible") is not True:
+            errors.append(
+                "run_context.evidence_publicly_reproducible must be true for validation-ledger candidates"
+            )
 
     results, result_errors = _fixture_results(scorecard)
     errors += result_errors

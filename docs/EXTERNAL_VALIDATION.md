@@ -160,7 +160,17 @@ Expected output for a structurally valid submission:
 DVAAC scorecard: valid submission.
 ```
 
-The scorecard validator ships in `v0.1.4` for submissions that target `v0.1.4` or a later commit. The `make validate-scorecard` wrapper is current-`main` convenience tooling. Both paths run the same validator logic for a `v0.1.4` scorecard. The validator checks schema conformance, fixture coverage, summary counts, claimed detector-class coverage, populated scanner metadata, and exact `(finding_id, category, severity)` agreement for fixtures marked as passed. It does not prove that the scanner's evidence is semantically correct; reviewers still need to inspect evidence references.
+The scorecard validator ships in `v0.1.4` for submissions that target `v0.1.4`
+or a later commit. The `make validate-scorecard` wrapper is current-`main`
+convenience tooling. Current `main` may add stricter submission-intake checks
+than the immutable release checkout; for validation-ledger candidates, prefer
+current `main` so scanner source provenance and runnable context are checked.
+The validator checks schema conformance, fixture coverage, summary counts,
+claimed detector-class coverage, populated scanner metadata, scanner source
+provenance, runnable context, public reproducibility declaration, and exact
+`(finding_id, category, severity)` agreement for fixtures marked as passed. It
+does not prove that the scanner's evidence is semantically correct; reviewers
+still need to inspect evidence references.
 
 For field-by-field submission guidance, see [Scorecard Field Guide](SCORECARD_FIELD_GUIDE.md).
 For an end-to-end scanner-author workflow, see [Scanner Integration Guide](SCANNER_INTEGRATION_GUIDE.md).
