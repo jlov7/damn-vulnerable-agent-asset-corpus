@@ -199,7 +199,7 @@ Scanner results and corpus-level critique should go to the current [public valid
 
 ## Citation
 
-See [CITATION.cff](CITATION.cff). Cite the archived release:
+See [CITATION.cff](CITATION.cff) and [codemeta.json](codemeta.json). Cite the archived release:
 
 > Lovell, J. M. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.4.* Zenodo. https://doi.org/10.5281/zenodo.20379817.
 

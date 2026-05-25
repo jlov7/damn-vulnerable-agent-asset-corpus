@@ -6,6 +6,7 @@ path = [
     ".github/dependabot.yml",
     ".github/workflows/**",
     ".gitignore",
+    "codemeta.json",
     "Makefile",
     "REUSE.toml",
     "VERIFY-PUBLICATION-READY.sh",
