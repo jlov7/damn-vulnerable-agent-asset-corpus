@@ -6,7 +6,7 @@ This ledger records third-party scanner results and corpus critiques for DVAAC. 
 
 - DVAAC release: `v0.1.4`
 - DVAAC release commit: the Git tag target for `v0.1.4`
-- DOI: pending Zenodo archival
+- DOI: <https://doi.org/10.5281/zenodo.20379817>
 - Pinned AAC verifier: `v0.2-candidate.7`
 - AAC verifier commit: `689198d9c249a966a0abab6415ae8668efb512d9`
 - Public validation issue: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1>
@@ -19,7 +19,7 @@ No third-party scanner result or independent corpus critique has been accepted i
 |---|---|---|---|---|---|---|
 | none yet | none yet | none yet | n/a | none yet | no accepted external result | n/a |
 
-This is the current claim boundary: DVAAC is signed, CI-green, and ready to receive scanner results; it is not yet externally validated. DOI archival is completed after Zenodo archives the GitHub Release.
+This is the current claim boundary: DVAAC is signed, CI-green, DOI-archived, and ready to receive scanner results; it is not yet externally validated.
 
 ## What Counts As Accepted External Validation
 
