@@ -136,12 +136,12 @@ This writes `dist/signed-aac/*.json`, `dist/signed-aac/RELEASE-MANIFEST.json`, a
 2. Compare emitted findings against `expected-findings.json`.
 3. If your scanner emits AAC, compare its case against `expected-aac.json`.
 4. Publish results using [scorecard-template.json](scorecard-template.json).
-5. Validate the filled scorecard with the release validator: `python runner/validate_scorecard.py path/to/scorecard.json`.
+5. Validate the filled scorecard with the release validator: `make validate-scorecard SCORECARD=path/to/scorecard.json`.
 6. State the detector class you claim: `static-declared`, `static-extended`, or `trace-aware`.
 
 DVAAC does not award partial credit. A fixture is covered only when the expected category, severity, and evidence are represented accurately enough for a reviewer to recognize the same finding.
 
-For third-party scanner submissions and critique boundaries, see [External Validation](docs/EXTERNAL_VALIDATION.md), the [Validation Ledger](docs/VALIDATION_LEDGER.md), and the current [DVAAC v0.1.4 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
+For third-party scanner submissions and critique boundaries, see [External Validation](docs/EXTERNAL_VALIDATION.md), the [Scorecard Field Guide](docs/SCORECARD_FIELD_GUIDE.md), the [Validation Ledger](docs/VALIDATION_LEDGER.md), and the current [DVAAC v0.1.4 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
 
 ## Safety
 
