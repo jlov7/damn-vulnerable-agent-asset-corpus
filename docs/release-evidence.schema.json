@@ -158,7 +158,8 @@
           "prefixItems": [
             { "const": "conformance" },
             { "const": "Analyze Python" },
-            { "const": "Verify DVAAC release fingerprint" }
+            { "const": "Verify DVAAC release fingerprint" },
+            { "const": "Quality checks" }
           ],
           "items": false
         },
