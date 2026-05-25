@@ -1,0 +1,107 @@
+{
+  "artifact": "damn-vulnerable-agent-asset-corpus",
+  "evidence_type": "release-provenance",
+  "schema_version": "1.0",
+  "release": {
+    "name": "Damn Vulnerable Agent Asset Corpus",
+    "version": "0.1.4",
+    "tag": "v0.1.4",
+    "release_url": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.4",
+    "repository": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
+    "release_commit": "e90a76daf9107871d1ff6a2d7c438d2b92709e53",
+    "doi": "10.5281/zenodo.20379817",
+    "doi_url": "https://doi.org/10.5281/zenodo.20379817",
+    "published_at": "2026-05-25T13:16:03Z"
+  },
+  "pinned_aac": {
+    "tag": "v0.2-candidate.7",
+    "commit": "689198d9c249a966a0abab6415ae8668efb512d9",
+    "doi": "10.5281/zenodo.20379393",
+    "repository": "https://github.com/jlov7/agent-assurance-case"
+  },
+  "citation": {
+    "cff_file": "CITATION.cff",
+    "orcid": "https://orcid.org/0009-0001-6300-9155"
+  },
+  "signed_tags": [
+    {
+      "artifact": "agent-assurance-case",
+      "tag": "v0.2-candidate.7",
+      "signature_type": "git-ssh-ed25519",
+      "signer": "jase.lovell@me.com",
+      "key_sha256": "SHA256:WGevS9odnPKBtzTZjoVXSj2aexpZo4k6VL/dHaVaJdY",
+      "expected_object": "689198d9c249a966a0abab6415ae8668efb512d9"
+    },
+    {
+      "artifact": "damn-vulnerable-agent-asset-corpus",
+      "tag": "v0.1.4",
+      "signature_type": "git-ssh-ed25519",
+      "signer": "jase.lovell@me.com",
+      "key_sha256": "SHA256:WGevS9odnPKBtzTZjoVXSj2aexpZo4k6VL/dHaVaJdY",
+      "expected_object": "e90a76daf9107871d1ff6a2d7c438d2b92709e53"
+    }
+  ],
+  "release_assets": [
+    {
+      "name": "RELEASE-MANIFEST.json",
+      "github_asset_digest": "sha256:91ca62843fd1576ae90c2a7ebcd506a499621d108f4b876f5a11008555299170"
+    },
+    {
+      "name": "SHA256SUMS",
+      "github_asset_digest": "sha256:5bbd4df2ac987315fd1460fa48646672a804316e0e481b35180fc73fa732a513"
+    },
+    {
+      "name": "signed-aac-v0.1.4.tar.gz",
+      "github_asset_digest": "sha256:ba73b6b3b75c8043feb2cc9e039c0bd5ee3d40b7e1b7aa99e65ad55ef516a43b"
+    },
+    {
+      "name": "signed-aac-v0.1.4.tar.gz.sha256",
+      "github_asset_digest": "sha256:a7878cb84bbddf708c3852889a700d027967033169533e804de37340b2ccfa35"
+    }
+  ],
+  "release_checks": {
+    "immutable_checkout_commands": [
+      "git clone --branch v0.2-candidate.7 --depth 1 https://github.com/jlov7/agent-assurance-case",
+      "test \"$(git -C agent-assurance-case rev-parse HEAD)\" = \"689198d9c249a966a0abab6415ae8668efb512d9\"",
+      "git clone --branch v0.1.4 --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
+      "test \"$(git -C damn-vulnerable-agent-asset-corpus rev-parse HEAD)\" = \"e90a76daf9107871d1ff6a2d7c438d2b92709e53\"",
+      "AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py"
+    ],
+    "expected_conformance_output": "DVAAC: all fixtures conform.",
+    "current_main_release_fingerprint_command": "python3 scripts/verify_release_fingerprints.py"
+  },
+  "protected_branch": {
+    "branch": "main",
+    "recorded_as_of": "2026-05-25",
+    "strict_required_checks": [
+      "conformance",
+      "Analyze Python",
+      "Verify DVAAC release fingerprint"
+    ],
+    "initial_required_fingerprint_gate": {
+      "main_commit": "70662ba39170356d74ffe8eb807bbd508486d486",
+      "release_fingerprints_run": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/runs/26409761070",
+      "dvaac_conformance_run": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/runs/26409761092",
+      "codeql_run": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/runs/26409761129"
+    }
+  },
+  "external_validation": {
+    "ledger": "docs/VALIDATION_LEDGER.md",
+    "public_issue": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1",
+    "accepted_third_party_scanner_result": false,
+    "accepted_independent_corpus_critique": false
+  },
+  "claim_boundary": {
+    "maturity": "public validation candidate",
+    "self_verification_evidence": true,
+    "third_party_validation_claimed": false,
+    "not_claimed": [
+      "scanner quality",
+      "product safety",
+      "statistical vulnerability coverage",
+      "legal certification",
+      "employer endorsement",
+      "standards-body endorsement"
+    ]
+  }
+}
