@@ -175,7 +175,8 @@
             { "const": "conformance" },
             { "const": "Analyze Python" },
             { "const": "Verify DVAAC release fingerprint" },
-            { "const": "Quality checks" }
+            { "const": "Quality checks" },
+            { "const": "OpenSSF Scorecard" }
           ],
           "items": false
         },

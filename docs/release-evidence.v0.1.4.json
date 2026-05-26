@@ -84,7 +84,8 @@
       "conformance",
       "Analyze Python",
       "Verify DVAAC release fingerprint",
-      "Quality checks"
+      "Quality checks",
+      "OpenSSF Scorecard"
     ],
     "initial_required_fingerprint_gate": {
       "main_commit": "70662ba39170356d74ffe8eb807bbd508486d486",
