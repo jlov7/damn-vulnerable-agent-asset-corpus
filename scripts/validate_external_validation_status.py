@@ -15,6 +15,7 @@ REPOSITORY_POSTURE_PATH = ROOT / "repository-posture.json"
 LEDGER_PATH = ROOT / "docs" / "VALIDATION_LEDGER.md"
 README_PATH = ROOT / "README.md"
 VALIDATION_GUIDE_PATH = ROOT / "docs" / "EXTERNAL_VALIDATION.md"
+SECURITY_POSTURE_PATH = ROOT / "SECURITY_POSTURE.md"
 
 EXPECTED_LEDGER = "docs/VALIDATION_LEDGER.md"
 EXPECTED_PUBLIC_ISSUE = "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1"
@@ -138,6 +139,7 @@ def main() -> int:
     ledger = LEDGER_PATH.read_text(encoding="utf-8")
     readme = README_PATH.read_text(encoding="utf-8")
     validation_guide = VALIDATION_GUIDE_PATH.read_text(encoding="utf-8")
+    security_posture = SECURITY_POSTURE_PATH.read_text(encoding="utf-8")
 
     require_contains(
         ledger,
@@ -158,6 +160,16 @@ def main() -> int:
         VALIDATION_GUIDE_PATH,
     )
     require_contains(validation_guide, "VALIDATION_LEDGER.md", VALIDATION_GUIDE_PATH)
+    require_contains(
+        security_posture,
+        "The publication gate compares `repository-posture.json` with live GitHub settings during normal maintainer release runs.",
+        SECURITY_POSTURE_PATH,
+    )
+    require_contains(
+        security_posture,
+        "CI runs static posture validation unless `REQUIRE_LIVE_REPOSITORY_POSTURE=1` is set with a token that can read branch protection.",
+        SECURITY_POSTURE_PATH,
+    )
 
     print("External validation status: valid")
     return 0
