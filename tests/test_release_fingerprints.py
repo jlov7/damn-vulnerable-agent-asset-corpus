@@ -59,3 +59,19 @@ def test_release_evidence_consistency_rejects_unexpected_release_asset_name() ->
 
     with pytest.raises(SystemExit, match="release evidence asset set mismatch"):
         release_fingerprints.validate_release_evidence(evidence)
+
+
+def test_release_evidence_consistency_rejects_attestation_expectation_drift() -> None:
+    evidence = copy.deepcopy(_release_evidence())
+    evidence["asset_attestations"]["github_artifact_attestations_expected"] = True
+
+    with pytest.raises(SystemExit, match="release asset attestation expectation"):
+        release_fingerprints.validate_release_evidence(evidence)
+
+
+def test_release_evidence_consistency_rejects_fail_closed_drift() -> None:
+    evidence = copy.deepcopy(_release_evidence())
+    evidence["asset_attestations"]["current_main_release_workflow_fail_closed"] = False
+
+    with pytest.raises(SystemExit, match="release workflow fail-closed status"):
+        release_fingerprints.validate_release_evidence(evidence)

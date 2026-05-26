@@ -58,6 +58,7 @@ require_tool() {
 }
 
 require_tool git
+require_tool gh
 require_tool go
 require_tool make
 require_tool uv

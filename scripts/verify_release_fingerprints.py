@@ -108,6 +108,17 @@ def validate_release_evidence(evidence: dict[str, Any]) -> None:
             "release evidence asset set mismatch: "
             f"{sorted(asset_names)} != {sorted(expected_asset_names)}"
         )
+    attestations = evidence["asset_attestations"]
+    require_equal(
+        "release asset attestation expectation",
+        str(attestations["github_artifact_attestations_expected"]),
+        "False",
+    )
+    require_equal(
+        "release workflow fail-closed status",
+        str(attestations["current_main_release_workflow_fail_closed"]),
+        "True",
+    )
 
 
 def write_allowed_signers(
@@ -259,6 +270,38 @@ def verify_inner_sha256s(extract_dir: Path) -> None:
             )
 
 
+def verify_release_asset_attestation_absence(
+    assets_dir: Path,
+    *,
+    repo: str,
+    asset_names: list[str],
+) -> None:
+    require_tool("gh")
+    for name in asset_names:
+        print(f"verify no GitHub attestation for {name}", flush=True)
+        completed = subprocess.run(
+            [
+                "gh",
+                "attestation",
+                "verify",
+                str(assets_dir / name),
+                "--repo",
+                repo,
+            ],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if completed.returncode == 0:
+            raise SystemExit(f"unexpected GitHub attestation found for {name}")
+        combined_output = f"{completed.stdout}\n{completed.stderr}"
+        if "HTTP 404: Not Found" not in combined_output:
+            raise SystemExit(
+                f"could not verify attestation absence for {name}: "
+                f"{combined_output.strip()}"
+            )
+
+
 def block_pytest_discoverable_fixture_names(repo: Path) -> None:
     bad_names = []
     for path in (repo / "fixtures").rglob("*"):
@@ -346,6 +389,11 @@ def main() -> int:
         extract_dir = tmp_path / "signed-aac-extract"
         safe_extract_tar(assets_dir / "signed-aac-v0.1.4.tar.gz", extract_dir)
         verify_inner_sha256s(extract_dir)
+        verify_release_asset_attestation_absence(
+            assets_dir,
+            repo="jlov7/damn-vulnerable-agent-asset-corpus",
+            asset_names=sorted(asset_digests),
+        )
 
     print("DVAAC release fingerprint: valid")
     return 0

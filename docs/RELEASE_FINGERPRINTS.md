@@ -102,7 +102,7 @@ Expected output for a structurally valid scorecard:
 DVAAC scorecard: valid submission.
 ```
 
-From current `main`, reviewers can run the executable release-fingerprint verifier. It clones the immutable DVAAC and AAC release tags into a temporary directory, checks the exact commits, verifies both signed tags with the public release-signing key, runs corpus conformance, runs scorecard-validator tests when present, checks pytest collection safety, downloads the published release assets, verifies their GitHub asset digests, checks the archive sidecar, extracts the signed-AAC archive safely, and verifies the inner `SHA256SUMS` file:
+From current `main`, reviewers can run the executable release-fingerprint verifier. It clones the immutable DVAAC and AAC release tags into a temporary directory, checks the exact commits, verifies both signed tags with the public release-signing key, runs corpus conformance, runs scorecard-validator tests when present, checks pytest collection safety, downloads the published release assets, verifies their GitHub asset digests, checks the archive sidecar, extracts the signed-AAC archive safely, verifies the inner `SHA256SUMS` file, and confirms that GitHub artifact attestations are absent for `v0.1.4` as documented above:
 
 ```bash
 python3 scripts/verify_release_fingerprints.py
