@@ -26,22 +26,31 @@ jobs:
       PIP_DISABLE_PIP_VERSION_CHECK: "1"
       PIP_NO_CACHE_DIR: "1"
     steps:
-      - name: Checkout DVAAC release tag
+      - name: Checkout DVAAC repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
-          ref: ${{ inputs.tag }}
           path: dvaac
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Read pinned AAC release commit
         id: aac
         working-directory: dvaac
+        env:
+          TAG: ${{ inputs.tag }}
         run: |
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
           import json
-          from pathlib import Path
+          import os
+          import subprocess
 
-          manifest = json.loads(Path("corpus.manifest.json").read_text())
+          tag = os.environ["TAG"]
+          raw = subprocess.check_output([
+              "git",
+              "show",
+              f"{tag}:corpus.manifest.json",
+          ])
+          manifest = json.loads(raw)
           print(f"commit={manifest['aac_compatibility']['aac_commit']}")
           PY
 
@@ -63,9 +72,15 @@ jobs:
 
       - name: Install runner dependencies
         working-directory: dvaac
+        env:
+          TAG: ${{ inputs.tag }}
         run: |
-          uv pip install --system -r runner/requirements.txt
-          uv pip install --system -r runner/requirements-dev.txt
+          git show "$TAG:runner/requirements.txt" \
+            > /tmp/dvaac-runner-requirements.txt
+          git show "$TAG:runner/requirements-dev.txt" \
+            > /tmp/dvaac-runner-requirements-dev.txt
+          uv pip install --system -r /tmp/dvaac-runner-requirements.txt
+          uv pip install --system -r /tmp/dvaac-runner-requirements-dev.txt
 
       - name: Verify release target exists
         env:
@@ -73,7 +88,7 @@ jobs:
           TAG: ${{ inputs.tag }}
         run: gh release view "$TAG" --repo "$GITHUB_REPOSITORY"
 
-      - name: Build release assets from signed tag checkout
+      - name: Build release assets from signed tag commit
         working-directory: dvaac
         env:
           AAC_VERIFIER_PATH: ../agent-assurance-case/verifier/verify.py

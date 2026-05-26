@@ -8,8 +8,14 @@ fi
 
 TAG="$1"
 OUT_DIR="${2:-dist/release}"
-SIGNED_DIR="dist/signed-aac"
 AAC_VERIFIER="${AAC_VERIFIER_PATH:-../agent-assurance-case/verifier/verify.py}"
+PYTHON_BIN="${PYTHON:-python3}"
+TEMP_ROOT="$(mktemp -d)"
+
+cleanup() {
+  rm -rf "$TEMP_ROOT"
+}
+trap cleanup EXIT
 
 if [[ "$TAG" != v* ]]; then
   echo "release tag must start with v: $TAG" >&2
@@ -17,12 +23,20 @@ if [[ "$TAG" != v* ]]; then
 fi
 
 expected_version="${TAG#v}"
+commit="$(git rev-parse --verify "${TAG}^{commit}")"
+SOURCE_DIR="$TEMP_ROOT/source"
+SIGNED_DIR="$TEMP_ROOT/signed-aac"
+mkdir -p "$SOURCE_DIR"
+git archive --format=tar "$commit" | tar -x -C "$SOURCE_DIR"
+
 corpus_version="$(
-  python3 - <<'PY'
+  "$PYTHON_BIN" - "$SOURCE_DIR" <<'PY'
 import json
+import sys
 from pathlib import Path
 
-print(json.loads(Path("corpus.manifest.json").read_text())["corpus_version"])
+source_dir = Path(sys.argv[1])
+print(json.loads((source_dir / "corpus.manifest.json").read_text())["corpus_version"])
 PY
 )"
 
@@ -31,14 +45,22 @@ if [[ "$corpus_version" != "$expected_version" ]]; then
   exit 1
 fi
 
-rm -rf "$SIGNED_DIR" "$OUT_DIR"
+out_parent="$(dirname "$OUT_DIR")"
+out_base="$(basename "$OUT_DIR")"
+mkdir -p "$out_parent"
+OUT_DIR="$(cd "$out_parent" && pwd)/$out_base"
+
+rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
 
-make write-signed SIGNED_AAC_DIR="$SIGNED_DIR" AAC_VERIFIER_PATH="$AAC_VERIFIER"
+make -C "$SOURCE_DIR" write-signed \
+  PYTHON="$PYTHON_BIN" \
+  SIGNED_AAC_DIR="$SIGNED_DIR" \
+  AAC_VERIFIER_PATH="$AAC_VERIFIER"
 
 archive_name="signed-aac-${TAG}.tar.gz"
 archive="$OUT_DIR/$archive_name"
-tar -czf "$archive" -C dist signed-aac
+tar -czf "$archive" -C "$TEMP_ROOT" signed-aac
 shasum -a 256 "$archive" | sed "s#  $archive#  $archive_name#" > "${archive}.sha256"
 
 cp "$SIGNED_DIR/RELEASE-MANIFEST.json" "$OUT_DIR/RELEASE-MANIFEST.json"
