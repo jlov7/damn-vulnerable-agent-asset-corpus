@@ -293,6 +293,12 @@ else
   check "citation metadata consistency" "fail" "$(tail_detail "$citation_out")"
 fi
 
+if external_validation_out=$("$PYTHON_BIN" scripts/validate_external_validation_status.py 2>&1); then
+  check "external validation status" "ok"
+else
+  check "external validation status" "fail" "$(tail_detail "$external_validation_out")"
+fi
+
 if cff_out=$(uvx --from cffconvert cffconvert --validate --infile CITATION.cff 2>&1); then
   check "citation metadata" "ok"
 else

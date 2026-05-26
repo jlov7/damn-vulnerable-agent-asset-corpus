@@ -21,6 +21,8 @@ No third-party scanner result or independent corpus critique has been accepted i
 
 This is the current claim boundary: DVAAC is signed, CI-green, DOI-archived, and ready to receive scanner results; it is not yet externally validated.
 
+This boundary is machine-checked against release evidence and reviewer-facing docs by [`scripts/validate_external_validation_status.py`](../scripts/validate_external_validation_status.py).
+
 ## What Counts As Accepted External Validation
 
 An entry can be added here when it has:
