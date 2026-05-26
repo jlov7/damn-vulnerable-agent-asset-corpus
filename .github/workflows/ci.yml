@@ -200,6 +200,7 @@ jobs:
         env:
           AAC_VERIFIER_PATH: >-
             ${{ github.workspace }}/agent-assurance-case/verifier/verify.py
+          GH_TOKEN: ${{ github.token }}
         run: |
           make clean
           ./VERIFY-PUBLICATION-READY.sh

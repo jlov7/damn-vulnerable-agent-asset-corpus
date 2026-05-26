@@ -13,6 +13,7 @@
     "citation",
     "signed_tags",
     "release_assets",
+    "asset_attestations",
     "release_checks",
     "protected_branch",
     "external_validation",
@@ -35,6 +36,7 @@
       "minItems": 4,
       "items": { "$ref": "#/$defs/release_asset" }
     },
+    "asset_attestations": { "$ref": "#/$defs/asset_attestations" },
     "release_checks": { "$ref": "#/$defs/release_checks" },
     "protected_branch": { "$ref": "#/$defs/protected_branch" },
     "external_validation": { "$ref": "#/$defs/external_validation" },
@@ -119,6 +121,20 @@
       "properties": {
         "name": { "type": "string", "minLength": 1 },
         "github_asset_digest": { "$ref": "#/$defs/sha256_digest" }
+      }
+    },
+    "asset_attestations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "github_artifact_attestations_expected",
+        "reason",
+        "current_main_release_workflow_fail_closed"
+      ],
+      "properties": {
+        "github_artifact_attestations_expected": { "const": false },
+        "reason": { "type": "string", "minLength": 1 },
+        "current_main_release_workflow_fail_closed": { "const": true }
       }
     },
     "release_checks": {

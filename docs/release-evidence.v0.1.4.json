@@ -61,6 +61,11 @@
       "github_asset_digest": "sha256:a7878cb84bbddf708c3852889a700d027967033169533e804de37340b2ccfa35"
     }
   ],
+  "asset_attestations": {
+    "github_artifact_attestations_expected": false,
+    "reason": "v0.1.4 release assets were uploaded before the release-assets attestation workflow was introduced; the current main workflow now fails closed on public asset digest mismatches instead of clobbering existing bytes.",
+    "current_main_release_workflow_fail_closed": true
+  },
   "release_checks": {
     "immutable_checkout_commands": [
       "git clone --branch v0.2-candidate.7 --depth 1 https://github.com/jlov7/agent-assurance-case",
