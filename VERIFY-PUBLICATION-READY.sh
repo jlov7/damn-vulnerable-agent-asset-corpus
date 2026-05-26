@@ -298,6 +298,13 @@ else
   check "citation metadata" "fail" "$(tail_detail "$cff_out")"
 fi
 
+release_assets_dir="$TEMP_ROOT/release-assets"
+if release_asset_out=$(PYTHON="$PYTHON_BIN" AAC_VERIFIER_PATH="$AAC_VERIFIER" scripts/build_release_assets.sh "$EXPECTED_RELEASE" "$release_assets_dir" 2>&1); then
+  check "release asset builder dry-run" "ok"
+else
+  check "release asset builder dry-run" "fail" "$(tail_detail "$release_asset_out")"
+fi
+
 if shellcheck_out=$(uvx --from shellcheck-py shellcheck .clusterfuzzlite/build.sh VERIFY-PUBLICATION-READY.sh scripts/build_release_assets.sh scripts/validate_dependency_lock.sh scripts/validate_security_insights.sh 2>&1); then
   check "shellcheck" "ok"
 else
