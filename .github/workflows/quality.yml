@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
@@ -63,21 +65,28 @@ jobs:
 
       - name: Dry-run release asset builder
         run: |
-          uv pip install --system -r runner/requirements.txt
-          uv pip install --system -r runner/requirements-dev.txt
+          git show v0.1.4:runner/requirements.txt \
+            > /tmp/dvaac-runner-requirements.txt
+          git show v0.1.4:runner/requirements-dev.txt \
+            > /tmp/dvaac-runner-requirements-dev.txt
+          uv pip install --system -r /tmp/dvaac-runner-requirements.txt
+          uv pip install --system -r /tmp/dvaac-runner-requirements-dev.txt
           AAC_COMMIT="$(python3 - <<'PY'
           import json
-          from pathlib import Path
+          import subprocess
 
-          manifest = json.loads(Path("corpus.manifest.json").read_text())
+          raw = subprocess.check_output([
+              "git",
+              "show",
+              "v0.1.4:corpus.manifest.json",
+          ])
+          manifest = json.loads(raw)
           print(manifest["aac_compatibility"]["aac_commit"])
           PY
           )"
-          git clone \
-            https://github.com/jlov7/agent-assurance-case \
-            /tmp/agent-assurance-case
-          git -C /tmp/agent-assurance-case checkout "$AAC_COMMIT"
-          AAC_VERIFIER_PATH=/tmp/agent-assurance-case/verifier/verify.py \
+          git clone https://github.com/jlov7/agent-assurance-case /tmp/aac
+          git -C /tmp/aac checkout "$AAC_COMMIT"
+          AAC_VERIFIER_PATH=/tmp/aac/verifier/verify.py \
             scripts/build_release_assets.sh v0.1.4 /tmp/dvaac-release-assets
 
       - name: Run codespell
