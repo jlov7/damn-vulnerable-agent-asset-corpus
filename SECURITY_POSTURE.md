@@ -10,8 +10,9 @@ This note explains the repository-level security posture for reviewers who use a
 - Release tags are signed and treated as immutable.
 - The published release has DOI-backed archival metadata.
 - The release-fingerprint verifier checks the signed tags, pinned AAC release, release commit, signing keys, DOI, release assets, and release-evidence consistency.
-- The quality gate checks ruff, pyright, dependency vulnerability status, Bandit static-analysis findings, the runtime dependency SBOM, codespell, CFF metadata, local Markdown links, and public-artifact hygiene.
-- `sbom/runtime-requirements.cdx.json` is a CycloneDX SBOM for declared runner runtime dependencies. It is not a frozen lockfile and does not claim transitive environment pinning.
+- The quality gate checks ruff, pyright, dependency vulnerability status, Bandit static-analysis findings, the runtime dependency SBOM, the runtime dependency lock, codespell, CFF metadata, local Markdown links, and public-artifact hygiene.
+- `sbom/runtime-requirements.cdx.json` is a CycloneDX SBOM for declared runner runtime dependencies.
+- `runner/requirements.lock.txt` is the hash-pinned resolved runner runtime dependency closure generated from `runner/requirements.txt`; CI regenerates it and audits the locked closure. It does not claim operating-system, Python-interpreter, or transitive tooling pinning outside the runner runtime dependency set.
 - ClusterFuzzLite PR fuzzing is configured for scorecard validation.
 - Dependabot is enabled for GitHub Actions and Python requirements.
 - GitHub secret scanning and push protection are enabled.

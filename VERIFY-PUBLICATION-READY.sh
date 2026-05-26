@@ -249,6 +249,12 @@ else
   check "runtime dependency SBOM" "fail" "$(tail_detail "$sbom_out")"
 fi
 
+if lock_out=$(scripts/validate_dependency_lock.sh 2>&1); then
+  check "runtime dependency lock" "ok"
+else
+  check "runtime dependency lock" "fail" "$(tail_detail "$lock_out")"
+fi
+
 if codespell_out=$(uvx codespell . --skip './.git,./.venv,./dist' 2>&1); then
   check "codespell" "ok"
 else
@@ -292,7 +298,7 @@ else
   check "citation metadata" "fail" "$(tail_detail "$cff_out")"
 fi
 
-if shellcheck_out=$(uvx --from shellcheck-py shellcheck .clusterfuzzlite/build.sh VERIFY-PUBLICATION-READY.sh scripts/build_release_assets.sh scripts/validate_security_insights.sh 2>&1); then
+if shellcheck_out=$(uvx --from shellcheck-py shellcheck .clusterfuzzlite/build.sh VERIFY-PUBLICATION-READY.sh scripts/build_release_assets.sh scripts/validate_dependency_lock.sh scripts/validate_security_insights.sh 2>&1); then
   check "shellcheck" "ok"
 else
   check "shellcheck" "fail" "$(tail_detail "$shellcheck_out")"
