@@ -119,6 +119,11 @@ Verify the published release fingerprint from current `main`:
 python3 scripts/verify_release_fingerprints.py
 ```
 
+That command checks the immutable DVAAC and AAC release tags and commits, both
+signed tags, corpus conformance, scorecard-validator tests, pytest collection
+safety, public release asset digests, checksum files, and the documented absence
+of GitHub artifact attestations for the already-published `v0.1.4` assets.
+
 ## What The Runner Checks
 
 `runner/verify_fixtures.py` verifies the corpus itself. It does not detect vulnerabilities.
