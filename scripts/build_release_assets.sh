@@ -60,7 +60,46 @@ make -C "$SOURCE_DIR" write-signed \
 
 archive_name="signed-aac-${TAG}.tar.gz"
 archive="$OUT_DIR/$archive_name"
-tar -czf "$archive" -C "$TEMP_ROOT" signed-aac
+"$PYTHON_BIN" - "$SIGNED_DIR" "$archive" <<'PY'
+import gzip
+import sys
+import tarfile
+from pathlib import Path
+
+source_dir = Path(sys.argv[1])
+archive = Path(sys.argv[2])
+
+
+def stable_info(path: Path, arcname: str) -> tarfile.TarInfo:
+    info = tarfile.TarInfo(arcname)
+    info.mtime = 0
+    info.uid = 0
+    info.gid = 0
+    info.uname = ""
+    info.gname = ""
+    if path.is_dir():
+        info.type = tarfile.DIRTYPE
+        info.mode = 0o755
+    else:
+        info.size = path.stat().st_size
+        info.mode = 0o644
+    return info
+
+
+with archive.open("wb") as raw:
+    with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as gz:
+        with tarfile.open(fileobj=gz, mode="w") as tar:
+            tar.addfile(stable_info(source_dir, "signed-aac"))
+            for path in sorted(source_dir.rglob("*")):
+                relative = path.relative_to(source_dir)
+                arcname = str(Path("signed-aac") / relative)
+                info = stable_info(path, arcname)
+                if path.is_dir():
+                    tar.addfile(info)
+                else:
+                    with path.open("rb") as file_obj:
+                        tar.addfile(info, file_obj)
+PY
 shasum -a 256 "$archive" | sed "s#  $archive#  $archive_name#" > "${archive}.sha256"
 
 cp "$SIGNED_DIR/RELEASE-MANIFEST.json" "$OUT_DIR/RELEASE-MANIFEST.json"
