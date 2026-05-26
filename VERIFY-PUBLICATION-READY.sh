@@ -275,8 +275,23 @@ else
   check "Security Insights metadata" "fail" "$(tail_detail "$security_insights_out")"
 fi
 
-if repository_posture_out=$("$PYTHON_BIN" scripts/verify_repository_posture.py 2>&1); then
-  check "repository posture metadata" "ok"
+repository_posture_args=()
+repository_posture_detail="static"
+if [[ "${CI:-}" != "true" || "${REQUIRE_LIVE_REPOSITORY_POSTURE:-}" == "1" ]]; then
+  repository_posture_args=(--live)
+  repository_posture_detail="static + live"
+fi
+if [[ ${#repository_posture_args[@]} -gt 0 ]]; then
+  repository_posture_out=$("$PYTHON_BIN" scripts/verify_repository_posture.py "${repository_posture_args[@]}" 2>&1)
+else
+  repository_posture_out=$("$PYTHON_BIN" scripts/verify_repository_posture.py 2>&1)
+fi
+repository_posture_rc=$?
+if [[ $repository_posture_rc -eq 0 ]]; then
+  if [[ "$repository_posture_detail" == "static" ]]; then
+    repository_posture_detail="static; set REQUIRE_LIVE_REPOSITORY_POSTURE=1 with a token that can read branch protection to require live comparison"
+  fi
+  check "repository posture metadata" "ok" "$repository_posture_detail"
 else
   check "repository posture metadata" "fail" "$(tail_detail "$repository_posture_out")"
 fi
