@@ -31,7 +31,7 @@ To use a checked-out copy of the public AAC repository:
 ```bash
 git clone --branch v0.2-candidate.7 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
 test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "689198d9c249a966a0abab6415ae8668efb512d9"
-AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py
+AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python3 runner/verify_fixtures.py
 ```
 
 The runner refuses to import a verifier from inside `fixtures/`, because fixture payloads are untrusted by design.
@@ -44,7 +44,7 @@ Run these commands from the DVAAC repository root:
 uv venv
 source .venv/bin/activate
 uv pip install -r runner/requirements.txt
-python runner/verify_fixtures.py
+python3 runner/verify_fixtures.py
 ```
 
 Expected last line:
@@ -58,7 +58,7 @@ Exit code 0 = all conform. Non-zero = at least one fixture or one expected AAC i
 To emit demo-signed AACs for auditor inspection without mutating the checked-in templates:
 
 ```bash
-python runner/verify_fixtures.py --write-signed dist/signed-aac
+python3 runner/verify_fixtures.py --write-signed dist/signed-aac
 ```
 
 Use `make write-signed` for release packaging; it also writes `RELEASE-MANIFEST.json` and `SHA256SUMS`.
@@ -71,7 +71,7 @@ for validation-ledger candidates because current intake checks include scanner
 source provenance and runnable context:
 
 ```bash
-python runner/validate_scorecard.py path/to/scorecard.json
+python3 runner/validate_scorecard.py path/to/scorecard.json
 ```
 
 Expected output for a structurally valid submission:

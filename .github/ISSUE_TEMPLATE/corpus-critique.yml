@@ -61,7 +61,7 @@ body:
     attributes:
       label: Corpus critique validator output
       description: >-
-        Include output from `python runner/validate_corpus_critique.py
+        Include output from `python3 runner/validate_corpus_critique.py
         path/to/corpus-critique.json` on current main. Use N/A only if this is
         an informal discussion issue rather than a validation-ledger candidate.
       render: shell

@@ -88,7 +88,7 @@ test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "689198d9c249a966a0aba
 uv venv
 source .venv/bin/activate
 uv pip install -r runner/requirements.txt
-AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py
+AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python3 runner/verify_fixtures.py
 ```
 
 This command path validates the corpus and does not execute fixture payload code. Install `uv` first if it is not already available: <https://docs.astral.sh/uv/>.
@@ -155,7 +155,7 @@ This writes `dist/signed-aac/*.json`, `dist/signed-aac/RELEASE-MANIFEST.json`, a
 2. Compare emitted findings against `expected-findings.json`.
 3. If your scanner emits AAC, compare its case against `expected-aac.json`.
 4. Publish results using [scorecard-template.json](scorecard-template.json).
-5. Validate the filled scorecard with the current-`main` validator for ledger consideration: `make validate-scorecard SCORECARD=path/to/scorecard.json`. The `v0.1.4` release checkout validator remains available with `python runner/validate_scorecard.py path/to/scorecard.json`, but current `main` may include stricter intake checks.
+5. Validate the filled scorecard with the current-`main` validator for ledger consideration: `make validate-scorecard SCORECARD=path/to/scorecard.json`. The `v0.1.4` release checkout validator remains available with `python3 runner/validate_scorecard.py path/to/scorecard.json`, but current `main` may include stricter intake checks.
 6. State the detector class you claim: `static-declared`, `static-extended`, or `trace-aware`.
 
 DVAAC does not award partial credit. A fixture is covered only when the expected category, severity, and evidence are represented accurately enough for a reviewer to recognize the same finding.

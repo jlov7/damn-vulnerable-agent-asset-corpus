@@ -26,7 +26,7 @@ cd damn-vulnerable-agent-asset-corpus
 uv venv
 source .venv/bin/activate
 uv pip install -r runner/requirements.txt
-AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py
+AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python3 runner/verify_fixtures.py
 ```
 
 Expected final line:
@@ -72,7 +72,7 @@ If you can run a scanner, fill [`scorecard-template.json`](../scorecard-template
 for every fixture and validate it:
 
 ```bash
-python runner/validate_scorecard.py path/to/scorecard.json
+python3 runner/validate_scorecard.py path/to/scorecard.json
 ```
 
 or, from current `main`:
@@ -100,7 +100,7 @@ For non-scanner corpus critique, start from
 the filled report from current `main`:
 
 ```bash
-python runner/validate_corpus_critique.py path/to/corpus-critique.json
+python3 runner/validate_corpus_critique.py path/to/corpus-critique.json
 ```
 
 Expected output:
@@ -146,7 +146,7 @@ Before submitting a result, validate the filled scorecard.
 From an immutable `v0.1.4` checkout, use the validator shipped in the release:
 
 ```bash
-python runner/validate_scorecard.py path/to/scorecard.json
+python3 runner/validate_scorecard.py path/to/scorecard.json
 ```
 
 From current `main`, you can use the Make wrapper around the same validator:

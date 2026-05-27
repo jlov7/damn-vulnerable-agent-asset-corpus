@@ -23,7 +23,7 @@
       "fixtures/02-skill-md-prompt-injection/expected-aac.json"
     ],
     "commands_run": [
-      "AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py"
+      "AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python3 runner/verify_fixtures.py"
     ],
     "environment": "",
     "corpus_conformance_result": "not-run"

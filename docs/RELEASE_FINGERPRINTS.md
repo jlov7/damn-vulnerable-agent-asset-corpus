@@ -81,7 +81,7 @@ test "$(git rev-parse HEAD)" = "e90a76daf9107871d1ff6a2d7c438d2b92709e53"
 uv venv
 source .venv/bin/activate
 uv pip install -r runner/requirements.txt
-AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py
+AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python3 runner/verify_fixtures.py
 ```
 
 Expected final line:
@@ -93,7 +93,7 @@ DVAAC: all fixtures conform.
 Validate a third-party scorecard against the release validator:
 
 ```bash
-python runner/validate_scorecard.py path/to/scorecard.json
+python3 runner/validate_scorecard.py path/to/scorecard.json
 ```
 
 Expected output for a structurally valid scorecard:
