@@ -90,7 +90,7 @@ The immutable `v0.1.4` checkout remains useful for validating against the
 release-shipped validator:
 
 ```bash
-python runner/validate_scorecard.py path/to/scorecard.json
+python3 runner/validate_scorecard.py path/to/scorecard.json
 ```
 
 Expected output:

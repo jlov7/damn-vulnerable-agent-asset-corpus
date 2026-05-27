@@ -43,7 +43,7 @@ the immutable release checkout, including scanner source provenance and runnable
 context:
 
 ```bash
-python runner/validate_scorecard.py path/to/scorecard.json
+python3 runner/validate_scorecard.py path/to/scorecard.json
 make validate-scorecard SCORECARD=path/to/scorecard.json
 ```
 
@@ -59,7 +59,7 @@ Corpus-critique ledger candidates should include a filled
 from current `main` with:
 
 ```bash
-python runner/validate_corpus_critique.py path/to/corpus-critique.json
+python3 runner/validate_corpus_critique.py path/to/corpus-critique.json
 ```
 
 The corpus-critique validator checks report shape, target identity, fixture

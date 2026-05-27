@@ -25,7 +25,7 @@ make validate-scorecard SCORECARD=path/to/scorecard.json
 Equivalent direct command, including from an immutable `v0.1.4` release checkout:
 
 ```bash
-python runner/validate_scorecard.py path/to/scorecard.json
+python3 runner/validate_scorecard.py path/to/scorecard.json
 ```
 
 Expected output for a structurally valid submission:

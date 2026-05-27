@@ -72,7 +72,7 @@
       "test \"$(git -C agent-assurance-case rev-parse HEAD)\" = \"689198d9c249a966a0abab6415ae8668efb512d9\"",
       "git clone --branch v0.1.4 --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
       "test \"$(git -C damn-vulnerable-agent-asset-corpus rev-parse HEAD)\" = \"e90a76daf9107871d1ff6a2d7c438d2b92709e53\"",
-      "AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python runner/verify_fixtures.py"
+      "AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python3 runner/verify_fixtures.py"
     ],
     "expected_conformance_output": "DVAAC: all fixtures conform.",
     "current_main_release_fingerprint_command": "python3 scripts/verify_release_fingerprints.py"
