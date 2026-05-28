@@ -8,7 +8,7 @@
     "tag": "v0.1.5",
     "release_url": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.5",
     "repository": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
-    "release_commit": "0000000000000000000000000000000000000000",
+    "release_commit": "749511a94acc705123a9a5db82f71bbf7b12a64d",
     "doi": "10.5281/zenodo.20379817",
     "doi_url": "https://doi.org/10.5281/zenodo.20379817",
     "published_at": "2026-05-28T22:30:00Z"
@@ -40,25 +40,25 @@
       "signer": "jase.lovell@me.com",
       "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBD4r6uZD5gvmyQqXSM/HX3gKtl2+HOzX6T1oaGsUlVu",
       "key_sha256": "SHA256:WGevS9odnPKBtzTZjoVXSj2aexpZo4k6VL/dHaVaJdY",
-      "expected_object": "0000000000000000000000000000000000000000"
+      "expected_object": "749511a94acc705123a9a5db82f71bbf7b12a64d"
     }
   ],
   "release_assets": [
     {
       "name": "RELEASE-MANIFEST.json",
-      "github_asset_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      "github_asset_digest": "sha256:cf63460fcef5d8f30ee282d264587db2858e471a58c79fb8f279c02e02147682"
     },
     {
       "name": "SHA256SUMS",
-      "github_asset_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      "github_asset_digest": "sha256:62bb77446ae211062605682bb5b002bd508b72b8250d53c8e4065f1245d6aded"
     },
     {
       "name": "signed-aac-v0.1.5.tar.gz",
-      "github_asset_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      "github_asset_digest": "sha256:e0278106d00fdb8756672a155134604a78011882c594ac5a362cb910aee55df0"
     },
     {
       "name": "signed-aac-v0.1.5.tar.gz.sha256",
-      "github_asset_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      "github_asset_digest": "sha256:d32f6dc4c6240f5ed35caed79ab6c5d5c7eef8420273fd55eb6d008dffa64c51"
     }
   ],
   "asset_attestations": {
@@ -71,7 +71,7 @@
       "git clone --branch v0.2-candidate.8 --depth 1 https://github.com/jlov7/agent-assurance-case",
       "test \"$(git -C agent-assurance-case rev-parse HEAD)\" = \"936885583a49dfd06fd11ce45c8ee82330f1007d\"",
       "git clone --branch v0.1.5 --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
-      "test \"$(git -C damn-vulnerable-agent-asset-corpus rev-parse HEAD)\" = \"<release_commit>\"",
+      "test \"$(git -C damn-vulnerable-agent-asset-corpus rev-parse HEAD)\" = \"749511a94acc705123a9a5db82f71bbf7b12a64d\"",
       "uv venv && . .venv/bin/activate && uv pip install -r runner/requirements.txt -r runner/requirements-dev.txt",
       "AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python3 runner/verify_fixtures.py"
     ],
