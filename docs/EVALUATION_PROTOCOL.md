@@ -43,4 +43,4 @@ Use `scorecard-template.json` and include:
 
 DVAAC coverage means a scanner handles these concrete fixture classes. It does not prove statistical vulnerability coverage, product safety, or compliance with any law or standard.
 
-Vendors should report DVAAC as a reproducible benchmark result, not as a certification.
+Vendors should report DVAAC as a reproducible conformance-corpus result, not as a benchmark score or a certification.

@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this corpus in research or in a security product comparison, please cite it."
 title: "Damn Vulnerable Agent Asset Corpus"
 abstract: >-
-  A compact, runnable benchmark of vulnerable and clean agentic AI release fixtures.
+  A compact, runnable conformance corpus of vulnerable and clean agentic AI release fixtures.
   Each fixture ships with expected findings and an Agent Assurance Case (AAC v0.2)
   template that the runner signs and verifies at conformance time. Intended as a
   conformance corpus for agent-asset security tools. Fixture content and
@@ -17,7 +17,9 @@ authors:
 version: "0.1.4"
 date-released: "2026-05-25"
 doi: 10.5281/zenodo.20379817
-license: CC-BY-4.0
+license:
+  - Apache-2.0
+  - CC-BY-4.0
 repository-code: "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus"
 url: "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus"
 keywords:
@@ -25,7 +27,7 @@ keywords:
   - agent security
   - skill security
   - assurance case
-  - benchmark
+  - conformance corpus
   - supply chain
   - agent asset
 preferred-citation:

@@ -21,7 +21,10 @@ EXPECTED_ORCID = "https://orcid.org/0009-0001-6300-9155"
 EXPECTED_FAMILY_NAME = "Lovell"
 EXPECTED_GIVEN_NAME = "Jason Mark"
 EXPECTED_ALIAS = "jlov7"
-EXPECTED_LICENSE = "CC-BY-4.0"
+# DVAAC is dual-licensed (Apache-2.0 for runner code/schemas, CC-BY-4.0 for
+# fixtures/docs/corpus content), matching codemeta.json and REUSE.toml. The
+# CITATION.cff license field lists both SPDX identifiers in the same order.
+EXPECTED_LICENSE = ["Apache-2.0", "CC-BY-4.0"]
 
 
 def fail(message: str) -> NoReturn:
@@ -42,7 +45,10 @@ def duplicate_rejecting_object(pairs: list[tuple[str, object]]) -> dict[str, obj
 
 def load_json(path: Path) -> Mapping[str, object]:
     try:
-        value = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=duplicate_rejecting_object)
+        value = json.loads(
+            path.read_text(encoding="utf-8"),
+            object_pairs_hook=duplicate_rejecting_object,
+        )
     except json.JSONDecodeError as exc:
         fail(f"{path.name} is not valid JSON: {exc}")
     if not isinstance(value, Mapping):
@@ -87,6 +93,34 @@ def top_level_scalars(lines: Sequence[str]) -> dict[str, str]:
     return result
 
 
+def top_level_block_list(lines: Sequence[str], key: str) -> list[str] | None:
+    """Parse a top-level YAML block sequence, e.g. a multi-value `license:` field.
+
+    Returns the list of scalar items, or None if the key is absent or is a
+    single-line scalar (handled by top_level_scalars instead).
+    """
+    marker = f"{key}:"
+    start: int | None = None
+    for index, line in enumerate(lines):
+        if line and not line[0].isspace() and line.strip() == marker:
+            start = index + 1
+            break
+    if start is None:
+        return None
+    items: list[str] = []
+    for line in lines[start:]:
+        if not line:
+            continue
+        if not line[0].isspace():
+            break
+        stripped = line.strip()
+        if stripped.startswith("- "):
+            items.append(strip_cff_scalar(stripped[2:]))
+        else:
+            break
+    return items or None
+
+
 def section_lines(lines: Sequence[str], section: str) -> list[str]:
     marker = f"{section}:"
     start: int | None = None
@@ -129,7 +163,11 @@ def first_list_item_fields(lines: Sequence[str], section: str) -> dict[str, str]
 def preferred_citation_scalars(lines: Sequence[str]) -> dict[str, str]:
     result: dict[str, str] = {}
     for line in section_lines(lines, "preferred-citation"):
-        if line.startswith("  ") and not line.startswith("    ") and not line.startswith("  - "):
+        if (
+            line.startswith("  ")
+            and not line.startswith("    ")
+            and not line.startswith("  - ")
+        ):
             parsed = parse_scalar_line(line[2:])
             if parsed is not None and parsed[1]:
                 result[parsed[0]] = parsed[1]
@@ -166,19 +204,29 @@ def main() -> int:
     require_equal(cff.get("version"), release_version, "version")
     require_equal(cff.get("date-released"), release_date, "date-released")
     require_equal(cff.get("doi"), release_doi, "doi")
-    require_equal(cff.get("license"), EXPECTED_LICENSE, "license")
+    require_equal(
+        top_level_block_list(citation_lines, "license"), EXPECTED_LICENSE, "license"
+    )
     require_equal(cff.get("repository-code"), release_repository, "repository-code")
     require_equal(cff.get("url"), release_repository, "url")
 
-    require_equal(author.get("family-names"), EXPECTED_FAMILY_NAME, "authors[0].family-names")
-    require_equal(author.get("given-names"), EXPECTED_GIVEN_NAME, "authors[0].given-names")
+    require_equal(
+        author.get("family-names"), EXPECTED_FAMILY_NAME, "authors[0].family-names"
+    )
+    require_equal(
+        author.get("given-names"), EXPECTED_GIVEN_NAME, "authors[0].given-names"
+    )
     require_equal(author.get("alias"), EXPECTED_ALIAS, "authors[0].alias")
     require_equal(author.get("orcid"), citation.get("orcid"), "authors[0].orcid")
     require_equal(author.get("orcid"), EXPECTED_ORCID, "authors[0].orcid")
 
-    require_equal(preferred.get("type"), EXPECTED_PREFERRED_TYPE, "preferred-citation.type")
+    require_equal(
+        preferred.get("type"), EXPECTED_PREFERRED_TYPE, "preferred-citation.type"
+    )
     require_equal(preferred.get("title"), release_name, "preferred-citation.title")
-    require_equal(preferred.get("version"), release_version, "preferred-citation.version")
+    require_equal(
+        preferred.get("version"), release_version, "preferred-citation.version"
+    )
     require_equal(preferred.get("doi"), release_doi, "preferred-citation.doi")
     require_equal(preferred.get("year"), release_date[:4], "preferred-citation.year")
     require_equal(preferred.get("url"), release_doi_url, "preferred-citation.url")
@@ -186,8 +234,14 @@ def main() -> int:
     require_equal(codemeta.get("name"), cff.get("title"), "CodeMeta name")
     require_equal(codemeta.get("version"), cff.get("version"), "CodeMeta version")
     require_equal(codemeta.get("identifier"), release_doi_url, "CodeMeta identifier")
-    require_equal(codemeta.get("codeRepository"), cff.get("repository-code"), "CodeMeta codeRepository")
-    require_equal(codemeta_author.get("@id"), author.get("orcid"), "CodeMeta author @id")
+    require_equal(
+        codemeta.get("codeRepository"),
+        cff.get("repository-code"),
+        "CodeMeta codeRepository",
+    )
+    require_equal(
+        codemeta_author.get("@id"), author.get("orcid"), "CodeMeta author @id"
+    )
 
     print("Citation metadata: valid")
     return 0

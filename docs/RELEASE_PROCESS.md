@@ -15,6 +15,43 @@ This repository is already public. Future releases should preserve the current p
   publication;
 - DOI metadata is added only after Zenodo archives the GitHub Release.
 
+## Evidence-at-Tag And Synchronized-Release Requirements (read before tagging)
+
+DVAAC is released in lockstep with the AAC verifier it pins. Two failure modes
+must be avoided: tagging a commit whose advertised evidence/gate is only on
+`main`, and pinning an AAC commit that is not itself a published release.
+
+1. **Cut the AAC release first**, then set
+   `corpus.manifest.json -> aac_compatibility.aac_commit` to the published AAC
+   release commit, and only then cut the matching DVAAC release. The README and
+   `docs/RELEASE_FINGERPRINTS.md` AAC pin must reference that same commit.
+2. **Commit the evidence and gate to `main` before tagging.**
+   `docs/release-evidence.vX.Y.Z.json`, `docs/RELEASE_FINGERPRINTS.md`, and
+   `VERIFY-PUBLICATION-READY.sh` must exist at the commit you tag so the
+   immutable checkout from the DOI contains them.
+3. **Regenerate the dependency lock deterministically** so the gate passes from a
+   clean clone on any platform and at any future date:
+
+   ```bash
+   scripts/regenerate_dependency_lock.sh   # universal, index-pinned via EXCLUDE_NEWER
+   ```
+
+4. **Record attestation presence in the new evidence.** The `release-assets`
+   workflow now generates GitHub artifact attestations
+   (`actions/attest-build-provenance`). The new `docs/release-evidence.vX.Y.Z.json`
+   must document attestations as present (not absent, as `v0.1.4` correctly
+   recorded), and `scripts/verify_release_fingerprints.py` must expect them for
+   the new tag.
+5. **Make the immutable-checkout commands self-sufficient**, including the
+   sibling AAC checkout and dependency install before any runner invocation:
+
+   ```bash
+   git clone --branch <aac-tag> --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
+   uv venv && source .venv/bin/activate
+   uv pip install -r runner/requirements.txt -r runner/requirements-dev.txt
+   ./VERIFY-PUBLICATION-READY.sh
+   ```
+
 ## Pre-Release Gates
 
 Run from the repository root:

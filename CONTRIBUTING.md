@@ -1,6 +1,6 @@
 # Contributing
 
-DVAAC accepts contributions that improve the corpus as a benchmark: clearer fixture truth, safer payload demonstrations, stronger runner checks, better schemas, and sharper documentation.
+DVAAC accepts contributions that improve the conformance corpus: clearer fixture truth, safer payload demonstrations, stronger runner checks, better schemas, and sharper documentation.
 
 ## Ground Rules
 

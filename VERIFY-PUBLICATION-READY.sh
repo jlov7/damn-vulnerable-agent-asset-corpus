@@ -327,7 +327,7 @@ else
   check "release asset builder dry-run" "fail" "$(tail_detail "$release_asset_out")"
 fi
 
-if shellcheck_out=$(uvx --from shellcheck-py shellcheck .clusterfuzzlite/build.sh VERIFY-PUBLICATION-READY.sh scripts/build_release_assets.sh scripts/validate_dependency_lock.sh scripts/validate_security_insights.sh 2>&1); then
+if shellcheck_out=$(uvx --from shellcheck-py shellcheck .clusterfuzzlite/build.sh VERIFY-PUBLICATION-READY.sh scripts/build_release_assets.sh scripts/validate_dependency_lock.sh scripts/regenerate_dependency_lock.sh scripts/validate_security_insights.sh 2>&1); then
   check "shellcheck" "ok"
 else
   check "shellcheck" "fail" "$(tail_detail "$shellcheck_out")"

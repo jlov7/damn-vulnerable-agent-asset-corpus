@@ -4,7 +4,7 @@
 
 # Damn Vulnerable Agent Asset Corpus
 
-**A compact, runnable benchmark for agent-asset assurance tools.**
+**A compact, runnable conformance corpus for agent-asset assurance tools — it checks corpus consistency, not scanner accuracy.**
 
 [![CI](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml)
 [![Release fingerprints](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/release-fingerprints.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/release-fingerprints.yml)
@@ -23,13 +23,30 @@ DVAAC ships deliberately vulnerable and deliberately clean agentic AI release fi
 
 This release is pinned to AAC `v0.2-candidate.7` at commit `689198d9c249a966a0abab6415ae8668efb512d9`.
 
+The citable artifact is the signed, DOI-archived release tag
+[`v0.1.4`](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.4),
+not the tip of `main`. `main` may contain unreleased changes that are not part
+of the archived release; cite or audit the tagged commit unless you are
+deliberately reviewing in-progress work.
+
+## What This Is / What This Is Not
+
+For a one-page statement of scope and the boundary between what is self-verified
+and what has been independently reviewed, read
+[VALIDATION_BOUNDARY.md](VALIDATION_BOUNDARY.md). In short: DVAAC is a small,
+self-consistent conformance corpus and a runner that checks the corpus ground
+truth; it is **not** a statistical benchmark, **not** a scanner, and a passing
+result certifies corpus consistency, not scanner accuracy or agent safety. It is
+self-verified and not yet independently validated; see
+[docs/EXTERNAL_VALIDATION.md](docs/EXTERNAL_VALIDATION.md).
+
 ## Why This Exists
 
 Agent-asset scanners make different claims about what they detect: skill poisoning, MCP scope escalation, memory poisoning, trace-only shadow behavior, and more. Without a shared fixture corpus, those claims are hard to compare.
 
-DVAAC is a small, reproducible benchmark for those claims. Each fixture has vulnerable or clean input artifacts, expected scanner findings, and an expected AAC template. The runner verifies that the ground truth is internally consistent before anyone uses it to score a scanner.
+DVAAC is a small, reproducible conformance corpus for those claims. Each fixture has vulnerable or clean input artifacts, expected scanner findings, and an expected AAC template. The runner verifies that the ground truth is internally consistent before anyone uses it to score a scanner.
 
-DVAAC is **not** a scanner, a vulnerability database, or a statistical assurance guarantee. A scanner that passes DVAAC has demonstrated coverage of these fixture classes, not universal agent safety.
+DVAAC is **not** a statistical benchmark, a scanner, a vulnerability database, or an assurance guarantee. With 16 hand-authored fixtures it is a deliberately small, non-representative sample. A scanner that passes DVAAC has demonstrated coverage of these specific fixture classes, not universal agent safety.
 
 ## What Ships In Each Fixture
 
@@ -99,11 +116,19 @@ Expected final line:
 DVAAC: all fixtures conform.
 ```
 
-If you have `make`:
+To run the pytest collection-safety gate or the test suite, also install the
+development dependencies (they add `pytest` and `hypothesis`):
 
 ```bash
-make install
-make verify
+uv pip install -r runner/requirements-dev.txt
+```
+
+If you have `make` (and the sibling AAC verifier checked out as shown in the
+clone step above, or `AAC_VERIFIER_PATH` set):
+
+```bash
+make install          # installs both runtime and dev dependencies
+make verify           # resolves the AAC verifier from ../agent-assurance-case[-spec]
 make pytest-safety
 ```
 
@@ -179,7 +204,7 @@ These mappings are informative. They are not endorsements by OWASP, CSA, NIST, o
 ## Repository Structure
 
 ```text
-fixtures/                  vulnerable and clean benchmark fixtures
+fixtures/                  vulnerable and clean corpus fixtures
 mappings/                  informative mappings to external taxonomies
 docs/                      evaluation, validation, and release-process notes
 docs/SCANNER_INTEGRATION_GUIDE.md scanner-author integration path
