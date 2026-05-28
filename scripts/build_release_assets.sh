@@ -8,7 +8,19 @@ fi
 
 TAG="$1"
 OUT_DIR="${2:-dist/release}"
-AAC_VERIFIER="${AAC_VERIFIER_PATH:-../agent-assurance-case/verifier/verify.py}"
+# Locate the AAC reference verifier in a sibling checkout. Accept both the
+# published repo name (agent-assurance-case) and the local spec working-copy
+# name (agent-assurance-case-spec), matching the Makefile's discovery so the
+# release builder works in either layout. Honour an explicit AAC_VERIFIER_PATH.
+if [[ -n "${AAC_VERIFIER_PATH:-}" ]]; then
+  AAC_VERIFIER="$AAC_VERIFIER_PATH"
+elif [[ -f ../agent-assurance-case/verifier/verify.py ]]; then
+  AAC_VERIFIER="../agent-assurance-case/verifier/verify.py"
+elif [[ -f ../agent-assurance-case-spec/verifier/verify.py ]]; then
+  AAC_VERIFIER="../agent-assurance-case-spec/verifier/verify.py"
+else
+  AAC_VERIFIER="../agent-assurance-case/verifier/verify.py"
+fi
 PYTHON_BIN="${PYTHON:-python3}"
 TEMP_ROOT="$(mktemp -d)"
 

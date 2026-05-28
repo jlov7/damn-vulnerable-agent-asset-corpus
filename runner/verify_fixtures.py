@@ -44,12 +44,21 @@ from typing import Any
 try:
     from jsonschema import Draft202012Validator, FormatChecker
 except ImportError:
-    sys.stderr.write("Missing dependency. Run: uv pip install -r runner/requirements.txt\n")
+    sys.stderr.write(
+        "Missing dependency. Create and activate a virtual environment, then "
+        "install the runtime dependencies:\n"
+        "  uv venv && source .venv/bin/activate\n"
+        "  uv pip install -r runner/requirements.txt\n"
+        "For the test/collection-safety gates, also install the dev "
+        "dependencies: uv pip install -r runner/requirements-dev.txt\n"
+    )
     sys.exit(2)
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES_DIR = ROOT / "fixtures"
-EXPECTED_FINDINGS_SCHEMA = Path(__file__).resolve().parent / "expected-findings.schema.json"
+EXPECTED_FINDINGS_SCHEMA = (
+    Path(__file__).resolve().parent / "expected-findings.schema.json"
+)
 MANIFEST_PATH = ROOT / "corpus.manifest.json"
 MANIFEST_SCHEMA = ROOT / "corpus.manifest.schema.json"
 SCORECARD_TEMPLATE_PATH = ROOT / "scorecard-template.json"
@@ -127,7 +136,9 @@ def validate_path_within_fixture(fixture: Path, path: Path, label: str) -> None:
     for part in relative.parts:
         current = current / part
         if os.path.islink(current):
-            raise ValueError(f"symlink not allowed in fixture tree: {_display_path(current)}")
+            raise ValueError(
+                f"symlink not allowed in fixture tree: {_display_path(current)}"
+            )
 
 
 def fixture_symlink_errors(fixture: Path) -> list[str]:
@@ -137,7 +148,9 @@ def fixture_symlink_errors(fixture: Path) -> list[str]:
         for name in [*dirnames, *filenames]:
             candidate = base / name
             if os.path.islink(candidate):
-                errors.append(f"symlink not allowed in fixture tree: {_display_path(candidate)}")
+                errors.append(
+                    f"symlink not allowed in fixture tree: {_display_path(candidate)}"
+                )
     return errors
 
 
@@ -202,9 +215,17 @@ def load_aac_verifier(path: Path) -> Any:
 
 
 def validate_aac_verifier_api(module: Any, verifier_path: Path) -> None:
-    for name in ("_demo_keypair", "sign_case", "verify", "load_json_no_duplicates", "canonicalize"):
+    for name in (
+        "_demo_keypair",
+        "sign_case",
+        "verify",
+        "load_json_no_duplicates",
+        "canonicalize",
+    ):
         if not callable(getattr(module, name, None)):
-            sys.stderr.write(f"AAC verifier missing required callable {name}: {verifier_path}\n")
+            sys.stderr.write(
+                f"AAC verifier missing required callable {name}: {verifier_path}\n"
+            )
             sys.exit(2)
 
     verify_sig = inspect.signature(module.verify)
@@ -215,11 +236,12 @@ def validate_aac_verifier_api(module: Any, verifier_path: Path) -> None:
             )
             sys.exit(2)
     for param in verify_sig.parameters.values():
-        if (
-            param.default is inspect.Parameter.empty
-            and param.name
-            not in {"case_path", "public_key_path", "allow_demo_key", "verbose"}
-        ):
+        if param.default is inspect.Parameter.empty and param.name not in {
+            "case_path",
+            "public_key_path",
+            "allow_demo_key",
+            "verbose",
+        }:
             sys.stderr.write(
                 f"AAC verifier verify() has unsupported required parameter {param.name}: "
                 f"{verify_sig}\n"
@@ -271,7 +293,9 @@ def validate_expected_findings_doc(doc: dict, fixture: Path) -> list[str]:
     validator = Draft202012Validator(schema, format_checker=FORMAT_CHECKER)
     errors = [
         f"{list(error.absolute_path) or '<root>'}: {error.message}"
-        for error in sorted(validator.iter_errors(doc), key=lambda e: list(e.absolute_path))
+        for error in sorted(
+            validator.iter_errors(doc), key=lambda e: list(e.absolute_path)
+        )
     ]
     if doc.get("fixture_id") != fixture.name:
         errors.append(
@@ -293,7 +317,9 @@ def validate_json_schema(doc: dict, schema_path: Path) -> list[str]:
     validator = Draft202012Validator(schema, format_checker=FORMAT_CHECKER)
     return [
         f"{list(error.absolute_path) or '<root>'}: {error.message}"
-        for error in sorted(validator.iter_errors(doc), key=lambda e: list(e.absolute_path))
+        for error in sorted(
+            validator.iter_errors(doc), key=lambda e: list(e.absolute_path)
+        )
     ]
 
 
@@ -334,12 +360,19 @@ def validate_manifest(fixtures: list[Path]) -> list[str]:
             expected_findings_doc = load_json(fixture / "expected-findings.json")
             aac = load_json(fixture / "expected-aac.json")
         except (json.JSONDecodeError, ValueError) as e:
-            errors.append(f"{fixture_id}: cannot load fixture docs for manifest check: {e}")
+            errors.append(
+                f"{fixture_id}: cannot load fixture docs for manifest check: {e}"
+            )
             continue
         expected_count = item.get("expected_finding_count")
-        actual_expected_count = len(expected_findings_doc.get("expected_findings", []) or [])
+        actual_expected_count = len(
+            expected_findings_doc.get("expected_findings", []) or []
+        )
         actual_aac_count = len(aac.get("findings", []) or [])
-        if expected_count != actual_expected_count or expected_count != actual_aac_count:
+        if (
+            expected_count != actual_expected_count
+            or expected_count != actual_aac_count
+        ):
             errors.append(
                 f"{fixture_id}: manifest expected_finding_count={expected_count}, "
                 f"expected-findings={actual_expected_count}, AAC={actual_aac_count}"
@@ -362,14 +395,14 @@ def validate_manifest(fixtures: list[Path]) -> list[str]:
             )
         findings = aac.get("findings", []) or []
         categories = {
-            finding.get("category")
-            for finding in findings
-            if isinstance(finding, dict)
+            finding.get("category") for finding in findings if isinstance(finding, dict)
         }
         primary = item.get("primary_threat_class")
         if primary == "none":
             if findings:
-                errors.append(f"{fixture_id}: primary_threat_class is none but AAC has findings")
+                errors.append(
+                    f"{fixture_id}: primary_threat_class is none but AAC has findings"
+                )
         elif primary not in categories:
             errors.append(
                 f"{fixture_id}: primary_threat_class={primary} not found in AAC finding categories"
@@ -477,7 +510,9 @@ def findings_consistent(expected_findings_doc: dict, aac: dict) -> list[str]:
     )
     duplicate_aac = sorted({fid for fid in aac_ids if fid and aac_ids.count(fid) > 1})
     if duplicate_expected:
-        errors.append(f"expected-findings has duplicate finding ids: {duplicate_expected}")
+        errors.append(
+            f"expected-findings has duplicate finding ids: {duplicate_expected}"
+        )
     if duplicate_aac:
         errors.append(f"AAC has duplicate finding ids: {duplicate_aac}")
 
@@ -578,8 +613,7 @@ def evidence_uri_values(case: dict) -> set[str]:
     for condition in case.get("release_conditions", []) or []:
         add(condition.get("evidence_ref"))
     for trace_ref in (
-        case.get("coverage", {}).get("runtime_coverage", {}).get("trace_refs", [])
-        or []
+        case.get("coverage", {}).get("runtime_coverage", {}).get("trace_refs", []) or []
     ):
         add(trace_ref)
     for finding in case.get("findings", []) or []:
@@ -701,10 +735,14 @@ def local_digests_consistent(fixture: Path, aac: dict) -> list[str]:
                 f"evidence artifact digest mismatch for {uri}: "
                 f"declared={declared}, computed={computed}"
             )
-    extra_artifacts = sorted(uri for uri in artifact_uris - refs if isinstance(uri, str))
+    extra_artifacts = sorted(
+        uri for uri in artifact_uris - refs if isinstance(uri, str)
+    )
     missing_artifacts = sorted(refs - artifact_uris)
     if missing_artifacts:
-        errors.append(f"evidence refs missing from evidence_artifacts: {missing_artifacts}")
+        errors.append(
+            f"evidence refs missing from evidence_artifacts: {missing_artifacts}"
+        )
     if extra_artifacts:
         errors.append(f"unreferenced evidence_artifacts: {extra_artifacts}")
     return errors
@@ -718,11 +756,18 @@ def demo_evidence_consistent(aac: dict) -> list[str]:
             f"evidence.signed_by must be {DEMO_SIGNED_BY}, got {evidence.get('signed_by')}"
         )
     if evidence.get("key_id") != DEMO_KEY_ID:
-        errors.append(f"evidence.key_id must be {DEMO_KEY_ID}, got {evidence.get('key_id')}")
+        errors.append(
+            f"evidence.key_id must be {DEMO_KEY_ID}, got {evidence.get('key_id')}"
+        )
     if evidence.get("public_key_ref"):
         errors.append("demo-signed DVAAC templates must omit evidence.public_key_ref")
-    if evidence.get("offline_verifier") != "python verifier/verify.py case.json --allow-demo-key":
-        errors.append("evidence.offline_verifier must use --allow-demo-key for demo-signed cases")
+    if (
+        evidence.get("offline_verifier")
+        != "python verifier/verify.py case.json --allow-demo-key"
+    ):
+        errors.append(
+            "evidence.offline_verifier must use --allow-demo-key for demo-signed cases"
+        )
     return errors
 
 
@@ -817,7 +862,9 @@ def main() -> int:
     parser.add_argument(
         "--aac-verifier",
         type=Path,
-        default=Path(os.environ.get("AAC_VERIFIER_PATH", str(default_aac_verifier_path()))),
+        default=Path(
+            os.environ.get("AAC_VERIFIER_PATH", str(default_aac_verifier_path()))
+        ),
         help="Path to the AAC reference verifier (verify.py).",
     )
     parser.add_argument(
@@ -838,7 +885,9 @@ def main() -> int:
     aac_module = load_aac_verifier(args.aac_verifier)
 
     fixtures = sorted(
-        p for p in args.fixtures_dir.iterdir() if p.is_dir() and (p / "README.md").exists()
+        p
+        for p in args.fixtures_dir.iterdir()
+        if p.is_dir() and (p / "README.md").exists()
     )
     if not fixtures:
         print(f"No fixtures found in {args.fixtures_dir}")
