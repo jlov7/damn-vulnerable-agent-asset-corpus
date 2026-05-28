@@ -33,7 +33,7 @@
       "additionalProperties": false,
       "properties": {
         "dvaac_release": {
-          "const": "v0.1.4"
+          "const": "v0.1.5"
         },
         "dvaac_release_commit": {
           "const": "e90a76daf9107871d1ff6a2d7c438d2b92709e53"
@@ -42,10 +42,10 @@
           "const": "10.5281/zenodo.20379817"
         },
         "aac_verifier_release": {
-          "const": "v0.2-candidate.7"
+          "const": "v0.2-candidate.8"
         },
         "aac_verifier_commit": {
-          "const": "689198d9c249a966a0abab6415ae8668efb512d9"
+          "const": "936885583a49dfd06fd11ce45c8ee82330f1007d"
         }
       }
     },

@@ -8,10 +8,10 @@ after maintainer review.
 
 ## Target
 
-- DVAAC release: `v0.1.4`
+- DVAAC release: `v0.1.5`
 - DVAAC release commit: `e90a76daf9107871d1ff6a2d7c438d2b92709e53`
-- AAC verifier: `v0.2-candidate.7`
-- AAC verifier commit: `689198d9c249a966a0abab6415ae8668efb512d9`
+- AAC verifier: `v0.2-candidate.8`
+- AAC verifier commit: `936885583a49dfd06fd11ce45c8ee82330f1007d`
 - Scorecard template: [`scorecard-template.json`](../scorecard-template.json)
 - Field guide: [SCORECARD_FIELD_GUIDE.md](SCORECARD_FIELD_GUIDE.md)
 - External validation guide: [EXTERNAL_VALIDATION.md](EXTERNAL_VALIDATION.md)
@@ -86,7 +86,7 @@ reproducibility:
 make validate-scorecard SCORECARD=path/to/scorecard.json
 ```
 
-The immutable `v0.1.4` checkout remains useful for validating against the
+The immutable `v0.1.5` checkout remains useful for validating against the
 release-shipped validator:
 
 ```bash
@@ -128,7 +128,7 @@ data, secrets, internal hostnames, or non-public evidence.
 
 An accepted scorecard supports only a narrow statement:
 
-> This scanner covers the DVAAC v0.1.4 fixture classes for the detector class it
+> This scanner covers the DVAAC v0.1.5 fixture classes for the detector class it
 > claims.
 
 It does not imply product safety, universal agent safety, legal compliance,

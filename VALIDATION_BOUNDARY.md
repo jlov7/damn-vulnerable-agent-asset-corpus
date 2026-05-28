@@ -37,7 +37,7 @@ product comparison, quote from here.
 | Property | Status | Evidence |
 | --- | --- | --- |
 | Corpus ground truth is self-consistent (digests, IDs, schemas) | Self-verified | `make verify`, `runner/verify_fixtures.py` |
-| AAC templates verify against the reference verifier | Self-verified | pinned AAC `v0.2-candidate.7` |
+| AAC templates verify against the reference verifier | Self-verified | pinned AAC `v0.2-candidate.8` |
 | Runner refuses to execute/import fixture payloads | Self-verified | `make pytest-safety`, CI guards |
 | Release tag is signed and DOI-archived | Self-verified | `docs/RELEASE_FINGERPRINTS.md`, Zenodo |
 | Independent scanner result / corpus critique | **Not yet accepted** | `docs/VALIDATION_LEDGER.md` |

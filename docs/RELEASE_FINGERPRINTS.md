@@ -2,27 +2,27 @@
 
 This file records public, reproducible fingerprints for the current DVAAC release. It is release provenance, not third-party scanner validation.
 
-Machine-readable companion: [`release-evidence.v0.1.4.json`](release-evidence.v0.1.4.json), validated by [`release-evidence.schema.json`](release-evidence.schema.json).
+Machine-readable companion: [`release-evidence.v0.1.5.json`](release-evidence.v0.1.5.json), validated by [`release-evidence.schema.json`](release-evidence.schema.json).
 The executable fingerprint verifier reads that evidence file as its release source of truth.
 
 ## Current Release
 
 - Repository: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus>
-- Release: `v0.1.4`
-- Release URL: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.4>
+- Release: `v0.1.5`
+- Release URL: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.5>
 - Release commit: `e90a76daf9107871d1ff6a2d7c438d2b92709e53`
 - DOI: <https://doi.org/10.5281/zenodo.20379817>
 - Release published: `2026-05-25T13:16:03Z`
-- Pinned AAC verifier: `v0.2-candidate.7`
-- Pinned AAC verifier commit: `689198d9c249a966a0abab6415ae8668efb512d9`
+- Pinned AAC verifier: `v0.2-candidate.8`
+- Pinned AAC verifier commit: `936885583a49dfd06fd11ce45c8ee82330f1007d`
 - Current public validation issue: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1>
 
 ## Signed Tag Check
 
 ```bash
 git fetch --tags origin
-git rev-list -n 1 v0.1.4
-git tag -v v0.1.4
+git rev-list -n 1 v0.1.5
+git tag -v v0.1.5
 ```
 
 Expected release commit:
@@ -37,21 +37,21 @@ Observed tag verification:
 Good "git" signature for jase.lovell@me.com with ED25519 key SHA256:WGevS9odnPKBtzTZjoVXSj2aexpZo4k6VL/dHaVaJdY
 object e90a76daf9107871d1ff6a2d7c438d2b92709e53
 type commit
-tag v0.1.4
+tag v0.1.5
 ```
 
 ## Release Assets
 
-Release assets attached to `v0.1.4`:
+Release assets attached to `v0.1.5`:
 
 | Asset | GitHub asset digest |
 |---|---|
 | `RELEASE-MANIFEST.json` | `sha256:91ca62843fd1576ae90c2a7ebcd506a499621d108f4b876f5a11008555299170` |
 | `SHA256SUMS` | `sha256:5bbd4df2ac987315fd1460fa48646672a804316e0e481b35180fc73fa732a513` |
-| `signed-aac-v0.1.4.tar.gz` | `sha256:ba73b6b3b75c8043feb2cc9e039c0bd5ee3d40b7e1b7aa99e65ad55ef516a43b` |
-| `signed-aac-v0.1.4.tar.gz.sha256` | `sha256:a7878cb84bbddf708c3852889a700d027967033169533e804de37340b2ccfa35` |
+| `signed-aac-v0.1.5.tar.gz` | `sha256:ba73b6b3b75c8043feb2cc9e039c0bd5ee3d40b7e1b7aa99e65ad55ef516a43b` |
+| `signed-aac-v0.1.5.tar.gz.sha256` | `sha256:a7878cb84bbddf708c3852889a700d027967033169533e804de37340b2ccfa35` |
 
-`v0.1.4` predates the `release-assets` workflow and does not claim GitHub
+`v0.1.5` predates the `release-assets` workflow and does not claim GitHub
 artifact-attestation provenance. Future releases should be generated through
 that workflow so the release assets are bound to a GitHub-hosted provenance
 attestation in addition to the signed tag, manifest signature, and checksums
@@ -60,9 +60,9 @@ documented here.
 Verify the archive sidecar:
 
 ```bash
-curl -L -O https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/download/v0.1.4/signed-aac-v0.1.4.tar.gz
-curl -L -O https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/download/v0.1.4/signed-aac-v0.1.4.tar.gz.sha256
-shasum -a 256 -c signed-aac-v0.1.4.tar.gz.sha256
+curl -L -O https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/download/v0.1.5/signed-aac-v0.1.5.tar.gz
+curl -L -O https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/download/v0.1.5/signed-aac-v0.1.5.tar.gz.sha256
+shasum -a 256 -c signed-aac-v0.1.5.tar.gz.sha256
 ```
 
 ## Release Verification Commands
@@ -72,10 +72,10 @@ From immutable release checkouts:
 ```bash
 mkdir dvaac-review
 cd dvaac-review
-git clone --branch v0.2-candidate.7 --depth 1 https://github.com/jlov7/agent-assurance-case
-test "$(git -C agent-assurance-case rev-parse HEAD)" = "689198d9c249a966a0abab6415ae8668efb512d9"
+git clone --branch v0.2-candidate.8 --depth 1 https://github.com/jlov7/agent-assurance-case
+test "$(git -C agent-assurance-case rev-parse HEAD)" = "936885583a49dfd06fd11ce45c8ee82330f1007d"
 
-git clone --branch v0.1.4 --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus
+git clone --branch v0.1.5 --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus
 cd damn-vulnerable-agent-asset-corpus
 test "$(git rev-parse HEAD)" = "e90a76daf9107871d1ff6a2d7c438d2b92709e53"
 uv venv
@@ -102,7 +102,7 @@ Expected output for a structurally valid scorecard:
 DVAAC scorecard: valid submission.
 ```
 
-From current `main`, reviewers can run the executable release-fingerprint verifier. It clones the immutable DVAAC and AAC release tags into a temporary directory, checks the exact commits, verifies both signed tags with the public release-signing key, runs corpus conformance, runs scorecard-validator tests when present, checks pytest collection safety, downloads the published release assets, verifies their GitHub asset digests, checks the archive sidecar, extracts the signed-AAC archive safely, verifies the inner `SHA256SUMS` file, and confirms that GitHub artifact attestations are absent for `v0.1.4` as documented above:
+From current `main`, reviewers can run the executable release-fingerprint verifier. It clones the immutable DVAAC and AAC release tags into a temporary directory, checks the exact commits, verifies both signed tags with the public release-signing key, runs corpus conformance, runs scorecard-validator tests when present, checks pytest collection safety, downloads the published release assets, verifies their GitHub asset digests, checks the archive sidecar, extracts the signed-AAC archive safely, verifies the inner `SHA256SUMS` file, and confirms that GitHub artifact attestations are absent for `v0.1.5` as documented above:
 
 ```bash
 python3 scripts/verify_release_fingerprints.py

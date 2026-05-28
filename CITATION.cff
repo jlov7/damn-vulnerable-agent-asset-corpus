@@ -14,8 +14,8 @@ authors:
     given-names: Jason Mark
     alias: jlov7
     orcid: "https://orcid.org/0009-0001-6300-9155"
-version: "0.1.4"
-date-released: "2026-05-25"
+version: "0.1.5"
+date-released: "2026-05-28"
 doi: 10.5281/zenodo.20379817
 license:
   - Apache-2.0
@@ -37,7 +37,7 @@ preferred-citation:
     - family-names: Lovell
       given-names: Jason Mark
       orcid: "https://orcid.org/0009-0001-6300-9155"
-  version: "0.1.4"
+  version: "0.1.5"
   doi: 10.5281/zenodo.20379817
   year: 2026
   url: "https://doi.org/10.5281/zenodo.20379817"

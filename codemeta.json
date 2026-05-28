@@ -6,13 +6,13 @@
   ],
   "name": "Damn Vulnerable Agent Asset Corpus",
   "description": "A compact, runnable benchmark of vulnerable and clean agentic AI release fixtures with signed Agent Assurance Case templates.",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "identifier": "https://doi.org/10.5281/zenodo.20379817",
   "sameAs": "https://doi.org/10.5281/zenodo.20379817",
   "url": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
   "codeRepository": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
   "issueTracker": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues",
-  "datePublished": "2026-05-25",
+  "datePublished": "2026-05-28",
   "developmentStatus": "active",
   "programmingLanguage": "Python",
   "runtimePlatform": "Python 3.11+",
@@ -29,8 +29,8 @@
   "isBasedOn": {
     "@type": "SoftwareSourceCode",
     "name": "Agent Assurance Case (AAC) Specification and Reference Verifier",
-    "version": "0.2-candidate.7",
-    "identifier": "https://doi.org/10.5281/zenodo.20379393",
+    "version": "0.2-candidate.8",
+    "identifier": "https://doi.org/10.5281/zenodo.20435608",
     "codeRepository": "https://github.com/jlov7/agent-assurance-case"
   },
   "keywords": [

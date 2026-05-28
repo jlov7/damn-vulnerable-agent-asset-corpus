@@ -4,11 +4,11 @@ This ledger records third-party scanner results and corpus critiques for DVAAC. 
 
 ## Current Target
 
-- DVAAC release: `v0.1.4`
+- DVAAC release: `v0.1.5`
 - DVAAC release commit: `e90a76daf9107871d1ff6a2d7c438d2b92709e53`
 - DOI: <https://doi.org/10.5281/zenodo.20379817>
-- Pinned AAC verifier: `v0.2-candidate.7`
-- AAC verifier commit: `689198d9c249a966a0abab6415ae8668efb512d9`
+- Pinned AAC verifier: `v0.2-candidate.8`
+- AAC verifier commit: `936885583a49dfd06fd11ce45c8ee82330f1007d`
 - Public validation issue: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1>
 
 ## Current External Validation Status

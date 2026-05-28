@@ -19,7 +19,7 @@
     },
     "corpus_version": {
       "type": "string",
-      "pattern": "^0\\.1\\.4$"
+      "pattern": "^0\\.1\\.5$"
     },
     "scanner": {
       "type": "object",

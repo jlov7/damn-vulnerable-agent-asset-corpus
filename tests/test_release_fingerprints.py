@@ -19,7 +19,7 @@ spec.loader.exec_module(release_fingerprints)
 
 
 def _release_evidence() -> dict:
-    return json.loads((BASE / "docs" / "release-evidence.v0.1.4.json").read_text())
+    return json.loads((BASE / "docs" / "release-evidence.v0.1.5.json").read_text())
 
 
 def test_release_evidence_consistency_accepts_current_file() -> None:
@@ -63,7 +63,7 @@ def test_release_evidence_consistency_rejects_unexpected_release_asset_name() ->
 
 def test_release_evidence_consistency_rejects_attestation_expectation_drift() -> None:
     evidence = copy.deepcopy(_release_evidence())
-    evidence["asset_attestations"]["github_artifact_attestations_expected"] = True
+    evidence["asset_attestations"]["github_artifact_attestations_expected"] = False
 
     with pytest.raises(SystemExit, match="release asset attestation expectation"):
         release_fingerprints.validate_release_evidence(evidence)
