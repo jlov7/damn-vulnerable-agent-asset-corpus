@@ -19,7 +19,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RELEASE_EVIDENCE_PATH = ROOT / "docs" / "release-evidence.v0.1.4.json"
+RELEASE_EVIDENCE_PATH = ROOT / "docs" / "release-evidence.v0.1.5.json"
 
 
 def run(
@@ -112,7 +112,7 @@ def validate_release_evidence(evidence: dict[str, Any]) -> None:
     require_equal(
         "release asset attestation expectation",
         str(attestations["github_artifact_attestations_expected"]),
-        "False",
+        "True",
     )
     require_equal(
         "release workflow fail-closed status",
@@ -219,8 +219,8 @@ def download_release_assets(
 
 
 def verify_archive_sidecar(assets_dir: Path) -> None:
-    sidecar = assets_dir / "signed-aac-v0.1.4.tar.gz.sha256"
-    archive = assets_dir / "signed-aac-v0.1.4.tar.gz"
+    sidecar = assets_dir / "signed-aac-v0.1.5.tar.gz.sha256"
+    archive = assets_dir / "signed-aac-v0.1.5.tar.gz"
     expected_digest, filename = sidecar.read_text(encoding="utf-8").split()
     if filename != archive.name:
         raise SystemExit(f"sidecar names {filename}, expected {archive.name}")
@@ -265,9 +265,25 @@ def verify_inner_sha256s(extract_dir: Path) -> None:
         actual_digest = sha256(target)
         if actual_digest != expected_digest:
             raise SystemExit(
-                f"{relative_path} sha256 mismatch: "
-                f"{actual_digest} != {expected_digest}"
+                f"{relative_path} sha256 mismatch: {actual_digest} != {expected_digest}"
             )
+
+
+def verify_release_asset_attestation_presence(
+    assets_dir: Path,
+    *,
+    repo: str,
+    asset_names: list[str],
+) -> None:
+    """Verify each release asset has a valid GitHub build-provenance attestation.
+
+    Used for releases cut by the attestation-enabled release-assets workflow
+    (asset_attestations.github_artifact_attestations_expected == true).
+    """
+    require_tool("gh")
+    for name in asset_names:
+        print(f"verify GitHub attestation for {name}", flush=True)
+        run(["gh", "attestation", "verify", str(assets_dir / name), "--repo", repo])
 
 
 def verify_release_asset_attestation_absence(
@@ -308,7 +324,11 @@ def block_pytest_discoverable_fixture_names(repo: Path) -> None:
         if not path.is_file():
             continue
         name = path.name
-        if name == "conftest.py" or name.startswith("test_") or name.endswith("_test.py"):
+        if (
+            name == "conftest.py"
+            or name.startswith("test_")
+            or name.endswith("_test.py")
+        ):
             bad_names.append(str(path.relative_to(repo)))
     if bad_names:
         raise SystemExit(
@@ -387,13 +407,24 @@ def main() -> int:
         )
         verify_archive_sidecar(assets_dir)
         extract_dir = tmp_path / "signed-aac-extract"
-        safe_extract_tar(assets_dir / "signed-aac-v0.1.4.tar.gz", extract_dir)
-        verify_inner_sha256s(extract_dir)
-        verify_release_asset_attestation_absence(
-            assets_dir,
-            repo="jlov7/damn-vulnerable-agent-asset-corpus",
-            asset_names=sorted(asset_digests),
+        safe_extract_tar(
+            assets_dir / f"signed-aac-{release['tag']}.tar.gz", extract_dir
         )
+        verify_inner_sha256s(extract_dir)
+        if bool(
+            evidence["asset_attestations"]["github_artifact_attestations_expected"]
+        ):
+            verify_release_asset_attestation_presence(
+                assets_dir,
+                repo="jlov7/damn-vulnerable-agent-asset-corpus",
+                asset_names=sorted(asset_digests),
+            )
+        else:
+            verify_release_asset_attestation_absence(
+                assets_dir,
+                repo="jlov7/damn-vulnerable-agent-asset-corpus",
+                asset_names=sorted(asset_digests),
+            )
 
     print("DVAAC release fingerprint: valid")
     return 0

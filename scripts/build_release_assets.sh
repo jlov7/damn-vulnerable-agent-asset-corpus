@@ -21,6 +21,12 @@ elif [[ -f ../agent-assurance-case-spec/verifier/verify.py ]]; then
 else
   AAC_VERIFIER="../agent-assurance-case/verifier/verify.py"
 fi
+# Resolve to an absolute path. write-signed runs `make` from a temporary archive
+# of the tag, so a relative AAC_VERIFIER would resolve against that temp dir
+# rather than this checkout and the verifier would not be found.
+if [[ -f "$AAC_VERIFIER" ]]; then
+  AAC_VERIFIER="$(cd "$(dirname "$AAC_VERIFIER")" && pwd)/$(basename "$AAC_VERIFIER")"
+fi
 PYTHON_BIN="${PYTHON:-python3}"
 TEMP_ROOT="$(mktemp -d)"
 

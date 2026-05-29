@@ -5,11 +5,11 @@ This guide defines how third parties should critique DVAAC or submit scanner res
 ## Release Under Review
 
 - Repository: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus>
-- Release: `v0.1.4`
+- Release: `v0.1.5`
 - Release commit: `e90a76daf9107871d1ff6a2d7c438d2b92709e53`
-- DOI: <https://doi.org/10.5281/zenodo.20379817>
-- Pinned AAC verifier: `v0.2-candidate.7`
-- Pinned AAC verifier commit: `689198d9c249a966a0abab6415ae8668efb512d9`
+- DOI: <https://doi.org/10.5281/zenodo.20448675>
+- Pinned AAC verifier: `v0.2-candidate.8`
+- Pinned AAC verifier commit: `936885583a49dfd06fd11ce45c8ee82330f1007d`
 
 This file is a living validation guide on `main`. For an immutable corpus target, use the release tag and DOI above. The corpus fixtures, scorecard template, schemas, and scorecard validator are pinned by the release. Public release fingerprints, signed-tag checks, asset digests, CI run links, and claim boundaries are recorded in [RELEASE_FINGERPRINTS.md](RELEASE_FINGERPRINTS.md).
 
@@ -18,10 +18,10 @@ This file is a living validation guide on `main`. For an immutable corpus target
 ```bash
 mkdir dvaac-review
 cd dvaac-review
-git clone --branch v0.2-candidate.7 --depth 1 https://github.com/jlov7/agent-assurance-case
-test "$(git -C agent-assurance-case rev-parse HEAD)" = "689198d9c249a966a0abab6415ae8668efb512d9"
+git clone --branch v0.2-candidate.8 --depth 1 https://github.com/jlov7/agent-assurance-case
+test "$(git -C agent-assurance-case rev-parse HEAD)" = "936885583a49dfd06fd11ce45c8ee82330f1007d"
 
-git clone --branch v0.1.4 --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus
+git clone --branch v0.1.5 --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus
 cd damn-vulnerable-agent-asset-corpus
 uv venv
 source .venv/bin/activate
@@ -143,7 +143,7 @@ If a scanner claims a detector class, it should pass every fixture whose `minimu
 
 Before submitting a result, validate the filled scorecard.
 
-From an immutable `v0.1.4` checkout, use the validator shipped in the release:
+From an immutable `v0.1.5` checkout, use the validator shipped in the release:
 
 ```bash
 python3 runner/validate_scorecard.py path/to/scorecard.json
@@ -161,7 +161,7 @@ Expected output for a structurally valid submission:
 DVAAC scorecard: valid submission.
 ```
 
-The scorecard validator ships in `v0.1.4` for submissions that target `v0.1.4`
+The scorecard validator ships in `v0.1.5` for submissions that target `v0.1.5`
 or a later commit. The `make validate-scorecard` wrapper is current-`main`
 convenience tooling. Current `main` may add stricter submission-intake checks
 than the immutable release checkout; for validation-ledger candidates, prefer
@@ -180,7 +180,7 @@ For an end-to-end scanner-author workflow, see [Scanner Integration Guide](SCANN
 
 A passing DVAAC result can support a narrow claim:
 
-> This scanner covers the DVAAC v0.1.4 fixture classes for the detector class it claims.
+> This scanner covers the DVAAC v0.1.5 fixture classes for the detector class it claims.
 
 It does not prove:
 
@@ -204,4 +204,4 @@ Good critiques are specific enough to become a fixture, test, schema change, or 
 - a fixture should move between `static-declared`, `static-extended`, and `trace-aware`;
 - a missing threat class should be added as a new fixture.
 
-The current public thread is [Call for scanner results and corpus critique for DVAAC v0.1.4](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1). Accepted results are recorded in [VALIDATION_LEDGER.md](VALIDATION_LEDGER.md). Security-sensitive runner issues should be reported privately according to `SECURITY.md`. Focused scanner results can use the [scanner result issue form](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/new?template=scanner-result.yml), focused corpus critique can use the [corpus critique issue form](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/new?template=corpus-critique.yml), and corpus changes can be opened as public pull requests.
+The current public thread is [Call for scanner results and corpus critique for DVAAC v0.1.5](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1). Accepted results are recorded in [VALIDATION_LEDGER.md](VALIDATION_LEDGER.md). Security-sensitive runner issues should be reported privately according to `SECURITY.md`. Focused scanner results can use the [scanner result issue form](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/new?template=scanner-result.yml), focused corpus critique can use the [corpus critique issue form](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/new?template=corpus-critique.yml), and corpus changes can be opened as public pull requests.

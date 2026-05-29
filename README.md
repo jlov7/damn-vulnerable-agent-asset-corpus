@@ -9,10 +9,10 @@
 [![CI](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/ci.yml)
 [![Release fingerprints](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/release-fingerprints.yml/badge.svg)](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/actions/workflows/release-fingerprints.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/jlov7/damn-vulnerable-agent-asset-corpus/badge)](https://scorecard.dev/viewer/?uri=github.com/jlov7/damn-vulnerable-agent-asset-corpus)
-![Status](https://img.shields.io/badge/status-v0.1.4-2f6f9f)
+![Status](https://img.shields.io/badge/status-v0.1.5-2f6f9f)
 ![Fixtures](https://img.shields.io/badge/fixtures-16-0f766e)
-![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.7-111827)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20379817.svg)](https://doi.org/10.5281/zenodo.20379817)
+![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.8-111827)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20448675.svg)](https://doi.org/10.5281/zenodo.20448675)
 ![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
 
 [Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [Scanner integration](docs/SCANNER_INTEGRATION_GUIDE.md) · [External validation](docs/EXTERNAL_VALIDATION.md) · [Release fingerprints](docs/RELEASE_FINGERPRINTS.md) · [Security posture](SECURITY_POSTURE.md) · [Security insights](security-insights.yml) · [Repository posture](repository-posture.json) · [Runtime dependency SBOM](sbom/runtime-requirements.cdx.json) · [Runtime dependency lock](runner/requirements.lock.txt) · [Security policy](SECURITY.md)
@@ -21,10 +21,10 @@
 
 DVAAC ships deliberately vulnerable and deliberately clean agentic AI release fixtures, expected findings, and Agent Assurance Case (AAC) templates that are verified against the AAC v0.2 reference verifier. The runner validates corpus truth; it is not a scanner and it does not import or execute fixture payloads.
 
-This release is pinned to AAC `v0.2-candidate.7` at commit `689198d9c249a966a0abab6415ae8668efb512d9`.
+This release is pinned to AAC `v0.2-candidate.8` at commit `936885583a49dfd06fd11ce45c8ee82330f1007d`.
 
 The citable artifact is the signed, DOI-archived release tag
-[`v0.1.4`](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.4),
+[`v0.1.5`](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.5),
 not the tip of `main`. `main` may contain unreleased changes that are not part
 of the archived release; cite or audit the tagged commit unless you are
 deliberately reviewing in-progress work.
@@ -100,8 +100,8 @@ Detector classes are defined in [TAXONOMY.md](TAXONOMY.md). Machine-readable fix
 From a checkout of this repository:
 
 ```bash
-git clone --branch v0.2-candidate.7 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
-test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "689198d9c249a966a0abab6415ae8668efb512d9"
+git clone --branch v0.2-candidate.8 --depth 1 https://github.com/jlov7/agent-assurance-case ../agent-assurance-case
+test "$(git -C ../agent-assurance-case rev-parse HEAD)" = "936885583a49dfd06fd11ce45c8ee82330f1007d"
 uv venv
 source .venv/bin/activate
 uv pip install -r runner/requirements.txt
@@ -147,7 +147,7 @@ python3 scripts/verify_release_fingerprints.py
 That command checks the immutable DVAAC and AAC release tags and commits, both
 signed tags, corpus conformance, scorecard-validator tests, pytest collection
 safety, public release asset digests, checksum files, and the documented absence
-of GitHub artifact attestations for the already-published `v0.1.4` assets.
+of GitHub artifact attestations for the already-published `v0.1.5` assets.
 
 ## What The Runner Checks
 
@@ -180,12 +180,12 @@ This writes `dist/signed-aac/*.json`, `dist/signed-aac/RELEASE-MANIFEST.json`, a
 2. Compare emitted findings against `expected-findings.json`.
 3. If your scanner emits AAC, compare its case against `expected-aac.json`.
 4. Publish results using [scorecard-template.json](scorecard-template.json).
-5. Validate the filled scorecard with the current-`main` validator for ledger consideration: `make validate-scorecard SCORECARD=path/to/scorecard.json`. The `v0.1.4` release checkout validator remains available with `python3 runner/validate_scorecard.py path/to/scorecard.json`, but current `main` may include stricter intake checks.
+5. Validate the filled scorecard with the current-`main` validator for ledger consideration: `make validate-scorecard SCORECARD=path/to/scorecard.json`. The `v0.1.5` release checkout validator remains available with `python3 runner/validate_scorecard.py path/to/scorecard.json`, but current `main` may include stricter intake checks.
 6. State the detector class you claim: `static-declared`, `static-extended`, or `trace-aware`.
 
 DVAAC does not award partial credit. A fixture is covered only when the expected category, severity, and evidence are represented accurately enough for a reviewer to recognize the same finding.
 
-For third-party scanner submissions and critique boundaries, see [Scanner Integration](docs/SCANNER_INTEGRATION_GUIDE.md), [External Validation](docs/EXTERNAL_VALIDATION.md), the [review recipes](docs/EXTERNAL_VALIDATION.md#review-recipes), the [Scorecard Field Guide](docs/SCORECARD_FIELD_GUIDE.md), the [corpus critique template](corpus-critique-template.json), the [Validation Ledger](docs/VALIDATION_LEDGER.md), the [Release Fingerprints](docs/RELEASE_FINGERPRINTS.md), and the current [DVAAC v0.1.4 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
+For third-party scanner submissions and critique boundaries, see [Scanner Integration](docs/SCANNER_INTEGRATION_GUIDE.md), [External Validation](docs/EXTERNAL_VALIDATION.md), the [review recipes](docs/EXTERNAL_VALIDATION.md#review-recipes), the [Scorecard Field Guide](docs/SCORECARD_FIELD_GUIDE.md), the [corpus critique template](corpus-critique-template.json), the [Validation Ledger](docs/VALIDATION_LEDGER.md), the [Release Fingerprints](docs/RELEASE_FINGERPRINTS.md), and the current [DVAAC v0.1.5 scanner/corpus critique thread](https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/issues/1).
 
 ## Safety
 
@@ -233,9 +233,9 @@ Scanner results and corpus-level critique should go to the current [public valid
 
 See [CITATION.cff](CITATION.cff) and [codemeta.json](codemeta.json). Cite the archived release:
 
-> Lovell, J. M. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.4.* Zenodo. https://doi.org/10.5281/zenodo.20379817.
+> Lovell, J. M. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.5.* Zenodo. https://doi.org/10.5281/zenodo.20448675.
 
-The v0.1.4 release is archived at <https://doi.org/10.5281/zenodo.20379817>. The superseded `v0.1.3` archive remains available at <https://doi.org/10.5281/zenodo.20345025>, the superseded `v0.1.2` archive remains available at <https://doi.org/10.5281/zenodo.20187301>, and the superseded `v0.1.1` archive remains available at <https://doi.org/10.5281/zenodo.20186918>.
+The v0.1.5 release is archived at <https://doi.org/10.5281/zenodo.20448675>. The superseded `v0.1.4` archive remains available at <https://doi.org/10.5281/zenodo.20379817>, and the superseded `v0.1.3` archive remains available at <https://doi.org/10.5281/zenodo.20345025>. The concept DOI <https://doi.org/10.5281/zenodo.20186917> always resolves to the latest version.
 
 ## License
 

@@ -17,7 +17,7 @@ def test_current_main_scorecard_schema_id_does_not_claim_immutable_release() -> 
     schema = verify_fixtures.load_json(verify_fixtures.SCORECARD_TEMPLATE_SCHEMA)
 
     assert schema["$id"].endswith("/main/scorecard-template.schema.json")
-    assert "/v0.1.4/" not in schema["$id"]
+    assert "/v0.1.5/" not in schema["$id"]
 
 
 def _valid_scorecard_for_claimed_class(claimed_class: str) -> dict:

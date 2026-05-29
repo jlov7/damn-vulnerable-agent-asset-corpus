@@ -22,7 +22,7 @@ Then run:
 make validate-scorecard SCORECARD=path/to/scorecard.json
 ```
 
-Equivalent direct command, including from an immutable `v0.1.4` release checkout:
+Equivalent direct command, including from an immutable `v0.1.5` release checkout:
 
 ```bash
 python3 runner/validate_scorecard.py path/to/scorecard.json
@@ -39,7 +39,7 @@ DVAAC scorecard: valid submission.
 | Field | Required value | Notes |
 |---|---|---|
 | `corpus_id` | `dvaac` | Must not be changed. |
-| `corpus_version` | `0.1.4` | Must match the release under review. |
+| `corpus_version` | `0.1.5` | Must match the release under review. |
 | `scanner.name` | scanner or tool name | Use a real public name for public submissions. |
 | `scanner.version` | release version or commit | Prefer a release tag plus commit if available. |
 | `scanner.vendor_or_project` | vendor, project, or individual | Use the entity responsible for the scanner result. |
@@ -117,6 +117,6 @@ Do not submit:
 
 An accepted scorecard supports only this narrow claim:
 
-> This scanner covers the DVAAC v0.1.4 fixture classes for the detector class it claims.
+> This scanner covers the DVAAC v0.1.5 fixture classes for the detector class it claims.
 
 It does not imply product safety, universal agent safety, legal compliance, endorsement, or external validation beyond the submitted scorecard.

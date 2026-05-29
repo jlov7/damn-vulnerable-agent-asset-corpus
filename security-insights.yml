@@ -74,7 +74,7 @@ repository:
     distribution-points:
       - uri: https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases
         comment: GitHub Releases.
-      - uri: https://doi.org/10.5281/zenodo.20379817
+      - uri: https://doi.org/10.5281/zenodo.20448675
         comment: Zenodo DOI for the current DVAAC release.
   security:
     assessments:

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publication-readiness gate for the DVAAC v0.1.4 artifact.
+# Publication-readiness gate for the DVAAC v0.1.5 artifact.
 #
 # Run this before publishing a new release or after release-facing hardening.
 # Exit code 0 = ready for publication review. Non-zero = stop and fix.
@@ -19,9 +19,9 @@ PYTHONPYCACHEPREFIX="${PYTHONPYCACHEPREFIX:-/tmp/dvaac_pub_gate_pycache}"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPYCACHEPREFIX
 
-EXPECTED_RELEASE="v0.1.4"
-EXPECTED_AAC_TAG="v0.2-candidate.7"
-EXPECTED_AAC_COMMIT="689198d9c249a966a0abab6415ae8668efb512d9"
+EXPECTED_RELEASE="v0.1.5"
+EXPECTED_AAC_TAG="v0.2-candidate.8"
+EXPECTED_AAC_COMMIT="936885583a49dfd06fd11ce45c8ee82330f1007d"
 
 # shellcheck disable=SC2329
 cleanup() {
@@ -146,7 +146,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 for schema_path, instance_path in [
     (Path("corpus.manifest.schema.json"), Path("corpus.manifest.json")),
     (Path("scorecard-template.schema.json"), Path("scorecard-template.json")),
-    (Path("docs/release-evidence.schema.json"), Path("docs/release-evidence.v0.1.4.json")),
+    (Path("docs/release-evidence.schema.json"), Path("docs/release-evidence.v0.1.5.json")),
 ]:
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     instance = json.loads(instance_path.read_text(encoding="utf-8"))

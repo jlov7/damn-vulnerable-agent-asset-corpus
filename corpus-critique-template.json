@@ -2,11 +2,11 @@
   "corpus_id": "dvaac",
   "critique_format_version": "0.1",
   "target": {
-    "dvaac_release": "v0.1.4",
+    "dvaac_release": "v0.1.5",
     "dvaac_release_commit": "e90a76daf9107871d1ff6a2d7c438d2b92709e53",
-    "dvaac_doi": "10.5281/zenodo.20379817",
-    "aac_verifier_release": "v0.2-candidate.7",
-    "aac_verifier_commit": "689198d9c249a966a0abab6415ae8668efb512d9"
+    "dvaac_doi": "10.5281/zenodo.20448675",
+    "aac_verifier_release": "v0.2-candidate.8",
+    "aac_verifier_commit": "936885583a49dfd06fd11ce45c8ee82330f1007d"
   },
   "reviewer": {
     "name": "",

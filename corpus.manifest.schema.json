@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.4/corpus.manifest.schema.json",
+  "$id": "https://raw.githubusercontent.com/jlov7/damn-vulnerable-agent-asset-corpus/v0.1.5/corpus.manifest.schema.json",
   "title": "DVAAC corpus manifest",
   "type": "object",
   "required": [
@@ -33,13 +33,13 @@
       "additionalProperties": false,
       "properties": {
         "aac_version": {
-          "const": "0.2-candidate.7"
+          "const": "0.2-candidate.8"
         },
         "aac_commit": {
-          "const": "689198d9c249a966a0abab6415ae8668efb512d9"
+          "const": "936885583a49dfd06fd11ce45c8ee82330f1007d"
         },
         "aac_schema_uri": {
-          "const": "https://raw.githubusercontent.com/jlov7/agent-assurance-case/689198d9c249a966a0abab6415ae8668efb512d9/schemas/agent-assurance-case-v0.2.schema.json"
+          "const": "https://raw.githubusercontent.com/jlov7/agent-assurance-case/936885583a49dfd06fd11ce45c8ee82330f1007d/schemas/agent-assurance-case-v0.2.schema.json"
         }
       }
     },

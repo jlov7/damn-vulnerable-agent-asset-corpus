@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: jlov7/agent-assurance-case
-          ref: 689198d9c249a966a0abab6415ae8668efb512d9
+          ref: 936885583a49dfd06fd11ce45c8ee82330f1007d
           path: agent-assurance-case
 
       - name: Set up Python
@@ -81,7 +81,7 @@ jobs:
               Path("docs/release-evidence.schema.json").read_text()
           )
           evidence = json.loads(
-              Path("docs/release-evidence.v0.1.4.json").read_text()
+              Path("docs/release-evidence.v0.1.5.json").read_text()
           )
           Draft202012Validator.check_schema(schema)
           Draft202012Validator(

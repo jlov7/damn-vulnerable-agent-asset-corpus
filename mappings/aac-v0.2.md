@@ -1,6 +1,6 @@
-# Mapping: DVAAC v0.1.4 → AAC v0.2
+# Mapping: DVAAC v0.1.5 → AAC v0.2
 
-This document maps DVAAC v0.1.4 fixtures and finding categories to the Agent Assurance Case (AAC) v0.2 specification.
+This document maps DVAAC v0.1.5 fixtures and finding categories to the Agent Assurance Case (AAC) v0.2 specification.
 
 DVAAC is the input/output benchmark; AAC is the assurance evidence object DVAAC's expected outputs conform to.
 
@@ -65,7 +65,7 @@ Fixtures 01-03 include a single bundled detector run covering all four categorie
 
 Every external URI referenced from an AAC (in `findings.evidence_refs`, `coverage.detector_runs[*].evidence_ref`, `aibom_ref`, `graph_snapshot_ref`, `eval_results[*].evidence_ref`, `runtime_events[*].trace_ref`, `release_conditions[*].evidence_ref`, `compliance_mappings[*].evidence_refs`) must appear in `evidence_artifacts` with a SHA-256 digest. This is enforced by the AAC reference verifier for vendor profiles.
 
-DVAAC fixtures use synthetic `evidence://` URIs, but v0.1.4 digests are real local bindings checked by `runner/verify_fixtures.py`. Detector and AIBOM evidence URIs resolve to files under `fixtures/NN-name/evidence/`; file excerpt URIs resolve to exact checked-in source lines.
+DVAAC fixtures use synthetic `evidence://` URIs, but v0.1.5 digests are real local bindings checked by `runner/verify_fixtures.py`. Detector and AIBOM evidence URIs resolve to files under `fixtures/NN-name/evidence/`; file excerpt URIs resolve to exact checked-in source lines.
 
 ## Signature
 
@@ -73,4 +73,4 @@ DVAAC fixtures are signed at runner-run time with the AAC reference *demo* key. 
 
 ## Version pinning
 
-DVAAC v0.1.4 is pinned to AAC v0.2-candidate.7 at commit `689198d9c249a966a0abab6415ae8668efb512d9`. The `signed_by` URN and `key_id` values in DVAAC fixtures match the demo key constants in that reference verifier. If AAC re-numbers, deprecates, or breaks compatibility, DVAAC fixtures will need a new corpus patch or minor version.
+DVAAC v0.1.5 is pinned to AAC v0.2-candidate.8 at commit `936885583a49dfd06fd11ce45c8ee82330f1007d`. The `signed_by` URN and `key_id` values in DVAAC fixtures match the demo key constants in that reference verifier. If AAC re-numbers, deprecates, or breaks compatibility, DVAAC fixtures will need a new corpus patch or minor version.

@@ -34,16 +34,16 @@ body:
     id: dvaac_target
     attributes:
       label: DVAAC target
-      description: Use v0.1.4 or a full commit SHA.
-      placeholder: v0.1.4
+      description: Use v0.1.5 or a full commit SHA.
+      placeholder: v0.1.5
     validations:
       required: true
   - type: input
     id: aac_target
     attributes:
       label: AAC verifier target
-      description: Use v0.2-candidate.7, commit 689198d9..., or "not used".
-      placeholder: v0.2-candidate.7
+      description: Use v0.2-candidate.8, commit 689198d9..., or "not used".
+      placeholder: v0.2-candidate.8
     validations:
       required: true
   - type: textarea
@@ -70,7 +70,7 @@ body:
       description: >-
         For validation-ledger candidates, include output from current main:
         `make validate-scorecard SCORECARD=path/to/scorecard.json`. If using a
-        v0.1.4 release checkout instead, note that current main may include
+        v0.1.5 release checkout instead, note that current main may include
         stricter intake checks. If no full scorecard is submitted, explain why.
       render: shell
     validations:
@@ -88,7 +88,7 @@ body:
       label: Claim wording
       description: State the exact public claim this result supports.
       placeholder: >-
-        This scanner covers the DVAAC v0.1.4 fixtures for static-declared
+        This scanner covers the DVAAC v0.1.5 fixtures for static-declared
         detection.
     validations:
       required: true

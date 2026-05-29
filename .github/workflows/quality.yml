@@ -65,9 +65,9 @@ jobs:
 
       - name: Dry-run release asset builder
         run: |
-          git show v0.1.4:runner/requirements.txt \
+          git show v0.1.5:runner/requirements.txt \
             > /tmp/dvaac-runner-requirements.txt
-          git show v0.1.4:runner/requirements-dev.txt \
+          git show v0.1.5:runner/requirements-dev.txt \
             > /tmp/dvaac-runner-requirements-dev.txt
           uv pip install --system -r /tmp/dvaac-runner-requirements.txt
           uv pip install --system -r /tmp/dvaac-runner-requirements-dev.txt
@@ -78,7 +78,7 @@ jobs:
           raw = subprocess.check_output([
               "git",
               "show",
-              "v0.1.4:corpus.manifest.json",
+              "v0.1.5:corpus.manifest.json",
           ])
           manifest = json.loads(raw)
           print(manifest["aac_compatibility"]["aac_commit"])
@@ -87,7 +87,7 @@ jobs:
           git clone https://github.com/jlov7/agent-assurance-case /tmp/aac
           git -C /tmp/aac checkout "$AAC_COMMIT"
           AAC_VERIFIER_PATH=/tmp/aac/verifier/verify.py \
-            scripts/build_release_assets.sh v0.1.4 /tmp/dvaac-release-assets
+            scripts/build_release_assets.sh v0.1.5 /tmp/dvaac-release-assets
 
       - name: Run codespell
         run: uvx codespell . --skip './.git,./.venv,./dist'

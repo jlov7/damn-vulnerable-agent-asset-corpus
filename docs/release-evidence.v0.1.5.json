@@ -4,19 +4,19 @@
   "schema_version": "1.0",
   "release": {
     "name": "Damn Vulnerable Agent Asset Corpus",
-    "version": "0.1.4",
-    "tag": "v0.1.4",
-    "release_url": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.4",
+    "version": "0.1.5",
+    "tag": "v0.1.5",
+    "release_url": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus/releases/tag/v0.1.5",
     "repository": "https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
-    "release_commit": "e90a76daf9107871d1ff6a2d7c438d2b92709e53",
-    "doi": "10.5281/zenodo.20379817",
-    "doi_url": "https://doi.org/10.5281/zenodo.20379817",
-    "published_at": "2026-05-25T13:16:03Z"
+    "release_commit": "749511a94acc705123a9a5db82f71bbf7b12a64d",
+    "doi": "10.5281/zenodo.20448675",
+    "doi_url": "https://doi.org/10.5281/zenodo.20448675",
+    "published_at": "2026-05-28T22:30:00Z"
   },
   "pinned_aac": {
-    "tag": "v0.2-candidate.7",
-    "commit": "689198d9c249a966a0abab6415ae8668efb512d9",
-    "doi": "10.5281/zenodo.20379393",
+    "tag": "v0.2-candidate.8",
+    "commit": "936885583a49dfd06fd11ce45c8ee82330f1007d",
+    "doi": "10.5281/zenodo.20435608",
     "repository": "https://github.com/jlov7/agent-assurance-case"
   },
   "citation": {
@@ -26,52 +26,53 @@
   "signed_tags": [
     {
       "artifact": "agent-assurance-case",
-      "tag": "v0.2-candidate.7",
+      "tag": "v0.2-candidate.8",
       "signature_type": "git-ssh-ed25519",
       "signer": "jase.lovell@me.com",
       "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBD4r6uZD5gvmyQqXSM/HX3gKtl2+HOzX6T1oaGsUlVu",
       "key_sha256": "SHA256:WGevS9odnPKBtzTZjoVXSj2aexpZo4k6VL/dHaVaJdY",
-      "expected_object": "689198d9c249a966a0abab6415ae8668efb512d9"
+      "expected_object": "936885583a49dfd06fd11ce45c8ee82330f1007d"
     },
     {
       "artifact": "damn-vulnerable-agent-asset-corpus",
-      "tag": "v0.1.4",
+      "tag": "v0.1.5",
       "signature_type": "git-ssh-ed25519",
       "signer": "jase.lovell@me.com",
       "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBD4r6uZD5gvmyQqXSM/HX3gKtl2+HOzX6T1oaGsUlVu",
       "key_sha256": "SHA256:WGevS9odnPKBtzTZjoVXSj2aexpZo4k6VL/dHaVaJdY",
-      "expected_object": "e90a76daf9107871d1ff6a2d7c438d2b92709e53"
+      "expected_object": "749511a94acc705123a9a5db82f71bbf7b12a64d"
     }
   ],
   "release_assets": [
     {
       "name": "RELEASE-MANIFEST.json",
-      "github_asset_digest": "sha256:91ca62843fd1576ae90c2a7ebcd506a499621d108f4b876f5a11008555299170"
+      "github_asset_digest": "sha256:cf63460fcef5d8f30ee282d264587db2858e471a58c79fb8f279c02e02147682"
     },
     {
       "name": "SHA256SUMS",
-      "github_asset_digest": "sha256:5bbd4df2ac987315fd1460fa48646672a804316e0e481b35180fc73fa732a513"
+      "github_asset_digest": "sha256:62bb77446ae211062605682bb5b002bd508b72b8250d53c8e4065f1245d6aded"
     },
     {
-      "name": "signed-aac-v0.1.4.tar.gz",
-      "github_asset_digest": "sha256:ba73b6b3b75c8043feb2cc9e039c0bd5ee3d40b7e1b7aa99e65ad55ef516a43b"
+      "name": "signed-aac-v0.1.5.tar.gz",
+      "github_asset_digest": "sha256:e0278106d00fdb8756672a155134604a78011882c594ac5a362cb910aee55df0"
     },
     {
-      "name": "signed-aac-v0.1.4.tar.gz.sha256",
-      "github_asset_digest": "sha256:a7878cb84bbddf708c3852889a700d027967033169533e804de37340b2ccfa35"
+      "name": "signed-aac-v0.1.5.tar.gz.sha256",
+      "github_asset_digest": "sha256:d32f6dc4c6240f5ed35caed79ab6c5d5c7eef8420273fd55eb6d008dffa64c51"
     }
   ],
   "asset_attestations": {
-    "github_artifact_attestations_expected": false,
-    "reason": "v0.1.4 release assets were uploaded before the release-assets attestation workflow was introduced; the current main workflow now fails closed on public asset digest mismatches instead of clobbering existing bytes.",
+    "github_artifact_attestations_expected": true,
+    "reason": "v0.1.5 release assets are generated and attested by the protected release-assets workflow using GitHub artifact attestations (actions/attest-build-provenance).",
     "current_main_release_workflow_fail_closed": true
   },
   "release_checks": {
     "immutable_checkout_commands": [
-      "git clone --branch v0.2-candidate.7 --depth 1 https://github.com/jlov7/agent-assurance-case",
-      "test \"$(git -C agent-assurance-case rev-parse HEAD)\" = \"689198d9c249a966a0abab6415ae8668efb512d9\"",
-      "git clone --branch v0.1.4 --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
-      "test \"$(git -C damn-vulnerable-agent-asset-corpus rev-parse HEAD)\" = \"e90a76daf9107871d1ff6a2d7c438d2b92709e53\"",
+      "git clone --branch v0.2-candidate.8 --depth 1 https://github.com/jlov7/agent-assurance-case",
+      "test \"$(git -C agent-assurance-case rev-parse HEAD)\" = \"936885583a49dfd06fd11ce45c8ee82330f1007d\"",
+      "git clone --branch v0.1.5 --depth 1 https://github.com/jlov7/damn-vulnerable-agent-asset-corpus",
+      "test \"$(git -C damn-vulnerable-agent-asset-corpus rev-parse HEAD)\" = \"749511a94acc705123a9a5db82f71bbf7b12a64d\"",
+      "uv venv && . .venv/bin/activate && uv pip install -r runner/requirements.txt -r runner/requirements-dev.txt",
       "AAC_VERIFIER_PATH=../agent-assurance-case/verifier/verify.py python3 runner/verify_fixtures.py"
     ],
     "expected_conformance_output": "DVAAC: all fixtures conform.",
@@ -79,7 +80,7 @@
   },
   "protected_branch": {
     "branch": "main",
-    "recorded_as_of": "2026-05-25",
+    "recorded_as_of": "2026-05-28",
     "strict_required_checks": [
       "conformance",
       "Analyze Python",

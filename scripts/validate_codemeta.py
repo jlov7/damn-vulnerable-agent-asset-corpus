@@ -11,7 +11,7 @@ from typing import NoReturn
 
 ROOT = Path(__file__).resolve().parents[1]
 CODEMETA_PATH = ROOT / "codemeta.json"
-RELEASE_EVIDENCE_PATH = ROOT / "docs" / "release-evidence.v0.1.4.json"
+RELEASE_EVIDENCE_PATH = ROOT / "docs" / "release-evidence.v0.1.5.json"
 
 EXPECTED_CONTEXT = "https://w3id.org/codemeta/3.1"
 EXPECTED_TYPES = {"SoftwareSourceCode", "Dataset"}

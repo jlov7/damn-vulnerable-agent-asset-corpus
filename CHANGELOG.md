@@ -1,5 +1,15 @@
 # DVAAC Changelog
 
+## v0.1.5 — 2026-05-28 — AAC v0.2-candidate.8 re-pin and reproducible release
+
+### Changed
+
+- Re-pins DVAAC to AAC `v0.2-candidate.8` at commit `936885583a49dfd06fd11ce45c8ee82330f1007d` (DOI <https://doi.org/10.5281/zenodo.20435608>) across the manifest, gate, schemas, and docs.
+- Makes the runtime dependency lock fully reproducible across machines and CI by pinning the exact `uv` version and target `--python-version` (uv's `--universal` resolution of python-version-conditional dependencies otherwise varies with the host interpreter).
+- Teaches `scripts/verify_release_fingerprints.py` to verify GitHub artifact attestation presence for releases cut by the attestation-enabled `release-assets` workflow, and records attestations as expected in the release evidence.
+- Keeps fixture semantics unchanged from `v0.1.4`; this is a compatibility-pin, reproducibility, and supply-chain release.
+- Zenodo DOI: <https://doi.org/10.5281/zenodo.20448675>.
+
 ## v0.1.4 — 2026-05-25 — Review tooling and AAC candidate refresh
 
 ### Fixed
