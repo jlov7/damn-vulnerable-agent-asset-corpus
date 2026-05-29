@@ -351,7 +351,7 @@ echo
 echo "Summary: $PASS passed, $FAIL failed."
 if [[ $FAIL -eq 0 ]]; then
   echo "DVAAC $EXPECTED_RELEASE publication gate: PASSED"
-  echo "Ready for publication review."
+  echo "All publication-readiness checks passed."
   exit 0
 else
   echo "DVAAC $EXPECTED_RELEASE publication gate: FAILED"
