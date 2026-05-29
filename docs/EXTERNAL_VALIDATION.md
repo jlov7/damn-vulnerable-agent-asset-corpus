@@ -7,7 +7,7 @@ This guide defines how third parties should critique DVAAC or submit scanner res
 - Repository: <https://github.com/jlov7/damn-vulnerable-agent-asset-corpus>
 - Release: `v0.1.5`
 - Release commit: `e90a76daf9107871d1ff6a2d7c438d2b92709e53`
-- DOI: <https://doi.org/10.5281/zenodo.20379817>
+- DOI: <https://doi.org/10.5281/zenodo.20448675>
 - Pinned AAC verifier: `v0.2-candidate.8`
 - Pinned AAC verifier commit: `936885583a49dfd06fd11ce45c8ee82330f1007d`
 

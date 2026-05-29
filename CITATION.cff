@@ -16,7 +16,7 @@ authors:
     orcid: "https://orcid.org/0009-0001-6300-9155"
 version: "0.1.5"
 date-released: "2026-05-28"
-doi: 10.5281/zenodo.20379817
+doi: 10.5281/zenodo.20448675
 license:
   - Apache-2.0
   - CC-BY-4.0
@@ -38,6 +38,6 @@ preferred-citation:
       given-names: Jason Mark
       orcid: "https://orcid.org/0009-0001-6300-9155"
   version: "0.1.5"
-  doi: 10.5281/zenodo.20379817
+  doi: 10.5281/zenodo.20448675
   year: 2026
-  url: "https://doi.org/10.5281/zenodo.20379817"
+  url: "https://doi.org/10.5281/zenodo.20448675"

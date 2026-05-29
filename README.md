@@ -11,8 +11,8 @@
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/jlov7/damn-vulnerable-agent-asset-corpus/badge)](https://scorecard.dev/viewer/?uri=github.com/jlov7/damn-vulnerable-agent-asset-corpus)
 ![Status](https://img.shields.io/badge/status-v0.1.5-2f6f9f)
 ![Fixtures](https://img.shields.io/badge/fixtures-16-0f766e)
-![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.7-111827)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20379817.svg)](https://doi.org/10.5281/zenodo.20379817)
+![AAC](https://img.shields.io/badge/AAC-v0.2--candidate.8-111827)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20448675.svg)](https://doi.org/10.5281/zenodo.20448675)
 ![License](https://img.shields.io/badge/license-CC--BY--4.0%20%2B%20Apache--2.0-blue)
 
 [Companion AAC verifier](https://github.com/jlov7/agent-assurance-case) · [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) · [Scanner integration](docs/SCANNER_INTEGRATION_GUIDE.md) · [External validation](docs/EXTERNAL_VALIDATION.md) · [Release fingerprints](docs/RELEASE_FINGERPRINTS.md) · [Security posture](SECURITY_POSTURE.md) · [Security insights](security-insights.yml) · [Repository posture](repository-posture.json) · [Runtime dependency SBOM](sbom/runtime-requirements.cdx.json) · [Runtime dependency lock](runner/requirements.lock.txt) · [Security policy](SECURITY.md)
@@ -233,9 +233,9 @@ Scanner results and corpus-level critique should go to the current [public valid
 
 See [CITATION.cff](CITATION.cff) and [codemeta.json](codemeta.json). Cite the archived release:
 
-> Lovell, J. M. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.5.* Zenodo. https://doi.org/10.5281/zenodo.20379817.
+> Lovell, J. M. (2026). *Damn Vulnerable Agent Asset Corpus, v0.1.5.* Zenodo. https://doi.org/10.5281/zenodo.20448675.
 
-The v0.1.5 release is archived at <https://doi.org/10.5281/zenodo.20379817>. The superseded `v0.1.3` archive remains available at <https://doi.org/10.5281/zenodo.20345025>, the superseded `v0.1.2` archive remains available at <https://doi.org/10.5281/zenodo.20187301>, and the superseded `v0.1.1` archive remains available at <https://doi.org/10.5281/zenodo.20186918>.
+The v0.1.5 release is archived at <https://doi.org/10.5281/zenodo.20448675>. The superseded `v0.1.4` archive remains available at <https://doi.org/10.5281/zenodo.20379817>, and the superseded `v0.1.3` archive remains available at <https://doi.org/10.5281/zenodo.20345025>. The concept DOI <https://doi.org/10.5281/zenodo.20186917> always resolves to the latest version.
 
 ## License
 
