@@ -27,7 +27,7 @@ jobs:
       PIP_NO_CACHE_DIR: "1"
     steps:
       - name: Checkout DVAAC repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           path: dvaac
           fetch-depth: 0
@@ -55,7 +55,7 @@ jobs:
           PY
 
       - name: Checkout pinned AAC verifier
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           repository: jlov7/agent-assurance-case
           ref: ${{ steps.aac.outputs.commit }}
